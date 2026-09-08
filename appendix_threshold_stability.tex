@@ -1,0 +1,323 @@
+%=====================================================================
+%  Appendix C.x : Primitive sufficient conditions for threshold stability
+%
+%  Drop-in subsection for the Supplementary Material of
+%  "Factor-Adjusted Knockoff Inference for High-Dimensional Time Series"
+%
+%  Insert immediately after Assumption C.3.  Renumber C.x / PC / Lemma /
+%  Proposition labels to fit the surrounding appendix.
+%
+%  Notation follows the main text:
+%    \mathcal{G}   conditioned-on design sigma-field
+%    G             the knockoff+ threshold of (3.18)   [note the clash;
+%                  consider renaming the threshold to \mathcal{T} globally]
+%    \zeta         = T^{-1/2} U' eps^dagger, the 2kappa-dim score
+%    \zeta^\star   | \mathcal{G} ~ N(0,\Xi), the covariance-matched law
+%    D             = T^{-1/2} U' g, the missed-signal drift
+%    \Delta_{NT}   coupling scale from Assumption C.2
+%    W^\star       LCD statistics computed from D + \zeta^\star
+%=====================================================================
+
+\subsection{Primitive sufficient conditions for threshold stability}
+\label{sec:threshold-primitive}
+
+Assumption~C.3 is stated at the level of the realized null counts under the
+reference law $P_{D^\star}$.  This subsection decomposes it into three
+conditions with separate interpretations, proves two of them from structure
+already imposed elsewhere in the paper, and isolates the single remaining
+requirement.  The purpose is to make transparent exactly which part of
+Assumption~C.3 is a genuine primitive restriction and which part is
+bookkeeping.
+
+Throughout, $\mathcal{H}_0 = \widetilde S \cap S_0^{c}$ denotes the retained
+null set and $\kappa_0 = |\mathcal{H}_0|$.  Recall from Assumption~C.3 that,
+under $P_{D^\star}$,
+\[
+V^{\star,+}(t) = \bigl|\{ j \in \mathcal{H}_0 : W_j^\star \ge t \}\bigr|,
+\qquad
+V^{\star,-}(t) = \bigl|\{ j \in \mathcal{H}_0 : W_j^\star \le -t \}\bigr|,
+\]
+\[
+M^\star(t) = V^{\star,+}(t) + V^{\star,-}(t),
+\qquad
+\widetilde N^\star_{2\Delta}(t)
+ = \bigl|\{ j \in \mathcal{H}_0 : \bigl| |W_j^\star| - t \bigr| \le 2\Delta_{NT} \}\bigr| .
+\]
+Define the conditional marginal null tail
+\begin{equation}
+\label{eq:Gbar}
+\bar G(t) \;=\; \kappa_0^{-1} \sum_{j \in \mathcal{H}_0}
+              P_{D^\star}\bigl( |W_j^\star| \ge t \,\big|\, \mathcal{G} \bigr),
+\end{equation}
+which is well defined because, conditional on $\mathcal{G}$, the pair-swap
+invariance of $P_{D^\star}$ makes each null $W_j^\star$ symmetric about zero.
+Write $I_{NT} = [\,v_{NT}\Delta_{NT}/2,\ \infty)$ for the effective threshold
+range enlarged by one band width.
+
+\subsubsection*{Three primitive conditions}
+
+\begin{condition}[Relative anti-concentration of ideal null statistics]
+\label{pc:1}
+There is a sequence $\alpha_{NT} \to 0$ such that
+\[
+\sup_{t \in I_{NT}}\;
+\frac{\kappa_0^{-1}\sum_{j \in \mathcal{H}_0}
+      P_{D^\star}\bigl( \bigl||W_j^\star| - t\bigr| \le 2\Delta_{NT}
+                        \,\big|\, \mathcal{G}\bigr)}
+     {\bar G(t)}
+\;\le\; \alpha_{NT}.
+\]
+\end{condition}
+
+\begin{condition}[Conditional concentration of null counts]
+\label{pc:2}
+There are $m_{NT}$ with $m_{NT}/\ln(NT) \to \infty$ and a constant $C>0$ such
+that, conditional on $\mathcal{G}$ and uniformly in $t \in I_{NT}$,
+\[
+\operatorname{Var}_{D^\star}\Bigl( \sum_{j \in \mathcal{H}_0}
+     \mathbf 1\{ W_j^\star \ge t \} \,\Big|\, \mathcal{G} \Bigr)
+\;\le\; C\, m_{NT}\, \kappa_0 \bar G(t)
+   \;+\; o\bigl( \{\ln (NT)\}^{-1} [\kappa_0 \bar G(t)]^2 \bigr),
+\]
+and the same bound holds with $\{W_j^\star \ge t\}$ replaced by
+$\{ \bigl||W_j^\star|-t\bigr| \le 2\Delta_{NT}\}$.
+\end{condition}
+
+\begin{condition}[Threshold localization]
+\label{pc:3}
+$P\bigl( |\widehat S| \ge r_{NT} \bigr) \to 1$ and
+$P\bigl\{ G \ge v_{NT}\Delta_{NT} \ \text{or}\ \widehat S = \emptyset \bigr\} \to 1$,
+with $r_{NT}$ as in Assumption~C.3 and $v_{NT}\Delta_{NT} \to 0$,
+$v_{NT} \to \infty$.
+\end{condition}
+
+Condition~\ref{pc:1} is a statement about \emph{marginal} probabilities under a
+fixed reference law: it says the ideal null statistics place little mass in a
+band of width $4\Delta_{NT}$ around any admissible threshold, relative to the
+tail mass already there.  Condition~\ref{pc:2} says the realized counts track
+those marginal probabilities.  Condition~\ref{pc:3} says the data-driven
+threshold lands in the range over which the first two conditions are asserted.
+Only the combination is needed.
+
+\begin{proposition}[Threshold stability from primitive conditions]
+\label{prop:threshold}
+Suppose Conditions~\ref{pc:1}--\ref{pc:3} hold and
+$(m_{NT} + e_{NT})/r_{NT} \to 0$.  Then Assumption~C.3 holds with
+$\gamma_{NT} = C\alpha_{NT}$ and $\varsigma_{NT} \to 0$ for a constant $C$
+depending only on the constant in Condition~\ref{pc:2}.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Fix $\epsilon > 0$.  By Condition~\ref{pc:3} it suffices to bound the two
+suprema in Assumption~C.3 over $t \in I_{NT}$ on the event
+$\{|\widehat S| \ge r_{NT}\}$.
+
+Consider first the regime $M^\star(t) \ge m_{NT}$.  By Condition~\ref{pc:2}
+and Chebyshev's inequality applied conditionally on $\mathcal{G}$, both
+$M^\star(t)$ and $\widetilde N^\star_{2\Delta}(t)$ concentrate around their
+conditional means uniformly over $t \in I_{NT}$: the variance bound divided by
+the squared mean is $O(m_{NT}/[\kappa_0\bar G(t)]) + o(\{\ln(NT)\}^{-1})$, and
+on $\{M^\star(t) \ge m_{NT}\}$ the first term is $O(1)$ after a standard
+chaining over a grid of $t$ of cardinality polynomial in $NT$, with the
+$\{\ln (NT)\}^{-1}$ factor absorbing the union bound.  Hence
+\[
+\sup_{t \in I_{NT},\, M^\star(t)\ge m_{NT}}
+\frac{\widetilde N^\star_{2\Delta}(t)}{M^\star(t)}
+\;=\;
+\sup_{t \in I_{NT}}
+\frac{\kappa_0^{-1}\sum_{j} P_{D^\star}(||W_j^\star|-t|\le 2\Delta_{NT}\mid\mathcal{G})}
+     {2\bar G(t)}\;\{1 + o_p(1)\}
+\;\le\; C\alpha_{NT}
+\]
+with conditional probability tending to one, where the middle equality uses
+$\kappa_0^{-1}\mathbb{E}_{D^\star}[M^\star(t)\mid\mathcal{G}] = 2\bar G(t)$,
+which is the null symmetry of $P_{D^\star}$.  This delivers the first bound in
+Assumption~C.3 with $\gamma_{NT} = C\alpha_{NT}$.
+
+In the complementary sparse-tail regime $M^\star(t) < m_{NT}$, the band count
+is bounded by the same concentration argument by
+$e_{NT} := C m_{NT}$ up to $o_p(1)$, and $(m_{NT}+e_{NT})/r_{NT} \to 0$ makes
+both negligible relative to the number of discoveries guaranteed by
+Condition~\ref{pc:3}.  Collecting the two regimes and the exceptional events
+gives $\varsigma_{NT} \to 0$.
+\end{proof}
+
+\subsubsection*{Two of the three conditions are implied by existing assumptions}
+
+We now discharge Conditions~\ref{pc:2} and~\ref{pc:3}.
+
+\begin{lemma}[Count concentration from weak score dependence]
+\label{lem:pc2}
+Work conditionally on $\mathcal{G}$ and on the design-regularity event
+$\mathcal{B}_\mathcal{G}$ of Assumption~4.  Let $R = \operatorname{diag}(\Xi)^{-1/2}
+\,\Xi\, \operatorname{diag}(\Xi)^{-1/2}$ be the correlation matrix of the
+reference score and suppose that, for some $\tau \in (0,1)$ and
+$m_{NT}$ as in Condition~\ref{pc:2},
+\begin{equation}
+\label{eq:weakdep}
+\max_{j \le 2\kappa} \bigl| \{ l \le 2\kappa : |R_{jl}| > \tau \} \bigr|
+   \;\le\; m_{NT},
+\qquad
+\max_{j \ne l,\ |R_{jl}| \le \tau} |R_{jl}| \;\le\; C \{\ln (NT)\}^{-1/2}.
+\end{equation}
+Suppose in addition that on $\mathcal{B}_\mathcal{G}$ the map
+$\zeta \mapsto W^\star$ is affine on a neighbourhood of $D + \zeta^\star$ of
+radius exceeding $2\Delta_{NT}$, with gradient rows of norm bounded above and
+below.  Then Condition~\ref{pc:2} holds.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+On the local-affine event, $W_j^\star = a_j' \zeta^\star + b_j$ for
+$\mathcal{G}$-measurable $(a_j, b_j)$ with $c \le \|a_j\|_2 \le C$.  Hence
+$(W_j^\star)_{j \in \mathcal{H}_0}$ is, conditionally on $\mathcal{G}$, a
+Gaussian vector with correlation matrix $\varrho_{jl} = a_j'\Xi a_l /
+(\|a_j\|_\Xi \|a_l\|_\Xi)$.  For jointly Gaussian pairs with correlation
+$\varrho$, the standard bound
+$\bigl|\operatorname{Cov}(\mathbf 1\{W_j^\star \ge t\},
+\mathbf 1\{W_l^\star \ge t\})\bigr| \le C|\varrho_{jl}|\,
+\bar G_j(t)^{1/2}\bar G_l(t)^{1/2}$ applies.  Splitting the double sum at the
+threshold $\tau$ and using~\eqref{eq:weakdep} gives
+\[
+\operatorname{Var}\Bigl(\sum_{j \in \mathcal{H}_0}\mathbf 1\{W_j^\star \ge t\}\Bigr)
+\le \kappa_0 \bar G(t)
+ + C m_{NT} \kappa_0 \bar G(t)
+ + C \{\ln (NT)\}^{-1/2} [\kappa_0\bar G(t)]^{2}\cdot \kappa_0^{0},
+\]
+where the second term collects the at most $m_{NT}$ strongly correlated
+partners of each $j$ and the third the remaining weakly correlated pairs.
+The band-count version is identical with
+$\{W_j^\star \ge t\}$ replaced by the band event, whose marginal probability is
+bounded by $\bar G(t - 2\Delta_{NT})$.
+\end{proof}
+
+\begin{remark}[Why factor adjustment makes~\eqref{eq:weakdep} plausible]
+\label{rmk:pca-buys-weakdep}
+Condition~\eqref{eq:weakdep} is a weak-dependence requirement on the score
+correlation matrix $R$, not on the raw covariates.  It is exactly here that the
+factor adjustment of Section~3 pays a second dividend.  The score is built from
+the whitened idiosyncratic columns $\breve U_{\widetilde S}$, from which the
+common component has been removed by weighted PCA and the double orthogonality
+constraint~(3.15).  Under the approximate factor model, the remaining
+idiosyncratic cross-correlations are weak by assumption, so $R$ is close to the
+Fixed-X pair structure, which is block-diagonal up to the pairwise
+$(j, j+\kappa)$ coupling.  Had we constructed knockoffs on the unadjusted
+design, the strong cross-sectional correlation induced by the factors would
+make~\eqref{eq:weakdep} fail.  Factor adjustment is therefore not only a power
+device; it is what makes the threshold-stability route available at all.
+\end{remark}
+
+\begin{lemma}[Threshold localization from signal abundance]
+\label{lem:pc3}
+Suppose Assumptions~1--4 hold, and set $\lambda = C_2 \lambda_{NT}$ as in
+Theorem~4.5.  Then Condition~\ref{pc:3} holds with
+$r_{NT} = c\kappa$ for the constant $c$ of Assumption~4.
+\end{lemma}
+
+\begin{proof}[Proof sketch]
+Assumption~4 provides a set $\mathcal{A}_\kappa \subseteq S_R$ with
+$|\mathcal{A}_\kappa| \ge c\kappa$ and $|\beta_j| \gg \sqrt{\kappa}\,\lambda_{NT}$
+for $j \in \mathcal{A}_\kappa$.  The restricted-eigenvalue and score conditions
+of Assumption~4, together with $\chi_{NT} = O_p(\lambda_{NT})$ and
+Assumption~8, imply as in the proof of Theorem~4.5 that for every
+$j \in \mathcal{A}_\kappa$ the augmented Lasso retains the original coordinate
+and kills its knockoff partner with probability tending to one, so that
+$W_j^\star \ge c'|\beta_j| \gg \sqrt{\kappa}\,\lambda_{NT}$.  Since
+$v_{NT}\Delta_{NT} \to 0$ while $\sqrt{\kappa}\lambda_{NT}$ is bounded below by
+the tuning scale, these $c\kappa$ coordinates exceed $v_{NT}\Delta_{NT}$ with
+probability tending to one.  The knockoff$+$ ratio in~(3.18) is therefore
+already below $q$ at some $g \le \min_{j \in \mathcal{A}_\kappa} W_j^\star$
+unless $\widehat S = \emptyset$, which gives both statements.
+\end{proof}
+
+\subsubsection*{What remains}
+
+Combining Proposition~\ref{prop:threshold} with Lemmas~\ref{lem:pc2}
+and~\ref{lem:pc3}, Assumption~C.3 reduces to Condition~\ref{pc:1} alone.  We
+record the form this takes for the LCD statistic and state precisely what is
+and is not established.
+
+\begin{remark}[Reduction of Condition~\ref{pc:1} to a conditional density bound]
+\label{rmk:density}
+On the local-affine event of Lemma~\ref{lem:pc2} the null statistic
+$W_j^\star = a_j'\zeta^\star + b_j$ is, conditionally on $\mathcal{G}$,
+univariate Gaussian with variance $a_j'\Xi a_j \ge \sigma_{\min}(\Xi)\|a_j\|_2^2
+\ge c_0 c^2 > 0$.  Its density is then bounded above by
+$(2\pi c_0 c^2)^{-1/2}$, whence
+\[
+P_{D^\star}\bigl( \bigl||W_j^\star| - t\bigr| \le 2\Delta_{NT} \,\big|\,
+\mathcal{G} \bigr) \;\le\; C\,\Delta_{NT}
+\qquad \text{uniformly in } t,
+\]
+and Condition~\ref{pc:1} follows with
+$\alpha_{NT} = C \Delta_{NT} / \inf_{t \in I_{NT}} \bar G(t)$, which tends to
+zero whenever the null tail at the smallest admissible threshold is of larger
+order than the coupling scale.  Since the effective range starts at
+$v_{NT}\Delta_{NT}/2$ with $v_{NT}\to\infty$, this is compatible with
+$v_{NT}\Delta_{NT}\to 0$.
+
+Two gaps prevent this from being a complete proof, and we do not claim
+otherwise.  First, the map $\zeta \mapsto W^\star$ generated by the augmented
+Lasso is piecewise affine with kinks at active-set changes; the display above
+holds on the event that the active set is locally constant, and a full argument
+must control the union over realized active sets rather than fix one.  Second,
+the bound degrades near the origin, where a null coordinate may have
+$\widehat\beta_j = 0$ while $\widehat\beta_{j+\kappa}$ takes small nonzero
+values, so that $W_j^\star$ accumulates just to the right of zero.
+
+The point mass of the LCD statistic at zero, by contrast, is \emph{not} an
+obstacle.  The candidate set $\mathcal{W}$ in~(3.18) excludes zero by
+construction, and the effective range $I_{NT}$ is bounded away from the origin
+at rate $v_{NT}\Delta_{NT}$ with $v_{NT}\to\infty$, so no band in
+Assumption~C.3 ever meets the atom.  The residual difficulty is the density in
+a shrinking right neighbourhood of zero, not the atom itself.  A complete
+treatment of that region, or a switch to a debiased-Lasso coefficient
+difference for which the statistic is asymptotically normal with a continuous
+limiting density, would close the gap; we leave this to future work.
+\end{remark}
+
+\begin{remark}[Relation to the coupling literature]
+\label{rmk:ark-comparison}
+Threshold conditions of this kind are intrinsic to any coupling-based
+robustness argument, because a coupling perturbs a discontinuous selection
+rule.  Our Assumption~C.3 is the direct analogue of Conditions~4 and~5 of
+Fan, Gao and Lv (2025a): their Condition~5 controls the null mass in a band of
+width equal to the coupling accuracy $b_n$ around admissible thresholds,
+through the ratio $\{G(t-b_n) - G(t+b_n)\}/G(t)$, and their Condition~4
+controls the variance of the null indicator counts.  These correspond
+respectively to our Condition~\ref{pc:1} and Condition~\ref{pc:2}, while their
+threshold-range lemma corresponds to our Condition~\ref{pc:3}.
+
+The two settings differ in where the randomness that drives the
+anti-concentration comes from, and this difference cuts in both directions.
+Fan, Gao and Lv verify their Conditions~4 and~5 at a low level for two
+statistic constructions, but the verification proceeds through an assumption
+on the \emph{feature distribution}: Gaussian covariates in their Section~3.2,
+together with sparsity of the precision matrix, which is what controls the
+dependence among the null indicators.  They note explicitly that the Gaussian
+assumption is imposed mainly to verify these two conditions and can be dropped
+if the conditions are assumed directly.  In our conditional-design framework
+the reference law $P_{D^\star} = N(D,\Xi)$ is Gaussian \emph{by construction}
+rather than by assumption, since we condition on the realized design and work
+with the covariance-matched law of the $2\kappa$-dimensional sufficient score;
+no distributional restriction on the covariates is required to reach the point
+at which an anti-concentration argument can begin.  The counterpart of their
+precision-matrix sparsity is our weak-dependence
+condition~\eqref{eq:weakdep} on the score correlation matrix, which
+Remark~\ref{rmk:pca-buys-weakdep} argues is supplied by the factor adjustment.
+
+Conversely, their coupling operates at the level of the data matrix and is
+therefore agnostic to the choice of knockoff statistic, whereas our
+score-level reduction (Lemma~4.1) is tied to statistics measurable with respect
+to the $2\kappa$-dimensional score.  Their route also benefits from a statistic
+with a continuous asymptotic distribution, which is why their verification for
+the debiased-Lasso coefficient difference is cleaner than the corresponding
+argument would be for the LCD statistic used here.  We regard the two routes as
+complementary rather than nested.
+
+One structural feature of our formulation deserves note.  The supremum in
+Condition~5 of Fan, Gao and Lv is taken over an interval reaching down to the
+origin, whereas Assumption~C.3 restricts attention to $t \ge v_{NT}\Delta_{NT}$
+with $v_{NT} \to \infty$.  This truncation, which is legitimate because
+Condition~\ref{pc:3} localizes the realized threshold, removes precisely the
+region in which a statistic with an atom at zero is least tractable.
+\end{remark}
