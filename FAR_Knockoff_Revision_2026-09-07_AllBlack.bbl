@@ -1,0 +1,189 @@
+\begin{thebibliography}{}
+
+\bibitem[Bai, 2003]{Bai2003}
+Bai, J. (2003).
+\newblock Inferential theory for factor models of large dimensions.
+\newblock {\em Econometrica}, 71(1):135--171.
+
+\bibitem[Bai and Ng, 2002]{BaiNg2002}
+Bai, J. and Ng, S. (2002).
+\newblock Determining the number of factors in approximate factor models.
+\newblock {\em Econometrica}, 70(1):191--221.
+
+\bibitem[Bai and Ng, 2006]{BaiNg2006}
+Bai, J. and Ng, S. (2006).
+\newblock Confidence intervals for diffusion index forecasts and inference for
+  factor-augmented regressions.
+\newblock {\em Econometrica}, 74(4):1133--1150.
+
+\bibitem[Barber and Candès, 2015]{BarberCandes2015}
+Barber, R. and Candès, E. (2015).
+\newblock Controlling the false discovery rate via knockoffs.
+\newblock {\em The Annals of Statistics}, 43(5):2055--2085.
+
+\bibitem[Barber and Candès, 2019]{BarberCandes2019}
+Barber, R. and Candès, E. (2019).
+\newblock A knockoff filter for high-dimensional selective inference.
+\newblock {\em The Annals of Statistics}, 47(5):2504--2537.
+
+\bibitem[Barber et~al., 2020]{BarberCandesSamworth2020}
+Barber, R., Candès, E., and Samworth, R.~J. (2020).
+\newblock Robust inference with knockoffs.
+\newblock {\em The Annals of Statistics}, 48(3):1409--1431.
+
+\bibitem[Bauer and Hamilton, 2018]{BauerHamilton2018}
+Bauer, M.~D. and Hamilton, J.~D. (2018).
+\newblock Robust bond risk premia.
+\newblock {\em Review of Financial Studies}, 31(2):399--448.
+
+\bibitem[Benjamini and Hochberg, 1995]{BenjaminiHochberg1995}
+Benjamini, Y. and Hochberg, Y. (1995).
+\newblock Controlling the false discovery rate: A practical and powerful
+  approach to multiple testing.
+\newblock {\em Journal of the Royal Statistical Society: Series B},
+  57(1):289--300.
+
+\bibitem[Candès et~al., 2018]{CandesFanEtal2018}
+Candès, E., Fan, Y., Janson, L., and Lv, J. (2018).
+\newblock Panning for gold: 'model-x' knockoffs for high dimensional controlled
+  variable selection.
+\newblock {\em Journal of the Royal Statistical Society: Series B},
+  80(3):551--577.
+
+\bibitem[Cattaneo et~al., 2025]{CattaneoMasiniUnderwood2025}
+Cattaneo, M.~D., Masini, R.~P., and Underwood, W.~G. (2025).
+\newblock Yurinskii's coupling for martingales.
+\newblock {\em The Annals of Statistics}, 53(5):2179--2203.
+
+\bibitem[Chen et~al., 2024]{ChenHeChuEtal2024}
+Chen, Z., He, Z., Chu, B.~B., Gu, J., Morrison, T., Sabatti, C., and Cand`{e}s,
+  E. (2024).
+\newblock Controlled variable selection from summary statistics only? a
+  solution via ghost knockoffs and penalized regression.
+\newblock arXiv preprint arXiv:2402.12724.
+
+\bibitem[Chi et~al., 2025]{ChiFanIngLv2025}
+Chi, C.-M., Fan, Y., Ing, C.-K., and Lv, J. (2025).
+\newblock High-dimensional knockoffs inference for time series data.
+\newblock {\em Journal of the American Statistical Association}, pages 1--32.
+\newblock Forthcoming.
+
+\bibitem[Cochrane and Piazzesi, 2005]{CochranePiazzesi2005}
+Cochrane, J.~H. and Piazzesi, M. (2005).
+\newblock Bond risk premia.
+\newblock {\em American Economic Review}, 95(1):138--160.
+
+\bibitem[Fan et~al., 2022]{FanJiangSun2022}
+Fan, J., Jiang, B., and Sun, Q. (2022).
+\newblock Bayesian factor-adjusted sparse regression.
+\newblock {\em Journal of Econometrics}, 230(1):3--19.
+
+\bibitem[Fan et~al., 2020a]{FanKeWang2020}
+Fan, J., Ke, Y., and Wang, K. (2020a).
+\newblock Factor-adjusted regularized model selection.
+\newblock {\em Journal of Econometrics}, 216(1):71--85.
+
+\bibitem[Fan et~al., 2011]{FanLiaoMincheva2011}
+Fan, J., Liao, Y., and Mincheva, M. (2011).
+\newblock High dimensional covariance matrix estimation in approximate factor
+  models.
+\newblock {\em The Annals of Statistics}, 39(6):3320--3356.
+
+\bibitem[Fan et~al., 2024]{FanLouYu2024}
+Fan, J., Lou, Z., and Yu, M. (2024).
+\newblock Are latent factor regression and sparse regression adequate?
+\newblock {\em Journal of the American Statistical Association},
+  119(546):1076--1088.
+
+\bibitem[Fan et~al., 2020b]{FanDemirkayaLiLv2020}
+Fan, Y., Demirkaya, E., Li, G., and Lv, J. (2020b).
+\newblock Rank: Large-scale inference with graphical nonlinear knockoffs.
+\newblock {\em Journal of the American Statistical Association},
+  115(529):362--379.
+
+\bibitem[Fan et~al., 2019]{FanDemirkayaLv2019}
+Fan, Y., Demirkaya, E., and Lv, J. (2019).
+\newblock Nonuniformity of p-values can occur early in diverging dimensions.
+\newblock {\em Journal of Machine Learning Research}, 20(77):1--33.
+
+\bibitem[Fan et~al., 2025a]{FanGaoLv2025}
+Fan, Y., Gao, L., and Lv, J. (2025a).
+\newblock Ark: Robust knockoffs inference with coupling.
+\newblock {\em The Annals of Statistics}, 53(2):749--773.
+
+\bibitem[Fan et~al., 2025b]{FanGaoLvXu2025}
+Fan, Y., Gao, L., Lv, J., and Xu, X. (2025b).
+\newblock Asymptotic fdr control with model-x knockoffs: Is moments matching
+  sufficient?
+\newblock {\em arXiv preprint arXiv:2502.05969}.
+
+\bibitem[Fan et~al., 2020c]{FanLvSharifvaghefiUematsu2020}
+Fan, Y., Lv, J., Sharifvaghefi, M., and Uematsu, Y. (2020c).
+\newblock Ipad: Stable interpretable forecasting with knockoffs inference.
+\newblock {\em Journal of the American Statistical Association},
+  115(532):1822--1834.
+
+\bibitem[Gargano et~al., 2019]{GarganoPettenuzzoTimmermann2019}
+Gargano, A., Pettenuzzo, D., and Timmermann, A. (2019).
+\newblock Bond return predictability: Economic value and links to the
+  macroeconomy.
+\newblock {\em Management Science}, 65(2):508--540.
+
+\bibitem[Joslin et~al., 2014]{JoslinPriebschSingleton2014}
+Joslin, S., Priebsch, M., and Singleton, K.~J. (2014).
+\newblock Risk premiums in dynamic term structure models with unspanned macro
+  risks.
+\newblock {\em Journal of Finance}, 69(3):1197--1233.
+
+\bibitem[Kuchibhotla et~al., 2022]{KuchibhotlaKolassaKuffner2022}
+Kuchibhotla, A., Kolassa, J., and Kuffner, T.~A. (2022).
+\newblock Post-selection inference.
+\newblock {\em Annual Review of Statistics and Its Application}, 9:505--527.
+
+\bibitem[Lee et~al., 2016]{LeeSunSunTaylor2016}
+Lee, J., Sun, D., Sun, Y., and Taylor, J.~E. (2016).
+\newblock Exact post-selection inference, with application to the lasso.
+\newblock {\em The Annals of Statistics}, 44(3):907--927.
+
+\bibitem[Litterman and Scheinkman, 1991]{LittermanScheinkman1991}
+Litterman, R.~B. and Scheinkman, J. (1991).
+\newblock Common factors affecting bond returns.
+\newblock {\em Journal of Fixed Income}, 1(1):54--61.
+
+\bibitem[Liu et~al., 2024]{LiuSunKe2024}
+Liu, J., Sun, A., and Ke, Y. (2024).
+\newblock A generalized knockoff procedure for fdr control in structural change
+  detection.
+\newblock {\em Journal of Econometrics}, 239(2):105331.
+
+\bibitem[Ludvigson and Ng, 2009]{LudvigsonNg2009}
+Ludvigson, S.~C. and Ng, S. (2009).
+\newblock Macro factors in bond risk premia.
+\newblock {\em The Review of Financial Studies}, 22(12):5027--5067.
+
+\bibitem[McCracken and Ng, 2016]{McCrackenNg2016}
+McCracken, M.~W. and Ng, S. (2016).
+\newblock Fred-md: A monthly database for macroeconomic research.
+\newblock {\em Journal of Business \& Economic Statistics}, 34(4):574--589.
+
+\bibitem[McCracken and Ng, 2020]{McCrackenNg2020}
+McCracken, M.~W. and Ng, S. (2020).
+\newblock Fred-qd: A quarterly database for macroeconomic research.
+\newblock NBER Working Paper 26872, National Bureau of Economic Research.
+
+\bibitem[Rasines and Young, 2023]{RasinesYoung2023}
+Rasines, D. and Young, G. (2023).
+\newblock Splitting strategies for post-selection inference.
+\newblock {\em Biometrika}, 110(3):597--614.
+
+\bibitem[Stock and Watson, 2002]{StockWatson2002}
+Stock, J. and Watson, M. (2002).
+\newblock Macroeconomic forecasting using diffusion indexes.
+\newblock {\em Journal of Business \& Economic Statistics}, 20(2):147--162.
+
+\bibitem[Wang, 2012]{Wang2012}
+Wang, H. (2012).
+\newblock Factor profiled sure independence screening.
+\newblock {\em Biometrika}, 99(1):15--28.
+
+\end{thebibliography}
