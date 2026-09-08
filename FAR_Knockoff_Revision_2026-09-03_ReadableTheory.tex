@@ -1,0 +1,3803 @@
+﻿\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{natbib}
+% \usepackage[style=apa,backend=biber]{biblatex}
+% \addbibresource{temp.bib}
+% \bibliographystyle{apa}
+\usepackage{url} % not crucial - just used below for the URL
+ \usepackage{setspace}
+
+%\pdfminorversion=4
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\blind}{1}
+
+% DON'T change margins - should be 1 inch all around.
+\addtolength{\oddsidemargin}{-.5in}%
+\addtolength{\evensidemargin}{-1in}%
+\addtolength{\textwidth}{1in}%
+\addtolength{\textheight}{1.7in}%
+\addtolength{\topmargin}{-1in}%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Local packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{epsfig}
+%\usepackage{showkeys}
+\usepackage[utf8]{inputenc}
+\usepackage{rotating}
+\usepackage{natbib}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath,mathrsfs}
+\usepackage{amsthm}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{lscape}
+\usepackage{caption} 
+\captionsetup[table]{skip=8pt}
+\usepackage{xcolor}
+% Keep revision markup in the source, but render it black for reading.
+\colorlet{red}{black}
+\colorlet{blue}{black}
+\definecolor{minorrevisionred}{RGB}{0,0,0}
+\usepackage{bbm}
+\usepackage{varwidth}
+\usepackage{subfigure}
+\usepackage{subcaption}
+\DeclareCaptionFormat{myformat}{%
+  % #1: label (e.g. "Table 1")
+  % #2: separator (e.g. ": ")
+  % #3: caption text
+  \begin{varwidth}{\linewidth}%
+    \centering
+    #1#2#3%
+  \end{varwidth}%
+}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{rotating}
+\usepackage{xr}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Local commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\singlespace{\def\baselinestretch{1}\@normalsize}
+\def\endsinglespace{}
+
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\renewcommand{\baselinestretch}{1.412}
+\renewcommand{\sp}{\vspace{0.2 in}}
+ \newcommand{\bm}{\boldsymbol}
+\renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
+\renewcommand{\thefigure}{\arabic{figure}}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\newcommand{\vX}[2]{X \! \! \! \hspace*{-0.1 cm}
+		 \raisebox{-1.0 ex}{\scriptsize $\sim$} %\hspace*{-0.05 ex}
+		  \raisebox{-0.50 ex}{\scriptsize $#1$}\hspace*{0.1 ex}
+		   \raisebox{-0.95 ex}{\scriptsize $#2$}\hspace*{0.16 ex}}
+\newcommand{\vu}[1]{u \! \! \! \hspace*{-0.02 cm}
+			\raisebox{-1.0 ex}{\scriptsize $\sim$}
+			\raisebox{-0.70 ex}{\scriptsize $#1$}\hspace*{0.16 ex}}
+\newcommand{\vvX}[2]{X \! \! \! \hspace*{-0.1 cm}
+		\raisebox{-1.0 ex}{\scriptsize $\sim$} %\hspace*{-0.05 ex}
+		  \raisebox{-0.60 ex}{\scriptsize $#1$}\hspace*{- 1 ex}
+		   \raisebox{1 ex}{\scriptsize $#2$}\hspace*{0.16 ex}}
+
+\newcommand{\wh}{\widehat}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\bbox}{\hfill{$\Box$}}
+%\newcommand{\diag}{\mbox{diag}}
+\newcommand{\convP}{\stackrel{P}{\longrightarrow}}
+\newcommand{\eq}{\stackrel{\bigtriangleup}{=}}
+\newcommand{\convD}{\stackrel{D}{\longrightarrow}}
+\newcommand{\sopt}{\mbox{{\scriptsize opt}}}
+\newcommand{\T}{\top}
+\newcommand{\var}{\mbox{Var}}
+\newcommand{\sgn}{\mbox{sgn}}
+\newcommand{\cov}{\mbox{cov}}
+\newcommand{\CV}{\mbox{CV}}
+\newcommand{\bias}{\mbox{bias}}
+\newcommand{\Beta}{\mbox{Beta}}
+\newcommand{\M}{\mbox{AMISE}}
+\newcommand{\MISE}{\mbox{MISE}}
+\newcommand{\AMISE}{\mbox{AMISE}}
+\newcommand{\MSE}{\mbox{MSE}}
+\newcommand{\ASE}{\mbox{ASE}}
+\newcommand{\AB}{\mbox{AB}}
+\newcommand{\calD}{{\cal D}}
+\newcommand{\calF}{{\cal F}}
+\newcommand{\calK}{{\cal K}}
+\newcommand{\calL}{{\cal L}}
+\def\X{{\bf X}}
+\newcommand{\calI}{{\cal I}}
+\newcommand{\RSS}{\mbox{RSS}}
+\newcommand{\RSC}{\mbox{RSC}}
+\newcommand{\ha}{\widehat{\alpha}_n}
+\newcommand{\bX}{\mbox{\bf X}}
+\newcommand{\bR}{\mbox{\bf R}}
+\newcommand{\varep}{\mbox{\boldmath{$\varepsilon$}}}
+\newcommand{\ep}{\mbox{\boldmath{$\epsilon$}}}
+\newcommand{\vep}{\mbox{\boldmath{$\varepsilon$}}}
+\newcommand{\bphi}{\mbox{\boldmath{$\phi$}}}
+\newcommand{\bbeta}{\mbox{\boldmath{$\beta$}}}
+\newcommand{\bGamma}{\mbox{\boldmath{$\Gamma$}}}
+\newcommand{\bSigma}{\mbox{\boldmath{$\Sigma$}}}
+\newcommand{\bLambda}{\mbox{\boldmath{$\Lambda$}}}
+\newcommand{\bOmega}{\mbox{\boldmath{$\Omega$}}}
+\newcommand{\bu}{\mbox{\bf u}}
+\newcommand{\etal}{{\em et al.}\/}
+\newcommand{\bY}{\mbox{\bf Y}}
+\newcommand{\bA}{\mbox{\bf A}}
+%\newcommand{\bB}{\mbox{\bf B}}
+\newcommand{\bH}{\mbox{\bf H}}
+\newcommand{\bU}{\mbox{\bf U}}
+\newcommand{\bO}{\mbox{\bf O}}
+\newcommand{\bQ}{\mbox{\bf Q}}
+\newcommand{\bS}{\mbox{\bf S}}
+\newcommand{\bZ}{\mbox{\bf Z}}
+\newcommand{\bM}{\mbox{\bf M}}
+\newcommand{\bV}{\mbox{\bf V}}
+\newcommand{\bx}{\mbox{\bf x}}
+\newcommand{\bI}{\mbox{\bf I}}
+\newcommand{\bT}{\mbox{\bf T}}
+\newcommand{\bL}{\mbox{\bf L}}
+\newcommand{\bK}{\mbox{\bf K}}
+\newcommand{\I}{{\mathbb I}}
+\newcommand{\bv}{\mbox{\bf v}}
+\newcommand{\bs}{\mbox{\bf s}}
+\newcommand{\ba}{\mbox{\bf a}}
+\newcommand{\bq}{\mbox{\bf q}}
+\newcommand{\bg}{\mbox{\bf g}}
+\newcommand{\bW}{\mbox{\bf W}}
+\newcommand{\bw}{\mbox{\bf w}}
+\newcommand{\bh}{\mbox{\bf h}}
+\newcommand{\bG}{\mbox{\bf G}}
+\newcommand{\br}{\mbox{\bf r}}
+\newcommand{\bb}{\mbox{\bf b}}
+\newcommand{\bJ}{\mbox{\bf J}}
+\newcommand{\0}{\mbox{\bf 0}}
+\newcommand{\by}{\mbox{\bf y}}
+\newcommand{\bE}{\mbox{\bf E}}
+\newcommand{\be}{\mbox{\bf e}}
+\newcommand{\bve}{{\bm\varepsilon}}
+\newcommand{\bD}{\mbox{\bf D}}
+\newcommand{\bP}{\mbox{\bf P}}
+%\newcommand{\bC}{\mbox{\bf C}}
+\newcommand{\RR}{\mathbb{R}}
+\def\E{\mathbb {E}}
+\newcommand{\stimes}{{\small \times}}
+\newcommand{\Min}{\!\mbox{\scriptsize min}}
+%\newcommand{\rank}{\!\mbox{rank}}
+\newcommand{\Max}{\!\mbox{\scriptsize max}}
+\newcommand{\sRSC}{\!\mbox{\scriptsize RSC}}
+\newcommand{\sR}{\!\mbox{\scriptsize R}}
+\newcommand{\tr}{{\mathrm{tr}}}
+\newcommand{\s}{\small}
+\newcommand{\op}{{\mathrm{op}}}
+\newcommand{\F}{{\mathrm{F}}}
+
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\eE}{\mathbb{E}}
+\newcommand{\II}{\mathbbm{1}}
+\newcommand{\iI}{\mathcal{I}}
+
+
+\newcommand{\bB}{\mathbb{B}}
+\newcommand{\bC}{\mathbb{C}}
+
+\newcommand{\argmin}{\operatorname*{argmin}}
+
+\newtheorem{cond}{Condition}
+
+%% Some new commands for comments
+\newcommand{\ky}[1]{\textcolor{red}{#1 (Ke)}} 
+\newcommand{\wj}[1]{\textcolor{blue}{#1 (Jie)}}
+\usepackage[normalem]{ulem}
+%% Some new commands for math symbols
+
+
+\iffalse
+
+%% Some new commands for theorem-like structure
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}% Theorem-like structures
+\newtheorem{remark}{Remark}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{condition}{Condition}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\fi
+
+
+%% Some new commands in Jie Wei's draft
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+%\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{assumption}{Assumption}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Cov}{Cov}  
+\def\argmax{\mathop{\rm arg\,max}}
+\def\argmin{\mathop{\rm arg\,min}}
+%\newenvironment{proof}[1][Proof]{\textbf{#1.} }{\  \rule{0.5em}{0.5em}}
+\def\func#1{\mathop{\rm #1}}%
+\def\limfunc#1{\mathop{\rm #1}}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+%\bibliographystyle{natbib}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\if1\blind
+{
+  \title{\bf Factor-Adjusted Knockoff Inference for High-Dimensional Time Series}
+  \author{Jie Wei%\thanks{
+    %The authors gratefully acknowledge \textit{please remember to list all relevant funding sources in the unblinded version}}\hspace{.2cm}
+    \\
+    School of Economics, Huazhong University of Science and
+Technology\\
+   Lan Gao \\
+    Department of Business Analytics and Statistics\\
+    University of Tennessee, Knoxville \\
+   Yuan Ke \\
+    Department of Statistics, University of Georgia \\
+    Yonghui Zhang \\
+    School of Economics, Renmin University of China}
+    \date{}
+  \maketitle
+} \fi
+
+\if0\blind
+{
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf %Factor-Adjusted Knockoff for FDR Control
+     Factor-Adjusted Knockoff Inference for High-Dimensional Time Series 
+    }
+\end{center}
+  \medskip
+} \fi
+
+\bigskip
+\begin{abstract}
+{\color{minorrevisionred}
+This paper proposes FAR-Knockoff, a factor-adjusted knockoff procedure for
+variable selection in high-dimensional time series. The method uses weighted
+principal components to estimate latent factors, constructs Fixed-X knockoffs
+for the idiosyncratic components, and estimates a whitening transformation to
+accommodate serially dependent errors. We establish asymptotic false discovery
+rate (FDR) control under estimated whitening, imperfect screening, and causal
+martingale innovations, including conditional heteroskedasticity, without
+requiring Gaussianity or symmetry. The proofs also provide finite-sample
+inequalities that isolate the FDR costs of whitening estimation, imperfect
+screening, and distributional approximation. In the simulation designs
+examined, FAR-Knockoff has favorable FDR--power performance relative to the
+implemented competitors. In an application to U.S.\ Treasury bond risk premia,
+it produces sparse models and evidence of maturity-specific incremental
+predictability beyond yield-curve and return-forecasting factors.
+}
+
+\iffalse
+Knockoff is a flexible way for inference with false discovery rate (FDR)
+control in high dimensions. We make two contributions in adapting knockoff
+inference for better fit in practice. First, we extend and validate
+knockoffs to time series settings, by taking into account and exploiting the
+serial correlation of data. Second, we tackle the challenges with highly
+correlated covariates by providing a factor-augmented regression knockoff inference
+(FAR-Knockoff) procedure, so as to work knockoff with weakly correlated covariates
+and enhance its power. We formally establish the FDR control property of
+FAR-Knockoff which reveals the effect of approximation errors on inflation of FDR.
+The power of FAR-Knockoff is also proved. We demonstrate the robustness and
+efficiency of FAR-Knockoff through simulation, and apply the method in an
+application of predicting bond risk premia.
+\fi
+\end{abstract}
+
+\noindent%
+{\it Keywords:} factor-augmented model, false discovery rate, variable selection, temporal dependence 
+
+%factor adjustment; FDR control; knockoff; time series data
+\vfill
+
+\newpage
+\spacingset{1.9} % DON'T change the spacing!
+
+
+
+%--------------------------------------------------------------------------------
+\section{Introduction}
+\label{sec:intro}
+\vspace{-0.1in}
+
+
+The increasing availability of large-scale datasets in economics and finance, such as FRED-MD and FRED-QD  \citep{McCrackenNg2016,McCrackenNg2020}, as well as the expansive set of firm-level characteristics in empirical asset pricing (the so-called ``factor zoo''), has greatly enhanced researchers' ability to study regression relationships comprehensively. However, given that such data are typically collected for general purposes, it remains essential to identify which variables are truly relevant for a specific task. Accurate variable selection not only simplifies models and improves interpretability but also enhances predictive performance.
+
+A critical aspect of high-dimensional variable selection is reproducibility--ensuring that selected variables reflect genuine population-level importance rather than sample-specific noise. False discovery rate (FDR) control provides a practical solution by limiting the proportion of spurious selections, and a more concise model may improve out-of-sample prediction relative to dense or weakly regularized alternatives, as illustrated in our empirical study. FDR control also offers a less conservative and more interpretable alternative to family-wise error rate control. Traditional FDR procedures, such as that of \citet{BenjaminiHochberg1995}, rely on valid $p$-values, which are often unavailable in high dimensions or under complex dependence structures \cite[e.g.][]{CandesFanEtal2018, FanDemirkayaLv2019}.
+
+Knockoff inference offers a flexible and powerful framework for FDR control without relying on $p$-values. By generating artificial ``knockoff'' variables that mimic the dependence structure of the original covariates but are constructed to be unrelated to the response, the method enables valid testing through negative controls. Key variants include Fixed-X \citep{BarberCandes2015} and Model-X knockoffs \citep{CandesFanEtal2018}, whose implementations differ in whether moment matching is performed at the sample or population level. However, their validity relies on an exchangeability condition, which generally breaks down under serial dependence--a hallmark of time series data. For instance, \citet{ChiFanIngLv2025} show that applying Model-X to time series models with lagged covariates can invalidate the inference.
+
+
+{\color{minorrevisionred}
+We propose FAR-Knockoff, a method for variable selection with FDR control in
+high-dimensional time series. By integrating serial-dependence adjustment and
+factor modeling, the procedure addresses two limitations of existing knockoff
+methods in this setting. Our first contribution is to accommodate serial
+dependence through a generalized least squares (GLS)-style whitening
+transformation. Because its covariance matrix must be estimated in practice,
+we derive FDR bounds that explicitly retain the resulting approximation error.
+}
+
+{\color{minorrevisionred}
+Our principal guarantees are asymptotic. The nonasymptotic inequalities used
+in their proofs quantify the separate effects of screening, factor and
+whitening estimation, and score approximation; they should not be read as a
+general exact finite-sample guarantee under estimated nuisance quantities.
+}
+
+A second challenge is the loss of power in knockoff inference under strong collinearity, which is common in macroeconomic and financial datasets. For example, employment measures across sectors or similar equity factors tend to exhibit high correlations. This hampers Lasso-based statistics, which are sensitive to the penalty level, especially when the so-called irrepresentable condition fails. Intuitively, high correlation can cause knockoff statistics to shrink true signals, reducing power. This issue is also confirmed in our simulations.
+
+To improve power, our second contribution is to incorporate factor adjustment into knockoff inference. We decompose the covariates into common latent factors and idiosyncratic components, constructing knockoffs only for the latter while including the estimated factors as controls in the regression. This strategy reduces collinearity among covariates and improves power. Unlike previous approaches 
+\citep[e.g.][]{FanKeWang2020}, our method extracts factors via weighted principal component analysis (PCA), using pre-whitened data to ensure compatibility with the knockoff framework under time series dependence.
+
+{\color{red}
+To establish FDR control for FAR-Knockoff, we develop guarantees directly
+under causal martingale innovations and imperfect screening.  Building on
+the insights of \citet{BarberCandesSamworth2020}, we work with the
+conditional distribution of the $2\kappa$-dimensional sufficient score
+\citep{ChenHeChuEtal2024}, rather than the full data.  The theory accounts
+jointly for whitening error, martingale coupling error, and the drift
+generated by signals missed in screening.  It also shows that PCA and
+factor-number estimation do not directly enter conditional Fixed-X
+exchangeability, although they remain relevant for rates and power.
+}
+
+
+The rest of this paper is organized as follows. Section~\ref{sec:FAR} introduces the FAR model and the adjustment for serial dependence using weighted PCA. Section~\ref{sec:FAR-Knockoff}
+ presents the FAR-Knockoff procedure for variable selection, including the construction of knockoffs and the associated variable selection strategy. Section~\ref{sec:FDR_power} establishes the theoretical properties of FAR-Knockoff. Section~\ref{sec:sim} evaluates the finite-sample performance of the proposed method through simulations. Section~\ref{sec:app} illustrates the practical utility of FAR-Knockoff through an empirical application to U.S. bond risk premia prediction. Section~\ref{sec:conclusion} concludes. Proofs of the main theorems, additional technical details, and supplementary numerical results are provided in the supplementary material.
+
+
+\subsection{Related Work}
+\label{sec:related}
+
+Recent work has extended knockoffs beyond i.i.d.\ data. TSKI uses subsampling and e-value aggregation to accommodate temporal dependence \citep{ChiFanIngLv2025}. FAR-Knockoff instead conditions on the transformed inference design and gives explicit approximation-sensitive FDR bounds, building on \citet{BarberCandesSamworth2020}.
+
+Approximate Model-X methods allow a misspecified working covariate law but, in the cited time-series settings, retain temporal independence \citep{FanGaoLv2025,FanGaoLvXu2025}. FAR-Knockoff conditions on the realized design and handles serially dependent errors by whitening and score coupling. Factor structure also has a different role than in IPAD, which generates Model-X copies by resampling i.i.d.\ idiosyncratic errors \citep{FanLvSharifvaghefiUematsu2020}. We use an approximate factor model \citep{Bai2003} only to decorrelate the design before Fixed-X construction, following \citet{FanKeWang2020} and \citet{FanJiangSun2022}, with FDR control rather than selection consistency as the target.
+
+
+
+\subsection{Notations}
+\label{sec:notation}
+
+{\color{minorrevisionred}Uppercase Roman letters generally denote matrices
+(such as $X$, $F$, and $U$), except that $Y$ denotes the response vector.
+Lowercase Greek letters denote scalars or parameter and error vectors, whose
+dimensions are stated at first use; a subscripted entry, such as $\beta_j$ or
+$\varepsilon_t$, is scalar.}
+Given an index set $\mathcal{S}$ and a matrix $X$, we use $X_{\mathcal{S}}$ to denote the submatrix of $X$ consisting of columns indexed by $\mathcal{S}$. Define the projection matrix $M_{X} = I - X(X^{\prime}X)^{-1}X^{\prime}$, where $I$ denotes the identity matrix. We write $X \succeq 0$ if $X$ is positive semi-definite. For a set $A$, let $|A|$ denote its cardinality. For a square matrix $A$, let $\sigma_{\min}(A)$ and $\sigma_{\max}(A)$ denote its smallest and largest eigenvalues, respectively. For a general matrix $B$, we use $\|B\|_{F} = \left[\Tr(BB^{\prime})\right]^{1/2}$ to denote its Frobenius norm, $\|B\| = \sigma_{\max}^{1/2}(B^{\prime}B)$ to denote its spectral norm, and $\|B\|_{\max} = \max_{i,j} |B_{ij}|$ for its entrywise maximum norm. We denote by $a \vee b$ the maximum of $a$ and $b$. Throughout the paper, we use indices $s$ and $t$ to denote time periods, and indices $i$ and $j$ to denote cross-sectional units, where the total number of units is $N$.
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{FAR Model and Serial Dependence Adjustment}
+\label{sec:FAR}
+
+
+
+\subsection{Problem Setup}
+
+
+Consider the high-dimensional linear regression model
+\begin{equation}
+Y_t = X_t^{\prime} \beta + \varepsilon_t, \quad \text{for} \ t = 1, \ldots, T, \label{m1}
+\end{equation}
+where $Y_t \in \mathbb{R}$ is the dependent variable, $X_t = (X_{t1}, \ldots, X_{tN})^{\prime} \in \mathbb{R}^N$ is the vector of covariates (which may include a constant term), $\beta = (\beta_1, \ldots, \beta_N)^{\prime} \in \mathbb{R}^N$ is the coefficient vector, and $\varepsilon_t$ is the error term. 
+
+The model in \eqref{m1} can also be written in matrix form as
+\begin{equation}
+Y = X\beta + \varepsilon, \label{eq:stackXY}
+\end{equation}
+where $Y = (Y_1, \ldots, Y_T)^{\prime}$, $X = (X_1, \ldots, X_T)^{\prime} \in \mathbb{R}^{T \times N}$, and $\varepsilon = (\varepsilon_1, \ldots, \varepsilon_T)^{\prime}$. We assume that the coefficient vector $\beta$ is sparse with an unknown support set $\mathcal{S}_0 = \{ i : \beta_i \neq 0, \ 1 \leq i \leq N \}$, and denote its cardinality by $\kappa_0 = |\mathcal{S}_0|$. In addition, we assume that $\varepsilon$ is independent of $X$, satisfies $\mathbb{E}(\varepsilon) = \mathbf{0}$, and has an unknown covariance matrix $\Cov(\varepsilon) = \Sigma_{\varepsilon}^0$.
+
+
+When the covariates in $X$ exhibit strong cross-sectional correlations, it becomes challenging to consistently recover the true support set $\mathcal{S}_0$. To address this issue, \citet{FanKeWang2020} propose decomposing the covariates using a latent factor model:
+\begin{equation}
+X = F \Lambda^{\prime} + U, \label{eq:factor_model}
+\end{equation}
+where $F = (F_1, \ldots, F_T)^{\prime} \in \mathbb{R}^{T \times r}$ is the matrix of $r$ latent factors, $\Lambda = (\Lambda_1, \ldots, \Lambda_N)^{\prime} \in \mathbb{R}^{N \times r}$ is the factor loading matrix, and $U = (U_1, \ldots, U_T)^{\prime} \in \mathbb{R}^{T \times N}$ is the matrix of idiosyncratic components, with each $U_t = (U_{t1}, \ldots, U_{tN})^{\prime}$. Under mild regularity conditions and suitable identification restrictions (e.g., $F^{\prime} F / T = I$ and $\Lambda^{\prime} \Lambda$ being diagonal), the latent factors $F$ and the idiosyncratic components $U$ can be consistently estimated \citep{Bai2003}.
+
+
+
+Combining the model \eqref{eq:stackXY} with the factor decomposition \eqref{eq:factor_model} yields the following factor-augmented regression (FAR) model:
+\begin{equation}
+Y = F \Lambda^{\prime} \beta + U \beta + \varepsilon. \label{eq:FAR}
+\end{equation}
+Rather than performing variable selection directly on the covariate matrix $X$ in model \eqref{m1}, we focus on the idiosyncratic component $U$ in the FAR model \eqref{eq:FAR}, which generally exhibits weaker cross-sectional dependence.
+
+Another important challenge that has not been thoroughly addressed in the existing literature is how to control the FDR in variable selection based on the FAR model. If the error terms $\varepsilon_t$ were serially uncorrelated, one could extend the seminal knockoff framework \citep[e.g.][]{BarberCandes2015, CandesFanEtal2018, LiuSunKe2024} to the FAR setting by constructing knockoff copies of the idiosyncratic components $U$. However, in many applications in economics, engineering, finance, and public health, the assumption of serial independence is unrealistic. As a result, directly applying existing knockoff constructions may fail to control the FDR, even when $F$ and $U$ were treated as observed. This failure arises because the key \textit{pairwise exchangeability} condition, established in Lemma 3 of \citet{BarberCandes2015}, is violated in the presence of serially {correlated} errors.
+
+
+\iffalse
+Our basic solution to solving this problem is rather straightforward: we
+will transform (weight) the original time series (for both $X$ and $Y$) by
+multiplying $\left( \Sigma _{\varepsilon }^{0}\right) ^{-1/2}$, and then
+construct knockoffs and prove its desired properties based on the
+transformed data. Since $\Sigma _{\varepsilon }^{0}$ is unknown in general,
+we next propose a feasible estimator for it.
+\fi
+
+
+
+The sparse regression \eqref{m1} is a motivating special case. Our general framework is the factor-augmented sparse regression model \citep[][FARM]{FanLouYu2024}:
+\begin{equation}
+\begin{aligned} \label{eq:FARM}
+Y  = F \gamma^* + U \beta^* + \varepsilon \quad \text{and} \quad
+X  = F \Lambda^{\prime} + U,
+\end{aligned}
+\end{equation}
+where $\gamma^* \in \mathbb{R}^r$ measures the factor contribution and the sparse vector $\beta^*\in \mathbb{R}^N$ measures the contributions of the idiosyncratic covariates. Equivalently, $Y=F\varphi+X\beta^*+\varepsilon$, where $\varphi=\gamma^*-\Lambda'\beta^*$. Thus FARM augments sparse regression by factor directions and nests the diffusion-index model when $\beta^*=0$ \citep{StockWatson2002,BaiNg2006}; it bridges factor-based dimension reduction and sparse regression while adjusting for latent confounding.
+
+Because $\beta_j^*$ is unchanged in these two representations, selection of
+$U_j$ targets the coefficient of the original predictor $X_j$ conditional on
+the factors and the other covariates, as in \citet{FanKeWang2020}.
+Selected variables therefore identify incremental predictive information
+beyond the common factors estimated from the full panel, whereas unselected
+variables may still be informative through those factors.
+
+
+
+
+
+
+
+
+
+
+
+\iffalse
+
+\begin{remark}
+The sparse linear regression\ model \eqref{m1} is a motivational example.
+The general model that we will mainly work with in this paper can be written as a Factor Augmented sparse linear Regression Model (FARM, Fan \etal,  2024):
+\begin{equation}
+	\begin{aligned} \label{eq:FARM}
+		Y & = F \gamma + U \beta + \varepsilon, \\
+		X & = F \Lambda^{\prime} + U,
+	\end{aligned}
+\end{equation}
+where $\gamma = \Lambda^{\prime} \beta$. To appreciate FARM, notice that it can be written equivalently as
+\begin{equation}
+	\begin{aligned} \label{eq:FARM2}
+		Y & = F \varphi + X \beta + \varepsilon, \\
+		X & = F \Lambda^{\prime} + U,
+	\end{aligned}
+\end{equation}
+where $\varphi=\gamma-\Lambda^{\prime}\beta$ quantifies extra contributions made by latent factors beyond $X$. The equivalent form \eqref{eq:FARM2} implies that FARM essentially augments the sparse linear regression \eqref{m1} in useful directions of factors, and thus robustify estimation and inference by purging out the latent confounding effects due to factors.
+
+Moreover, FARM can also be regarded as a generalization of the popular diffusion index model for dimension reduction used by Stock and Watson (2002), and Bai and Ng (2006), among others. The basic diffusion index model assumes that
+\begin{equation}
+	\begin{aligned} \label{eq:diffusion}
+		Y & = F \gamma +  \varepsilon, \\
+		X & = F \Lambda^{\prime} + U.
+	\end{aligned}
+\end{equation}
+This specification is somewhat restrictive as it hinges on a few common factors $F$ as the only important regressors, whereas FARM allows for idiosyncratic component $U$ as additional explanatory variables quantified by possibly sparse $\beta$. Given that FARM is able to accommodate the two alternatives above, it is general enough to bridge the dimensionality reduction and the sparse regression (Fan \etal,  2024).
+\end{remark}
+\fi
+
+
+
+\subsection{Estimation of Error Covariance Matrix}
+\label{sec:erro_cov}
+
+The covariance matrix of the error term (i.e. $\Sigma_{\varepsilon}^{0}$) plays a crucial role in the knockoff construction process, as it helps account for the impact of serial dependence. However, it is well known that the sample covariance matrix estimator performs poorly in high-dimensional settings, and becomes infeasible when the dimensionality exceeds the sample size. In this subsection, we propose to estimate $\Sigma_{\varepsilon}^{0}$ using a factor-augmented screening procedure followed by a banded covariance matrix estimator. This two-step approach improves estimation accuracy by reducing dimensionality and mitigating the effects of strong temporal and cross-sectional dependence.
+
+
+Denote by $\widehat{F}$, $\widehat{\Lambda}$, and $\widehat{U}$ the estimators of $F$, $\Lambda$, and $U$, respectively. Following the ideas of \citet{Wang2012} and \citet{FanKeWang2020}, we formulate a series of factor-augmented marginal regressions:
+\begin{equation}
+\widetilde{\beta}_{j} = \mathop{\arg\min}_{\beta_{j} \in \mathbb{R}} \frac{1}{2T} \left\| M_{\widehat{F}} Y - \widehat{U}_{\cdot,j} \beta_{j} \right\|_2^2, \quad \text{for } j = 1, 2, \ldots, N, \label{eq:aug_marginal}
+\end{equation}
+where $M_{\widehat{F}} = I_{T} - \widehat{F}(\widehat{F}^{\prime} \widehat{F})^{-1} \widehat{F}^{\prime}$ is the projection matrix onto the orthogonal complement of the column space of $\widehat{F}$, and $\widehat{U}_{\cdot,j}$ denotes the $j$th column of $\widehat{U}$.
+
+
+
+For a prescribed screening threshold $\xi$, define the screened set
+\begin{equation}
+\widetilde{\mathcal{S}} = \left\{ j : \left| \widetilde{\beta}_j \right| \geq \xi \right\}. \label{eq:thres_pre}
+\end{equation}
+{\color{red}
+The threshold balances missed signals against over-selection.  We do not
+assume sure screening for FDR control.  Let
+\[
+\beta_j^M:=
+\frac{\mathbb E\{U_{tj}(U_t^\prime\beta)\}}{\mathbb E(U_{tj}^2)},\qquad
+\mathcal A:=\mathcal S_0\setminus\widetilde{\mathcal S},\qquad
+s:=|\mathcal S_0|,
+\]
+where $\beta_j^M$ is the population factor-adjusted marginal coefficient
+targeted by \eqref{eq:aug_marginal}.
+
+\begin{assumption}[Screening regularity]
+\label{ass:screening}
+There are deterministic $a_{NT}\to0$ and $\delta_{NT}^{\rm scr}\to0$ such
+that, with probability at least $1-\delta_{NT}^{\rm scr}$,
+\begin{equation}
+\max_{j\le N}|\widetilde\beta_j-\beta_j^M|\le a_{NT}.
+\label{eq:screening_event}
+\end{equation}
+Moreover, $\min_j\mathbb E(U_{tj}^2)\ge c>0$ and
+$\max_{j\le N}|\sum_{k\ne j}\mathbb E(U_{tj}U_{tk})\beta_k|
+\le Ca_{NT}$.
+Finally, $\xi\ge2a_{NT}$ and
+$K_{NT}:=|\{j:|\beta_j^M|\ge\xi/2\}|=o(T/m)$,
+where $m$ is the covariance-banding bandwidth introduced below.
+\end{assumption}
+
+The weighted condition allows nonzero individual cross-sectional correlations;
+only their beta-weighted aggregate contribution to each marginal coefficient
+must be small. Over-selection is allowed if the retained model is not too large,
+while under-selection is allowed if the missed signals are weak.  On the
+event \eqref{eq:screening_event}, this means
+\[
+\kappa:=|\widetilde{\mathcal S}|\le K_{NT},\qquad
+\|\beta_{\mathcal A}\|_\infty\le b_{NT},\quad
+\|\beta_{\mathcal A}\|_1\le s b_{NT},\quad
+\|\beta_{\mathcal A}\|_2\le\sqrt{s}\,b_{NT},
+\]
+where $b_{NT}:=\xi+C a_{NT}$. None of the results below assumes
+$\mathcal A=\varnothing$.
+
+Based on the selected variables, the exact post-screening model is
+\begin{equation}
+Y = X_{\widetilde{\mathcal{S}}} \beta_{\widetilde{\mathcal{S}}}
+    +d_0+\varepsilon,\qquad
+d_0:=X_{\mathcal A}\beta_{\mathcal A}. \label{eq:reduced_model}
+\end{equation}
+where $X_{\widetilde{\mathcal{S}}}$ is the submatrix of $X$ consisting of the
+columns whose indices are in $\widetilde{\mathcal{S}}$.  Let
+$(\widehat\alpha,\widehat\beta_{\widetilde{\mathcal S}}')'$ be the ordinary
+least-squares coefficient from regressing $Y$ on the post-screening refit
+design
+\[
+Z_{\widetilde{\mathcal S}}=[\mathbf 1,X_{\widetilde{\mathcal S}}],
+\qquad
+P_{\widetilde{\mathcal S}}
+=Z_{\widetilde{\mathcal S}}
+(Z_{\widetilde{\mathcal S}}'Z_{\widetilde{\mathcal S}})^{-1}
+Z_{\widetilde{\mathcal S}}'.
+\]
+We estimate the error term by the corresponding OLS residual.  Equivalently,
+\[
+\widehat\varepsilon
+=Y-\widehat\alpha\mathbf 1
+-X_{\widetilde{\mathcal S}}\widehat\beta_{\widetilde{\mathcal S}}
+=(I-P_{\widetilde{\mathcal S}})Y
+=(I-P_{\widetilde{\mathcal S}})(\varepsilon+d_0).
+\]
+Thus under-selection enters the covariance estimator through an explicit
+missed-signal term rather than through an unspecified ``modified error.''
+
+
+
+To estimate the error covariance matrix $\Sigma_{\varepsilon}^{0}$, we exploit the weak dependence structure of the error terms and consider the following banded estimator:
+\begin{equation} \label{eq:cov_estimate}
+\widehat{\Sigma}_{\varepsilon}(r,t) = \widehat{\sigma}_{|t - r|}^{(m)}, \quad \text{where} \quad
+\widehat{\sigma}_{h}^{(m)} = 
+\begin{cases}
+\displaystyle\frac{1}{T - |h|} \sum_{t=1}^{T - |h|} \widehat{\varepsilon}_t \widehat{\varepsilon}_{t + h}, & \text{if } |h| \leq m, \\
+0, & \text{if } |h| > m,
+\end{cases}
+\end{equation}
+with $m = O(T^{\gamma})$ for some $\gamma \in (0,1)$. Here, $\widehat{\varepsilon}_t$ denotes the residual at time $t$ obtained from \eqref{eq:reduced_model}. In our numerical studies, we set $\gamma = 1/5$ so that $m$ grows slowly with the sample size $T$. The estimator in \eqref{eq:cov_estimate} is closely related to the Newey--West (1987) estimator for weakly dependent time series, and can also be combined with thresholding techniques under approximate sparsity as discussed in \citet{FanLiaoMincheva2011}.
+
+We first impose the high-level conditions needed for covariance estimation.
+They do not restrict the errors to be Gaussian or symmetric.
+
+\begin{assumption}[Covariance regularity]
+\label{ass:stationary and weakly dependent}
+The error process is stationary,
+$|\mathbb E(\varepsilon_t\varepsilon_{t+h})|\le C\rho^{|h|}$ for some
+$\rho\in(0,1)$, and
+\[
+\max_{|h|\le m}\left|
+\frac1{T-|h|}\sum_{t=1}^{T-|h|}
+\{\varepsilon_t\varepsilon_{t+|h|}
+-\mathbb E(\varepsilon_t\varepsilon_{t+|h|})\}
+\right|=O_p(T^{-1/2}\ln T).
+\]
+Uniformly over $|S|\le K_{NT}$, the refit design
+$Z_S=[\mathbf 1,X_S]$ is balanced, with
+$\sigma_{\min}(Z_S^\prime Z_S/T)\ge c$ and
+$\sigma_{\max}(Z_S^\prime Z_S/T)\le C$
+with probability approaching one.
+Moreover, uniformly over columns $Z_l$ of $[\mathbf 1,X]$ and $|h|\le m$,
+$T^{-1}|\langle\varepsilon,L_hZ_l\rangle|
+=O_p(\sqrt{\ln(NT)/T})$,
+where $L_h$ is the lag-$h$ alignment operator.
+\end{assumption}
+
+\begin{remark}
+Assumption~\ref{ass:stationary and weakly dependent} separates the
+covariance-estimation requirements from the distributional form of the
+innovations.  Its autocovariance concentration condition is satisfied by
+many weakly dependent causal processes; other covariance estimators may be
+used if they deliver the same operator-norm rate.  The refit condition is a
+standard sparse-eigenvalue requirement.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+\begin{theorem}[Whitening under imperfect screening]
+\label{lm:Sigmahat} Suppose Assumptions~\ref{ass:screening} and
+\ref{ass:stationary and weakly dependent} hold. Then
+\[
+\left\Vert \widehat{\Sigma}_{\varepsilon}
+-\Sigma_{\varepsilon}^{0}\right\Vert=O_p(\omega_{NT}),
+\]
+where
+\[
+\omega_{NT}:=
+C\left[
+\rho^m+mT^{-1/2}\ln T+
+m\frac{(K_{NT}+1)\ln(NT)}{T}+R_{\rm miss}
+\right]
+\]
+and
+\[
+R_{\rm miss}:=
+m\|\beta_{\mathcal A}\|_1
+\sqrt{\frac{(K_{NT}+1)\ln(NT)}{T}}
++m\|\beta_{\mathcal A}\|_1
+\sqrt{\frac{\ln(NT)}{T}}
++m\|\beta_{\mathcal A}\|_1^2 .
+\]
+\end{theorem}
+
+
+The four displayed channels are banding bias, covariance sampling error,
+selection-uniform projection error, and missed-signal contamination.  The
+bound $\|\beta_{\mathcal A}\|_1\le s b_{NT}$ recovers the simpler but
+coarser rate stated in terms of sparsity and screening resolution.  When
+$\mathcal A=\varnothing$, the last channel vanishes as a special case; it
+is not assumed in the theory.
+
+}
+
+
+\subsection{FAR with Serial Dependence Adjustment}
+\label{sec:serial_adjust}
+
+
+Let $\widehat{\Sigma}_{\varepsilon}$ be the error covariance matrix estimated using the procedure described in Section~\ref{sec:erro_cov}. To account for serial dependence in the time series, we propose a transformation by left-multiplying both sides of the post-screening model~\eqref{eq:reduced_model} with $\widehat{\Sigma}_{\varepsilon}^{-1/2}$. Specifically, the exact transformed model is
+\begin{equation}  \label{eq:reduced_transform}
+Y^{\dagger}
+=X^{\dagger}_{\widetilde{\mathcal{S}}}\beta_{\widetilde{\mathcal{S}}}
++d^\dagger+\varepsilon^{\dagger},
+\end{equation}
+where $Y^{\dagger}=\widehat{\Sigma}^{-1/2}_{\varepsilon}Y$,
+$X^{\dagger}_{\widetilde{\mathcal{S}}}
+=\widehat{\Sigma}^{-1/2}_{\varepsilon}X_{\widetilde{\mathcal{S}}}$,
+$d^\dagger=\widehat{\Sigma}^{-1/2}_{\varepsilon}d_0$, and
+$\varepsilon^{\dagger}
+=\widehat{\Sigma}^{-1/2}_{\varepsilon}\varepsilon$.
+
+
+Let $\breve{F}$ and $\breve{\Lambda}_{\widetilde{\mathcal{S}}}$ denote the estimators of the latent factors and factor loadings in the factor model for $X^{\dagger}_{\widetilde{\mathcal{S}}}$, given by
+\[
+X^{\dagger}_{\widetilde{\mathcal{S}}} = F^{\dagger} \Lambda^{\prime}_{\widetilde{\mathcal{S}}} + U^{\dagger}_{\widetilde{\mathcal{S}}},
+\]
+subject to the identification conditions $F^{\dagger\prime}F^{\dagger}/T = I_r$ and $\Lambda^{\prime}_{\widetilde{\mathcal{S}}} \Lambda_{\widetilde{\mathcal{S}}}$ being diagonal.\footnote{Here we slightly abuse notation: $\Lambda_{\widetilde{\mathcal{S}}}$ refers to the submatrix of $\Lambda$ consisting of the rows indexed by $\widetilde{\mathcal{S}}$.} 
+We then define the estimated idiosyncratic component as $\breve{U}_{\widetilde{\mathcal{S}}} = X^{\dagger}_{\widetilde{\mathcal{S}}} - \breve{F} \breve{\Lambda}^{\prime}_{\widetilde{\mathcal{S}}}$. It is worth noting that $\breve{U}_{\widetilde{\mathcal{S}}}$ generally differs from $\widehat{\Sigma}_{\varepsilon}^{-1/2} \widehat{U}_{\widetilde{\mathcal{S}}}$, where $\widehat{U}_{\widetilde{\mathcal{S}}}$ is obtained from (unweighted) PCA applied directly to $X$. This discrepancy arises because PCA, in general, does not commute with the transformation induced by left-multiplication with $\widehat{\Sigma}_{\varepsilon}^{-1/2}$.
+
+
+
+By substituting $\breve{F}$, $\breve{\Lambda}_{\widetilde{\mathcal{S}}}$, and $\breve{U}_{\widetilde{\mathcal{S}}}$ into equation~\eqref{eq:reduced_transform}, we obtain the exact factor-adjusted representation
+\begin{equation}
+Y^{\dagger}
+=\breve{F}\breve{\Lambda}_{\widetilde{\mathcal{S}}}^{\prime}
+\beta_{\widetilde{\mathcal{S}}}
++\breve{U}_{\widetilde{\mathcal{S}}}\beta_{\widetilde{\mathcal{S}}}
++d^\dagger+\varepsilon^{\dagger}.
+\label{eq:transformed_FAR}
+\end{equation}
+The procedure below fits the same factor-augmented Lasso as before and does
+not estimate $d^\dagger$ separately.  In the validity analysis,
+$d^\dagger$ is a design-measurable drift; Lemma
+\ref{lm:score_drift} quantifies its effect.
+By construction, $\breve{F}$ and $\breve{U}_{\widetilde{\mathcal{S}}}$ are orthogonal, i.e., $\breve{F}^{\prime} \breve{U}_{\widetilde{\mathcal{S}}} = 0$. Following the normalization scheme in Barber and Candes (2015), we further normalize each column of $\breve{U}_{\widetilde{\mathcal{S}}}$ such that $\|\breve{U}_{\widetilde{\mathcal{S}}, j}\|_2^2 / T = 1$ for every $j \in \widetilde{\mathcal{S}}$.
+
+If the true covariance matrix $\Sigma_{\varepsilon}^{0}$ were known and used in the transformation, the error in model~\eqref{eq:transformed_FAR} would be serially whitened, simplifying the theoretical justification of false discovery rate (FDR) control via knockoffs. However, in practice, we must estimate $\Sigma_{\varepsilon}^{0}$ using $\widehat{\Sigma}_{\varepsilon}$, and the resulting estimation error may inflate the FDR. Fortunately, as we show later, the consistency of $\widehat{\Sigma}_{\varepsilon}$ (in spectral norm) translates into the robustness of FDR control.\footnote{In a simulation study not reported here, we implement FAR-Knockoff by replacing $\widehat{\Sigma}_{\varepsilon}$ with the infeasible $\Sigma_{\varepsilon}^{0}$, resulting in similar findings.} 
+ 
+
+
+
+
+
+
+\section{FAR-Knockoff Procedure for Variable Selection}
+\label{sec:FAR-Knockoff}
+
+
+\subsection{Construction of Knockoffs for FAR Model}
+\label{sec:knockoff}
+
+Since both cross-sectional and serial dependencies have been adjusted in the FAR model \eqref{eq:transformed_FAR}, we can adopt the \textquotedblleft Fixed-X\textquotedblright\ knockoff framework of \citet{BarberCandes2015} to construct knockoff copies of the covariates $\breve{U}_{\widetilde{\mathcal{S}}}$. 
+
+By selecting the screening model size to satisfy $\kappa < (T-\widehat r)/2$, where $\widehat r$ is the realized estimated factor number, we define $\widetilde{U}_{\widetilde{\mathcal{S}}}$ as the knockoff copy of $\breve{U}_{\widetilde{\mathcal{S}}}$, such that
+\begin{equation}
+\frac{1}{T}
+\begin{bmatrix}
+\breve{U}_{\widetilde{\mathcal{S}}} & \widetilde{U}_{\widetilde{\mathcal{S}}}
+\end{bmatrix}^\prime
+\begin{bmatrix}
+\breve{U}_{\widetilde{\mathcal{S}}} & \widetilde{U}_{\widetilde{\mathcal{S}}}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\Sigma_{\breve{U}_{\widetilde{\mathcal{S}}}} & \Sigma_{\breve{U}_{\widetilde{\mathcal{S}}}} - \operatorname{diag}(\nu) \\
+\Sigma_{\breve{U}_{\widetilde{\mathcal{S}}}} - \operatorname{diag}(\nu) & \Sigma_{\breve{U}_{\widetilde{\mathcal{S}}}}
+\end{bmatrix}
+:= \Psi, \label{eq:Psi}
+\end{equation}
+where $\Sigma _{\breve{U}_{{\widetilde{\mathcal{S}}}}}=\breve{U}_{{%
+\widetilde{\mathcal{S}}}}^{\prime}\breve{U}_{{\widetilde{\mathcal{S}}}}/T $, $\nu$ is a nonnegative vector of length $\kappa$,  $\operatorname{diag}(\nu) \in \mathbb{R}^{\kappa \times \kappa}$ is a diagonal matrix with entries from $\nu$ and satisfies $%
+2\Sigma _{\breve{U}_{{\widetilde{\mathcal{S}}}}}-\diag(\nu )\succeq 0$. 
+
+
+
+\iffalse
+We adopt the \textquotedblleft Fixed-X\textquotedblright\ (Barber and Cand%
+es, 2015) approach of constructing knockoffs with our covariates in
+model \eqref{eq:transformed_FAR} estimated from the raw data $X$. To
+construct factor-adjusted knockoff variables for $\breve{U}_{\widetilde{%
+\mathcal{S}}}$ in the following, let us assume that $T>2|\widetilde{\mathcal{S}}| +r$, and then
+we can create the knockoff $\widetilde{U}_{{\widetilde{\mathcal{S}}}}$ of $%
+\breve{U}_{{\widetilde{\mathcal{S}}}}$, such that 
+\begin{equation}
+\frac{1}{T}[\breve{U}_{{\widetilde{\mathcal{S}}}},\widetilde{U}_{{\widetilde{%
+\mathcal{S}}}}]^{\prime }[\breve{U}_{{\widetilde{\mathcal{S}}}},\widetilde{U}%
+_{{\widetilde{\mathcal{S}}}}]=\left[ 
+\begin{array}{cc}
+\Sigma _{\breve{U}_{{\widetilde{\mathcal{S}}}}} & \Sigma _{\breve{U}_{_{%
+\widetilde{\mathcal{S}}}}}-\diag(\nu ) \\ 
+\Sigma _{\breve{U}_{{\widetilde{\mathcal{S}}}}}-\diag(\nu ) & \Sigma _{%
+\breve{U}_{{\widetilde{\mathcal{S}}}}}%
+\end{array}%
+\right] :=\Psi ,  \label{eq:Psi}
+\end{equation}%
+where $\Sigma _{\breve{U}_{{\widetilde{\mathcal{S}}}}}=\breve{U}_{{%
+\widetilde{\mathcal{S}}}}^{\prime}\breve{U}_{{\widetilde{\mathcal{S}}}}/T $,
+the {$\kappa\times 1$ vector $\nu $ is such that $\diag(\nu )\succeq 0$ and $%
+2\Sigma _{\breve{U}_{{\widetilde{\mathcal{S}}}}}-\diag(\nu )\succeq 0$. %
+\fi
+
+
+
+
+Equation~\eqref{eq:Psi}, together with the normalization, implies
+\[
+\left\Vert \breve{U}_{\widetilde{\mathcal{S}},j} \right\Vert_2^2/T
+=\left\Vert \widetilde{U}_{\widetilde{\mathcal{S}},j} \right\Vert_2^2/T=1.
+\]
+Specifically, the knockoff copy $\widetilde{U}_{\widetilde{\mathcal{S}}}$ can be constructed as
+\begin{equation*}
+\widetilde{U}_{\widetilde{\mathcal{S}}} = 
+\breve{U}_{\widetilde{\mathcal{S}}} \left( I - \Sigma_{\breve{U}_{\widetilde{\mathcal{S}}}}^{-1} \operatorname{diag}(\nu) \right) 
++ V O,
+\end{equation*}
+where $O$ is a $\kappa \times \kappa$ matrix satisfying
+$
+O^{\prime} O/T = 2 \operatorname{diag}(\nu) - \operatorname{diag}(\nu) 
+\Sigma_{\breve{U}_{\widetilde{\mathcal{S}}}}^{-1} \operatorname{diag}(\nu),
+$
+and $V$ is a $T \times \kappa$ orthonormal matrix such that
+\begin{equation}
+V^{\prime} \breve{U}_{\widetilde{\mathcal{S}}} = 0 
+\quad \text{and} \quad 
+V^{\prime} \breve{F} = 0. \label{eq:double-orth}
+\end{equation}
+
+Note that in the original construction of knockoffs, \citet{BarberCandes2015} require only the orthogonality condition $V^{\prime} \breve{U}_{\widetilde{\mathcal{S}}} = 0$. In contrast, our factor-augmented model imposes an additional restriction, namely $V^{\prime} \breve{F} = 0$, thereby adapting the original Fixed-X knockoff framework to our specific setting. This additional condition is essential for deriving a simple yet informative sufficient statistic, as introduced in Section~\ref{sec:FDR_power}, and is easy to satisfy because the estimated factor dimension $\widehat r$ is small. As a result of the double orthogonality condition in \eqref{eq:double-orth}, both the original covariates $\breve{U}_{\widetilde{\mathcal{S}}}$ and their knockoff copies $\widetilde{U}_{\widetilde{\mathcal{S}}}$ are orthogonal to the estimated factors $\breve{F}$:
+\begin{equation}
+\breve{F}^{\prime} \breve{U}_{\widetilde{\mathcal{S}}} = 0 
+\quad \text{and} \quad 
+\breve{F}^{\prime} \widetilde{U}_{\widetilde{\mathcal{S}}} = 0.
+\label{eq:double_orthF}
+\end{equation}
+
+\begin{remark}
+    The construction of $\widetilde{U}_{\widetilde{\mathcal{S}}}$ as the knockoff copy of $\breve{U}_{\widetilde{\mathcal{S}}}$ basically follows the Fixed-X paradigm in matching the empirical moments shown in \eqref{eq:Psi}. Alternatively, one may consider the Model-X paradigm, given that it can accommodate both linear and nonlinear models. However, Model-X knockoff requires the covariates, $\breve{U}_{t,\widetilde{\mathcal{S}}}$ in our case, are i.i.d. over time, whereas in an approximate factor model \citep{BaiNg2002,Bai2003} as in \eqref{eq:factor_model}, it is too restrictive to assume $U_{it}$ are independent over time for all $i$.
+\end{remark}
+
+{\color{red}
+\begin{remark}[Estimated factor number]
+\label{rem:factor_number_main}
+We choose $IC_{p1}$ of \citet{BaiNg2002} to estimate the number of factors.
+For FDR validity, the realized factor number and PCA output are part of the
+conditioned-on design; consistency of $\widehat r$ is therefore not needed
+for the null-swap argument itself.  It is needed to verify the stated PCA
+rates and power conditions.  This separation is made precise in
+Section~\ref{sec:score_representation} and
+Lemma~\ref{lm:pca_bookkeeping}.
+\end{remark}
+
+\begin{remark}[Always-included and predetermined controls]
+\label{rem:Qt_main}
+Let $Q_t\in\mathbb R^{q_0}$, with fixed $q_0$, collect controls that are
+always included but not tested:
+\[
+Y_t=Q_t^\prime\alpha+X_t^\prime\beta+\varepsilon_t.
+\]
+Under strict exogeneity, after whitening one may partial out
+$Q^\dagger=\widehat\Sigma_\varepsilon^{-1/2}Q$ from the response and
+screened covariates before PCA, and impose
+$V^\prime Q^\dagger=0$ in addition to
+\eqref{eq:double-orth}.  The FDR analysis then applies to the
+high-dimensional block $X$ after replacing the factor rank $r$ by
+$r+q_0$.
+
+If $Q_t$ is only predetermined, for example $Q_t=Y_{t-1}$, ordinary
+full-sample residualization need not preserve the conditioning argument.
+A valid implementation uses nuisance coefficients estimated on an earlier
+fold, or a one-sided predictable residualizer, and requires the resulting
+$Q$-projected score to satisfy the score-coupling and threshold-stability
+requirements in Appendix Assumptions~\ref{ass:score}--%
+\ref{ass:threshold}.  With the lower-triangular whitening root and
+$Q_t\in\mathcal F_{t-1}$, this preserves the martingale-score route.
+Appendix~\ref{sec:aux_extensions} records the score calculation.  This
+distinction is relevant when yield-curve or lagged-response controls are
+partialled out in the empirical analysis.
+\end{remark}
+}
+
+
+
+\subsection{FAR-Knockoff Procedure}
+\label{sec:FAR-Knockoff_procedure}
+
+In this subsection, we introduce a variable selection strategy to leverage model \eqref{eq:FAR} using knockoffs. As implied by Lemma 3.1 of \citet{FanKeWang2020}, it is straightforward to show that estimating $\beta$ in \eqref{eq:FAR}, restricted to $\widetilde{\mathcal{S}}$, is equivalent to estimating $\beta_{\widetilde{\mathcal{S}}}$ in the following reparameterized model:
+\begin{equation*}
+Y^{\dagger} = \breve{F} \theta + \breve{U}_{\widetilde{\mathcal{S}}} \beta_{\widetilde{\mathcal{S}}} + \varepsilon^{\dagger},
+\end{equation*}
+where $\theta \in \mathbb{R}^{r}$ is treated as a nuisance parameter. We then consider the following augmented Lasso regression with regularization parameter $\lambda$:
+\begin{equation} \label{eq:Lasso_FAR}
+(\widehat{\beta}, \widehat{\theta} )= \mathop{\arg\min}_{b \in \mathbb{R}^{2\kappa},\; \theta \in \mathbb{R}^{r}} \left\{ 
+\frac{1}{2T} \left\Vert Y^{\dagger} - \breve{F} \theta - [\breve{U}_{\widetilde{\mathcal{S}}}, \widetilde{U}_{\widetilde{\mathcal{S}}}] b \right\Vert_2^2 
++ \lambda \left\Vert b \right\Vert_1 
+\right\}.
+\end{equation} 
+
+To measure variable importance, we compute the knockoff statistics in the form of Lasso coefficient-difference (LCD),
+\begin{align}
+\label{eq:Wj}
+W_j = |\widehat{\beta}_j| - |\widehat{\beta}_{j+\kappa}|, \quad j = 1, \ldots, \kappa. 
+\end{align}
+Alternatively, one may also consider other importance statistics such as the Lasso signed matrix (LSM) and Bayesian variable selection (BVS). We choose LCD as it is shown to possess higher power, in line with the finding of \citet{CandesFanEtal2018}.
+
+Given a prescribed target level of false discovery rate (FDR) $q$, we define the selection threshold $G$ as
+\begin{equation}
+\label{eq:G}
+G = \min \left\{ g \in \mathcal{W} : \frac{1 + \left| \left\{ j \in \widetilde{\mathcal{S}} : W_j \leq -g \right\} \right|}{\left| \left\{ j \in \widetilde{\mathcal{S}} : W_j \geq g \right\} \right| \vee 1} \leq q \right\},
+\end{equation}
+where $\mathcal{W} = \left\{ |W_j| : 1 \leq j \leq \kappa \right\} \setminus \{0\}$ is the set of unique, nonzero absolute values of the knockoff statistics. Based on this threshold, the  set of selected variables is given by
+\begin{equation*}
+\widehat{\mathcal{S}} = \left\{ j \in \widetilde{\mathcal{S}} : W_j \geq G \right\}.
+\end{equation*}
+
+Note that our variable selection strategy is conducted conditional on the screened set $\widetilde{\mathcal{S}}$. The screening step is essential not only for estimating $\Sigma^{0}_{\varepsilon}$ but also for constructing  knockoffs when $N \geq T$. Moreover, a smaller $\widetilde{\mathcal{S}}$ can improve FDR control in our method, as will be discussed later. However, conditioning on $\widetilde{\mathcal{S}}$ introduces potential bias: null covariates retained in $\widetilde{\mathcal{S}}$ are more likely to be selected, potentially inflating the FDR. This post-selection inference issue has been studied in \citet{LeeSunSunTaylor2016}, \citet{KuchibhotlaKolassaKuffner2022}, and \citet{RasinesYoung2023}, among others.
+
+
+{\color{minorrevisionred}
+To address the potential bias introduced by pre-screening, we use sequential
+sample splitting. The estimation and inference blocks are separated by a gap
+of length $2l_T$, where $l_T=\lfloor T^{1/5}\rfloor$; for equal outer blocks,
+their lengths are $(T-2l_T)/2$. The complete procedure is summarized below.
+}
+
+\begin{algorithm}[H]
+\color{minorrevisionred}
+\captionsetup{labelfont={color=minorrevisionred},textfont={color=minorrevisionred}}
+\caption{FAR-Knockoff}
+\label{alg:far_knockoff}
+\begin{spacing}{1.12}
+\small
+\begin{algorithmic}[1]
+\REQUIRE Time series $(X,Y)$, target FDR $q$, screening rule, covariance
+bandwidth $m$, factor-selection rule, and Lasso penalty $\lambda$.
+\STATE Split the observations in time order into an estimation block, a
+middle block gap, and an inference block.
+\STATE On the estimation block, estimate factors and idiosyncratic components,
+obtain $\widetilde{\mathcal S}$, and estimate
+$\widehat\Sigma_\varepsilon$ from the post-screening residuals.
+\STATE Whiten the inference block by
+$\widehat\Sigma_\varepsilon^{-1/2}$; re-estimate its factor space and form
+$\breve U_{\widetilde{\mathcal S}}$.
+\STATE Construct $\widetilde U_{\widetilde{\mathcal S}}$ satisfying the
+Fixed-X Gram identities and orthogonality to the estimated factors.
+\STATE Fit \eqref{eq:Lasso_FAR}, compute
+$W_j=|\widehat\beta_j|-|\widehat\beta_{j+\kappa}|$, and apply
+\eqref{eq:G} to obtain the selected original-variable indices.
+\end{algorithmic}
+\end{spacing}
+\vspace{1.2em}
+\end{algorithm}
+
+For simplicity of presentation, we refer to the proposed knockoff-based variable selection procedure for the FAR model, along with the sample splitting scheme, as \textbf{FAR-Knockoff}. To streamline notation, we suppress fold indices such as $\langle 1 \rangle$ from expressions like $\widetilde{\mathcal{S}}^{\langle 1 \rangle}$ when no confusion arises from the context.
+
+{\color{minorrevisionred}
+\paragraph{Practical tuning.}
+The theory suggests choosing $\xi$ at the order of the uniform first-stage
+error, with $\xi\geq2a_{NT}$, while keeping the screened dimension small enough
+for $K_{NT}=o(T/m)$. The bandwidth should increase slowly, with $m/T\to0$, to
+balance covariance-estimation variance against truncation bias; our numerical
+choice $m\asymp T^{1/5}$ has this form. The augmented-Lasso penalty is chosen to
+dominate the empirical score fluctuation appearing in the power conditions,
+and the factor number is selected by the information criterion in
+Remark~\ref{rem:factor_number_main}. Appendix~\ref{sec:implementation} records
+the numerical implementation.
+}
+
+{\color{red}
+\begin{remark}[Data recycling]
+\label{rem:recycling_main}
+To recover some power lost to sample splitting, the estimation fold may be
+reused in the final Lasso as in \citet{BarberCandes2019}: on each recycled
+row, set the knockoff column equal to its original column, and retain the
+ordinary knockoff construction on the inference fold.  If $b_j$ and
+$\widetilde b_j$ are the two coefficients, the recycled rows inform only
+their common direction $c_j=(b_j+\widetilde b_j)/2$, not the contrast
+$d_j=(b_j-\widetilde b_j)/2$.  They can therefore help a true pair cross
+the Lasso entry threshold, while the inference fold alone decides whether
+the original beats its knockoff.  Because the recycled score shift is
+identical within each pair, pair-swap invariance is preserved.  The
+explicit algorithm and the distinction between the stacked Lasso Gram
+matrix and the random inference-score covariance are given in
+Lemma~\ref{lm:recycling_bookkeeping}.
+\end{remark}
+}
+
+
+
+
+
+\section{Theoretical Properties of FAR-Knockoff}
+\label{sec:FDR_power}
+
+\input{unified_theory_main_readable_2026-09-03}
+
+\iffalse
+
+\subsection{Roadmap for Establishing FDR Control}
+
+Let $\widehat{\mathcal{S}}$ denote the set of selected features, $\mathcal{S}_0$ the true active set, and $\mathcal{S}_0^c$ the complement of $\mathcal{S}_0$. Define the false discovery proportion (FDP), false discovery rate (FDR), and power as
+\begin{equation*}
+\text{FDP} = \frac{|\widehat{\mathcal{S}} \cap \mathcal{S}_0^c|}{|\widehat{\mathcal{S}}|}, \quad 
+\text{FDR} = \mathbb{E}(\text{FDP}), \quad
+\text{and} \quad 
+\text{Power} = \mathbb{E} \left( \frac{|\widehat{\mathcal{S}} \cap \mathcal{S}_0|}{|\mathcal{S}_0|} \right).
+\end{equation*}
+Throughout this paper, we follow the convention that $0/0 = 0$. 
+%We aim to show that $\text{FDR} \equiv \mathbb{E}(\text{FDP}) \leq q$ while achieving high power.
+
+Our goal is to demonstrate that the proposed FAR-Knockoff procedure controls
+the FDR at a prescribed level $q\in \lbrack 0,1]$ while achieving high
+power. Recall that $W_{j}$ is the knockoff statistic for the $j$-th feature
+as defined in \eqref{eq:Wj}, and $G$ is the selection threshold given a
+target FDR level $q$ as defined in \eqref{eq:G}. The FDP at threshold $G$ is
+given by 
+\begin{equation*}
+\text{FDP}(G)=\frac{\sum_{j\in \mathcal{S}_{0}^{c}}\mathbf{1}\{W_{j}\geq G\}%
+}{\sum_{j}\mathbf{1}\{W_{j}\geq G\}}=\frac{1+\sum_{j\in \mathcal{S}_{0}^{c}}%
+\mathbf{1}\{W_{j}\leq -G\}}{\sum_{j}\mathbf{1}\{W_{j}\geq G\}}\cdot 
+\underbrace{\frac{\sum_{j\in \mathcal{S}_{0}^{c}}\mathbf{1}\{W_{j}\geq G\}}{%
+1+\sum_{j\in \mathcal{S}_{0}^{c}}\mathbf{1}\{W_{j}\leq -G\}}}_{\underline{%
+\mathcal{R}}}\leq q\cdot \underline{\mathcal{R}},
+\end{equation*}%
+where the inequity follows by \eqref{eq:G}. As for $\underline{%
+\mathcal{R}}$, it is obvious that 
+\begin{equation*}
+\underline{\mathcal{R}}\leq \mathcal{R}:=\frac{\sum_{j\in \mathcal{S}%
+_{0}^{c}}\mathbf{1}\{W_{j}\geq G\}}{\sum_{j\in \mathcal{S}_{0}^{c}}\mathbf{1}%
+\{W_{j}\leq -G\}}.
+\end{equation*}
+In case that the knockoff statistics for inactive variables satisfies approximate symmetry, it follows that $
+\sum_{j \in \mathcal{S}_0^c} \mathbf{1}\{W_j \geq t\} {\approx} \sum_{j \in \mathcal{S}_0^c} \mathbf{1}\{W_j \leq -t\},  \forall t \in \mathbb{R}$. Roughly speaking, this implies that $\mathcal{R}$ is close to 1. We will next formalize this idea. To be specific,  we further decompose it as
+\begin{equation}
+\mathcal{R} = \mathcal{R}_1 + \mathcal{R}_2 := 
+\frac{\sum_{j \in \mathcal{S}_0^c } \mathbf{1}\{W_j \geq G,\, E_j \leq \epsilon\}}{\sum_{j \in \mathcal{S}_0^c } \mathbf{1}\{W_j \leq -G\}} +
+\frac{\sum_{j \in \mathcal{S}_0^c } \mathbf{1}\{W_j \geq G,\, E_j > \epsilon\}}{\sum_{j \in \mathcal{S}_0^c } \mathbf{1}\{W_j \leq -G\}},
+\label{eq:R1R2}
+\end{equation}
+where $E_j$ measures the degree of exchangeability for statistic $W_j$, and will be formally defined in Section~\ref{sec:degree_exchange}. To ensure FDR control at level $q$, we wish to show that $\mathbb{E}(\mathcal{R}_1) \to 1$ and $\mathbb{E}(\mathcal{R}_2) \to 0$, which together imply $\mathbb{E}(\mathcal{R}) \to 1$, a desired property for FDR control.
+
+
+
+To establish the approximate symmetry and facilitate theoretical analysis, we impose the following assumption.
+
+\begin{assumption}
+\label{ass:normality}
+The error term satisfies $\varepsilon = \Sigma_\varepsilon^{1/2} e$ with $e \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$.
+\end{assumption}
+ 
+
+Under Assumption~\ref{ass:normality}, analysis can be conducted using the following sufficient statistics:
+\begin{equation}
+\text{(i)} \; [\breve{U}_{\widetilde{\mathcal{S}}}, \widetilde{U}_{\widetilde{\mathcal{S}}}]^{\prime}[\breve{U}_{\widetilde{\mathcal{S}}},
+\widetilde{U}_{\widetilde{\mathcal{S}}}]
+\quad \text{and} \quad
+\text{(ii)} \; \left[\begin{array}{c}
+\breve{U}_{\widetilde{\mathcal{S}}}^{\prime} \varepsilon^{\dagger} \\
+\widetilde{U}_{\widetilde{\mathcal{S}}}^{\prime} \varepsilon^{\dagger}
+\end{array}\right].
+\label{eq:suff_stat}
+\end{equation}
+These statistics summarize the necessary information relevant for FAR-Knockoff, reduce the problem's effective dimension, and allow tractable control of the Kullback--Leibler divergence that governs FDR inflation.
+
+
+Assumption~\ref{ass:normality} is used for the baseline argument below.
+Section~\ref{sec:nongaussian} removes it by coupling the
+$2\kappa$-dimensional score in \eqref{eq:suff_stat}, rather than the raw
+data, to a covariance-matched Gaussian vector.  The dimension reduction is
+essential: the relevant score is a sum of innovation-weighted vectors and
+therefore admits an explicit martingale Yurinskii bound.
+
+
+
+
+
+
+\subsection{The Degree of Exchangeability}
+\label{sec:degree_exchange}
+
+To formalize the dependence of $W_j$ on the data, we define
+\begin{equation}
+\breve{Z} := \frac{1}{\sqrt{T}} \breve{U}_{\widetilde{\mathcal{S}}}^{\prime} \varepsilon^{\dagger}
+\quad \text{and} \quad
+\widetilde{Z} := \frac{1}{\sqrt{T}} \widetilde{U}_{\widetilde{\mathcal{S}}}^{\prime} \varepsilon^{\dagger}.
+\end{equation}
+Then, $W_j$ can be written as a function of these sufficient statistics:
+\begin{equation}
+W_j(\Psi, [\breve{Z}, \widetilde{Z}]) = \left| \widehat{\beta}_j(\Psi, [\breve{Z}, \widetilde{Z}]) \right| - \left| \widehat{\beta}_{j+\kappa}(\Psi, [\breve{Z}, \widetilde{Z}]) \right|.
+\end{equation}
+
+
+Under our knockoff construction, the statistic $W_j$ satisfies a key flip-sign property. Specifically, for any set $\mathcal{A} \subseteq \widetilde{\mathcal{S}}$, let $[\breve{Z}, \widetilde{Z}]_{\text{swap}(\mathcal{A})}$ denote the vector obtained by swapping $\breve{Z}_j$ and $\widetilde{Z}_j$ for all $j \in \mathcal{A}$. Then,
+\begin{equation}
+W_j(\Psi, [\breve{Z}, \widetilde{Z}]_{\text{swap}(\mathcal{A})}) = 
+\begin{cases}
+W_j(\Psi, [\breve{Z}, \widetilde{Z}]), & \text{if } j \notin \mathcal{A}, \\
+- W_j(\Psi, [\breve{Z}, \widetilde{Z}]), & \text{if } j \in \mathcal{A}.
+\end{cases}
+\end{equation}
+This flip-sign property at the level of sufficient statistics, rather than raw covariates, is critical for the theoretical analysis--especially when the rows of $X$ (or equivalently, $\breve{U}_{\widetilde{\mathcal{S}}}$) are not independent.
+
+To quantify how far the pair $(\breve{Z}_j, \widetilde{Z}_j)$ deviates from exact exchangeability, we define the \emph{Degree of Exchangeability}:
+\begin{equation}
+E_j(a, b) := \log \left( 
+\frac{
+\mathbb{P} \{ (\breve{Z}_j, \widetilde{Z}_j) = (a, b) \mid \breve{Z}_{-j}, \widetilde{Z}_{-j}, \Psi \}
+}{
+\mathbb{P} \{ (\breve{Z}_j, \widetilde{Z}_j) = (b, a) \mid \breve{Z}_{-j}, \widetilde{Z}_{-j}, \Psi \}
+}
+\right).
+\label{eq:Ej}
+\end{equation}
+When $E_j(a, b) = 0$, the pair $(\breve{Z}_j, \widetilde{Z}_j)$ is conditionally exchangeable given the rest of the statistics and design matrix. Hence, $E_j(\breve{Z}_j, \widetilde{Z}_j)$ serves as a measure of the departure from conditional exchangeability.
+
+Exact exchangeability combined with the flip-sign property guarantees symmetry of $W_j$ for inactive variables, and thus implies that
+$
+    \mathbb{P}(W_j \geq G) \approx \mathbb{P}(W_j \leq -G), \quad \text{for } j \in \mathcal{S}_0^c.
+$
+In practice, exchangeability may only hold approximately. Therefore, a key question is: to what extent does an approximate exchangeability condition, such as $E_j(\breve{Z}_j, \widetilde{Z}_j) < \epsilon$, affect FDR control? The following result, adapted from Lemma 2 of \citet{BarberCandesSamworth2020}, provides a precise quantification.
+
+\begin{lemma}
+\label{lm:degree_exchange}
+Under Assumptions \ref{ass:stationary and weakly dependent}-\ref{ass:normality}, for any $\epsilon > 0$ and any $j \in \mathcal{S}_0^c \cap \widetilde{\mathcal{S}}$, we have
+\begin{equation*}
+\mathbb{P}\left( W_j > 0,\, E_j(\breve{Z}_j, \widetilde{Z}_j) \leq \epsilon \,\middle|\, |W_j|, W_{-j}, \Psi \right) 
+\leq e^{\epsilon} \cdot 
+\mathbb{P}\left( W_j < 0 \,\middle|\, |W_j|, W_{-j}, \Psi \right).
+\end{equation*}
+\end{lemma}
+  
+%\wj{Replying Ke: The reason of the exponential $e$ appearing here is mechanical, As the degree of exchangeability $E_{j}$ is defined as the log of likelihood ratio.}
+
+Lemma~\ref{lm:degree_exchange} shows that while $W_j$ may not be perfectly symmetric under approximate exchangeability, the asymmetry is controlled exponentially in $\epsilon$. This implies that if most null features satisfy $E_j < \epsilon$ for a small $\epsilon$, the correction factor $\mathcal{R}_1$ in \eqref{eq:R1R2} satisfies $\mathbb{E}(\mathcal{R}_1) \leq  e^{\epsilon}$, leading to controlled inflation in the overall FDR bound.  %\wj{There was indeed a typo of extra $q$ here, and is now removed.}
+
+
+
+
+\subsection{Properties of FDR Control}
+
+We now aim to bound the quantity $\max_{j\in \mathcal{S}_{0}^{c} \cap \widetilde{\mathcal{S}}} E_{j}(\breve{Z}_{j},\widetilde{Z}_{j})$, which directly controls $\mathbb{E}(\mathcal{R}_2)$ and thus ensures overall FDR control, given the earlier result that $\mathbb{E}(\mathcal{R}_1) \leq  e^{\epsilon}$. As we show, the estimation error of $\Sigma_{\varepsilon}^{0}$ is the key driver in bounding this term.
+
+To capture the perturbation introduced by replacing the unknown $\Sigma_{\varepsilon}^0$ with its estimator $\widehat{\Sigma}_{\varepsilon}$, we define $\Sigma_{\varepsilon}^\ast$ as the underlying (possibly random) error covariance matrix. Let $\Cov^{\dagger}(\breve{Z},\widetilde{Z}) := \Cov(\breve{Z},\widetilde{Z} \mid \Sigma_{\varepsilon}^{\ast} = \widehat{\Sigma}_{\varepsilon})$ and $P^{\dagger}(\breve{Z},\widetilde{Z})$ be the corresponding conditional distribution. Since $\varepsilon_t^{\dagger} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ under this conditioning, it follows that $\Cov^{\dagger}(\breve{Z},\widetilde{Z}) = \Psi$.
+
+
+Given that the joint distribution determines its conditional counterpart, we have
+\begin{equation*}
+\widetilde{Z} \mid \breve{Z}, \Psi \sim \mathcal{N} \left( \left(I - \Sigma_{\breve{U}_{\widetilde{\mathcal{S}}}}^{-1} \diag(\nu) \right) \breve{Z},\; 2\diag(\nu) - \diag(\nu)\Sigma_{\breve{U}_{\widetilde{\mathcal{S}}}}^{-1}\diag(\nu) \right),
+\end{equation*}
+which implies the pairwise exchangeability \citep[e.g., Lemma 4 in][]{BarberCandesSamworth2020}. 
+\begin{equation}
+(\breve{Z}_j, \widetilde{Z}_j, \breve{Z}_{-j}, \widetilde{Z}_{-j}) \overset{d}{=} (\widetilde{Z}_j, \breve{Z}_j, \breve{Z}_{-j}, \widetilde{Z}_{-j}), \quad \forall j \in \widetilde{\mathcal{S}}.
+\label{eq:pair_exchange}
+\end{equation}
+
+The result in \eqref{eq:pair_exchange} implies that if $\Sigma_{\varepsilon}^{\ast} = \widehat{\Sigma}_{\varepsilon}$ were true, exchangeability would hold exactly, and $\mathbb{E}(\mathcal{R}) \leq \mathbb{E}(\underline{\mathcal{R}}) = 1$. In practice, we have only approximate exchangeability due to estimation error. To make this precise, define
+\begin{align*}
+& P_{\breve{Z}_j}^{\star}(a \mid \breve{Z}_{-j}, \Psi) := P(\breve{Z}_j = a \mid \breve{Z}_{-j}, \Sigma_{\varepsilon}^{\ast} = \Sigma_{\varepsilon}^0, \Psi), \\
+\text{and} \ & P_{\breve{Z}_j}^{\dagger}(a \mid \breve{Z}_{-j}, \Psi) := P(\breve{Z}_j = a \mid \breve{Z}_{-j}, \Sigma_{\varepsilon}^{\ast} = \widehat{\Sigma}_{\varepsilon}, \Psi),
+\end{align*}
+and express the degree of exchangeability via the lens of likelihood ratio as stated in the following lemma.
+
+\begin{lemma}
+\label{lm:simple_degree}
+Under Assumptions \ref{ass:stationary and weakly dependent}-\ref{ass:normality}, for all $j \in \widetilde{\mathcal{S}}$,
+\begin{equation}
+\frac{\mathbb{P}\{\breve{Z}_j = a, \widetilde{Z}_j = b \mid \breve{Z}_{-j}, \widetilde{Z}_{-j}, \Psi\}}{\mathbb{P}\{\breve{Z}_j = b, \widetilde{Z}_j = a \mid \breve{Z}_{-j}, \widetilde{Z}_{-j}, \Psi\}} = 
+\frac{P_{\breve{Z}_j}^{\star}(a \mid \breve{Z}_{-j}, \Psi) \cdot P_{\breve{Z}_j}^{\dagger}(b \mid \breve{Z}_{-j}, \Psi)}{P_{\breve{Z}_j}^{\dagger}(a \mid \breve{Z}_{-j}, \Psi) \cdot P_{\breve{Z}_j}^{\star}(b \mid \breve{Z}_{-j}, \Psi)}.
+\label{eq:joint_marginal}
+\end{equation}
+\end{lemma}
+
+Lemma~\ref{lm:simple_degree} enables us to bound $E_j(\breve{Z}_j, \widetilde{Z}_j)$ in terms of differences between conditional densities under the true and estimated error covariances. Thus, the estimation error $\|\widehat{\Sigma}_{\varepsilon} - \Sigma_{\varepsilon}^0\|$ is the key contributor to FDR inflation.
+
+To proceed, we impose the following assumptions to control temporal dependence and matrix estimation quality.
+
+\begin{assumption}
+\label{ass:beta-mxing}
+The process $\{(F_t, U_t, \varepsilon_t)\}$ is stationary and $\beta$-mixing, with mixing rate $\beta(s_T) \to 0$ as $s_T \to \infty$ for some diverging sequence $s_T = s_T(T)$.
+\end{assumption}
+
+\begin{remark}
+    Assumption~\ref{ass:beta-mxing} ensures weak temporal dependence of $\beta$-mixing. \citet{Mokkadem1988} shows that stationary vector ARMA processes are $\beta$-mixing with mild conditions. \citet{CarrascoChen2002} provide sufficient and, in some cases, necessary conditions for $\beta$-mixing with a generalized random coefficient
+autoregressive model and a generalized hidden Markov model, which accommodate various GARCH, stochastic volatility, and autoregressive conditional duration models. The $\beta$-mixing condition is also often employed in statistical learning theory  \citep{Vidyasagar2003,Lozano2005}. $\beta$-mixing, although stronger than $\alpha$-mixing, is ``just right'' for the extension of i.i.d. results to dependent data \citep[p.41]{Vidyasagar1997}. Unlike \citet{ChiFanIngLv2025}, which requires an exponentially decaying $\beta$-mixing rate due to extensive time-block splitting, our sufficient-statistics-based approach only requires a slowly decaying rate, as it avoids high-dimensional dependencies across many time slices.
+\end{remark}
+
+\begin{assumption}
+\label{ass:bounded_moments}
+Define $U^*=\left(\Sigma_{\varepsilon}^0\right)^{-1 / 2} U$ and $\Sigma_{U^*}=\mathbb{E}\left(U^{* \prime} U^* / T\right)$. There exists $c > 0$ such that $\sigma_{\min}(\Sigma_{\varepsilon}^0) > c$, $\max_{t,j} \mathbb{E}(U_{tj}^2) < 1/c$, and $c < \sigma_{\min}(\Sigma_{U_{\widetilde{\mathcal{S}}}^{\ast}}) < \sigma_{\max}(\Sigma_{U_{\widetilde{\mathcal{S}}}^{\ast}}) < 1/c$ in probability.
+\end{assumption}
+
+\begin{assumption}
+\label{ass:high-level}
+(a) The PCA estimator satisfies $\|\breve{F}\breve{\Lambda}_{\widetilde{\mathcal{S}}}^{\prime} - F^{\dagger} \Lambda_{\widetilde{\mathcal{S}}}^{\prime}\|_{\max} = O_p(\varrho_{NT})$, where $\varrho_{NT} := (\ln T)^{1/s_a} \sqrt{(\ln N)/T} + N^{-1/2} \sqrt{\ln T}$ for some $s_a > 0$; \\
+(b) $\max_j \left| \frac{1}{T} \|U_{\cdot j}\|^2 - \mathbb{E}(U_{tj}^2) \right| = O_p(T^{-1/2} \sqrt{\ln N})$; \\
+(c) $\left\| \frac{1}{T} U^{\ast \prime} U^{\ast} - \Sigma_{U^{\ast}} \right\|_{\max} = O_p(T^{-1/2} \sqrt{\ln N})$.
+\end{assumption}
+
+\begin{assumption}
+\label{ass:rates}
+As $(N, T) \to \infty$, it holds that $K_{NT} \omega_{NT} \ln(NT) \to 0$.
+\end{assumption}
+
+\begin{remark} (i) Assumption \ref{ass:high-level} (a) states the uniform convergence rate of the common component. The rate depends on $\max_{t} \| \breve{F}_{t} - F^{\dagger}_{t} \| $ and $\max_{i} \| \breve{\Lambda}_{i, \widetilde{\mathcal{S}}} - \Lambda_{i, \widetilde{\mathcal{S}}} \|$, whose rates can be shown $N^{-1/2} \sqrt{\ln T}$ and $(\ln T)^{1/s_a} \sqrt{(\ln N)/T}$, respectively \cite[Theorem 3.5]{WeiZhang2024}. (ii) Assumption \ref{ass:high-level} (b) and (c) state the rate for the maxima of zero-mean processes. If $U_{it}$ additionally satisfies an exponential-type tail condition and $\alpha$-mixing polynomial rate, the rate will be guaranteed   \cite[Lemma A.3]{FanLiaoMincheva2011}. (iii) Assumption~\ref{ass:rates} ensures that the precision matrices $\Omega^{\star}:=\left[\operatorname{Cov}^{\star}(\breve{Z})\right]^{-1}$ and $\Omega^{\dagger}:=\left[\operatorname{Cov}^{\dagger}(\breve{Z})\right]^{-1}$ are uniformly close, which is critical for bounding the KL divergence associated with FDR control.   
+\end{remark}
+
+\begin{theorem}[Asymptotic FDR Control]
+\label{thm:FDR_Control}
+Under Assumptions \ref{ass:stationary and weakly dependent}--\ref{ass:rates}, as $(N, T) \to \infty$,
+\begin{equation*}
+\mathrm{FDR} \leq q \cdot a_{NT} + b_{NT} + c_{NT},
+\end{equation*}
+where $a_{NT} \to 1$, $b_{NT} \to 0$, and $c_{NT} \to 0$.
+\end{theorem}
+
+Theorem~\ref{thm:FDR_Control} establishes asymptotic FDR control for FAR-Knockoff. In the i.i.d. setting, $c_{NT} = 0$, and we have:
+\[
+\mathrm{FDR} \leq \min_{\epsilon \geq 0} \left\{ q e^{\epsilon} + \mathbb{P} \left( \max_{j \in \mathcal{S}_0^c \cap \widetilde{\mathcal{S}}} E_j > \epsilon \right) \right\}.
+\]
+With $\max_j E_j = O_p(K_{NT} \omega_{NT})$, choosing $\epsilon^{\ast} = K_{NT} \omega_{NT} \ln(NT)$ yields $a_{NT} = e^{\epsilon^{\ast}} \to 1$ and $b_{NT} \to 0$. In time series data, $c_{NT}$ accounts for dependence between prescreening and inference stages. It is defined as the total variation distance between $(X^{\langle 3 \rangle}, Y^{\langle 3 \rangle})$ and an independent copy $(X^{\langle 3 \rangle \star}, Y^{\langle 3 \rangle \star})$, and vanishes under Assumption~\ref{ass:beta-mxing}.
+
+
+
+\subsection{Asymptotic Analysis of Power}
+
+While the preceding analysis focuses on false discovery control, the other critical property of knockoff inference is its power. In this subsection, we study the asymptotic power of the FAR-Knockoff procedure under additional regularity conditions.
+
+Recall that $\lambda$ is the tuning parameter for the Lasso regression in the factor-augmented model \eqref{eq:Lasso_FAR}. The following assumption provides sufficient conditions to ensure that the procedure has non-trivial power.
+
+\begin{assumption}
+\label{ass:power_condition}
+(a) The number of strong signals satisfies 
+$\left| \{ j : |\beta_j| \gg \sqrt{\kappa} \lambda \} \right| \geq c \kappa$ 
+for some constant $c \in ((q\kappa)^{-1}, 1)$; \\
+(b) The signal strength satisfies the ``beta-min'' condition:
+$\min_{j \in \mathcal{S}_0} |\beta_j| \geq \varkappa_T \lambda$ 
+for some diverging sequence $\varkappa_T \to \infty$ as $T \to \infty$; \\
+(c) The conditional variance of knockoff statistics is bounded below by some positive constant: 
+$
+\sigma_{\min} \left\{ 2 \diag(\nu) - \diag(\nu) \Sigma_{U^{\ast}}^{-1} \diag(\nu) \right\} \geq C >0.
+$
+\end{assumption}
+
+\begin{remark}
+Assumption~\ref{ass:power_condition} is analogous to those used in \citet*{FanDemirkayaLiLv2020} and \citet{LiuSunKe2024}. Part (a) ensures that the selected set $\widehat{\mathcal{S}}$ is sufficiently large, while part (b) imposes the standard ``beta-min" condition to separate strong signals from noise. %Neither condition dominates the other.
+\end{remark}
+
+We now state the main result on the asymptotic power of FAR-Knockoff.
+
+\begin{theorem}[Asymptotic Power]
+\label{thm:Power}
+Under Assumptions~\ref{ass:stationary and weakly dependent}--\ref{ass:power_condition}, if $K_{NT}(\omega_{NT} + N^{-1/2}\sqrt{\ln T}) \to 0$, then with $\lambda = C_2(T^{-1} K_{NT} + T^{-1/2})m$ for some constant $C_2 > 0$, we have
+\begin{equation*}
+\frac{|\widehat{\mathcal{S}} \cap \mathcal{S}_0|}{\kappa_0} \geq 1 - c(\varphi + 1) \varkappa_T^{-1},
+\end{equation*}
+where $\varphi = (1 + \sqrt{5}) / 2$ is the golden ratio. Consequently,
+\begin{equation*}
+\mathrm{Power} = \mathbb{E} \left( \frac{|\widehat{\mathcal{S}} \cap \mathcal{S}_0|}{|\mathcal{S}_0|} \right) = 1 - o(1).
+\end{equation*}
+\end{theorem}
+
+Theorem~\ref{thm:Power} confirms that FAR-Knockoff achieves asymptotically ideal power under appropriate conditions. Although knockoff inference is inherently more conservative than pure Lasso-based methods \citep[e.g.][]{FanKeWang2020} due to its control over false discoveries, this result ensures that the incurred power loss vanishes asymptotically. Thus, FAR-Knockoff successfully balances FDR control with high selection power, making it both rigorous and practically effective.
+
+\input{integrated_theory_main}
+\fi
+
+
+
+
+\section{Simulations}
+\label{sec:sim}
+
+
+{\color{minorrevisionred}
+In this section, we consider two simulated experiments to evaluate the finite-sample performance of FAR-Knockoff and several well-established competitive methods. The first experiment is a synthetic model, while the second is a calibrated model based on real-world financial data. For each simulated experiment, we consider four combinations of sample sizes: $N \in \{200, 400\}$ and $T \in \{200, 400\}$. The main text reports 500 replications at $q=0.2$.\footnote{Results for $q=0.1$ are reported in Appendix~\ref{app:q01_results}. Under TSKI's within-subsample level $q/2$, a nonempty selection requires at least 20 positive exceedances, although the designs contain only ten signals. We therefore retain this mechanically low-discovery configuration in the appendix rather than as the main comparison.}
+}
+
+
+\subsection{Competitive Methods and Evaluation Criteria}
+
+We compare FAR-Knockoff with Lasso and {\sc FarmSelect} \citep{FanKeWang2020}, Model-X and Fixed-X knockoffs \citep{CandesFanEtal2018}, and TSKI \citep{ChiFanIngLv2025}. Lasso and FarmSelect are selection benchmarks, not FDR-controlling procedures. Model-X uses estimated covariate moments; Fixed-X matches sample moments and is evaluated when $T>N$. TSKI uses two interlaced subsamples, within-subsample level $q/2$, and e-value aggregation at level $q$. Appendix~\ref{sec:implementation} specifies the fitting and threshold choices; the comparisons concern these configurations, not a ranking over all possible tunings.
+
+We report empirical FDR, power, accuracy $(TP+TN)/(N_1+N_0)$, $F_1=2TP/(2TP+FP+FN)$, and false-positive rate $FP/N_0$, where $N_1$ and $N_0$ denote the numbers of active and inactive variables and $TP,TN,FP,FN$ have their usual meanings.
+Selections from a screened design are mapped back to the original covariate indices before evaluation. Empty selections contribute zero FDP and power; unavailable methods are marked N.A., not scored as empty selections. Appendix~\ref{app:far_mc_variability} reports Monte Carlo standard deviations for FAR-Knockoff and the pre-screened benchmarks.
+
+
+
+
+
+\subsection{Experiment 1: Synthetic Model}
+
+
+The first experiment is based on the following factor-augmented model:
+\begin{align*}
+Y_t = X_t^{\prime} \beta + \varepsilon_t, \quad
+X_{ti} = \lambda_i^{\prime} F_t + U_{ti}, \quad \text{for } t = 1, \ldots, T,\ i = 1, \ldots, N.
+\end{align*}
+We set the number of latent factors to $r = 3$. The factor loadings $\lambda_{ik}$ are independently drawn from $\mathcal{N}(1, 1)$, and the factors $F_{tk}$ are generated from $\mathcal{N}(0, 1)$ independently across $t$ and $k$.\footnote{In additional simulation designs and results in Appendix \ref{sec:gaussian_error}, we also experiment with non-factor-driven predictors: Specifically, $X_{t} \sim \mathcal{N}(0, \Sigma_{X})$ with $\Sigma_{X}(i,j) = 0.5^{|i-j|}$.} The coefficient vector is specified as $\beta = (\beta_1, \ldots, \beta_{10}, 0^{\prime}_{(N-10) \times 1})^{\prime}$, where the nonzero entries $\beta_1, \ldots, \beta_{10}$ are drawn i.i.d. from Uniform(1, 3).
+
+The idiosyncratic components $U_{ti}$ are drawn independently from $\mathcal{N}(0, 0.25)$, and the error terms $\varepsilon_t$ follow a rescaled $t$-distribution: $\varepsilon_t \sim \sqrt{3/5} \times t(5)$, to introduce moderate heavy-tailed behavior.  Notably, $\varepsilon_t$ is temporally independent in this experiment.  As a robustness check, we have also experimented with $\varepsilon_t \sim \mathcal{N}(0, 1)$ or $(\chi^{2}(3) - 3)/\sqrt{6}$, and observed similar performance. The additional results are reported in Appendix \ref{sec:gaussian_error}. 
+
+
+{\color{minorrevisionred}
+Results for Experiment 1 at $q=0.2$ are reported in Table~\ref{tab:tdgp1_fdr0.2}. Lasso and FarmSelect attain high power but do not control FDR. Fixed-X is conservative, and Model-X is also conservative when $(N,T)=(200,400)$. TSKI has low power in these factor designs under the specified tuning; this is not evidence of an intrinsic weakness. FAR-Knockoff combines low empirical FDR with higher power as $T$ increases. The non-factor results in Appendix~\ref{sec:gaussian_error} and the weak-factor experiment in Appendix~\ref{app:weak_factors} assess sensitivity to the factor structure.
+}
+
+\newcommand{\simqoneexpone}{%
+\begin{table}[htbp]
+\caption{Simulation results for Experiment 1 with target FDR $q = 0.1$}
+\label{tab:tdgp1_fdr0.1}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{cc}
+\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.703 & 0.910 & 0.446 & 0.884 & 0.117 \\
+\sc{FarmSelect}    & 0.337 & 1.000 & 0.776 & 0.964 & 0.038 \\
+\sc{Model-X}       & 0.084 & 0.962 & 0.916 & 0.993 & 0.006 \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.000 & 0.000 & 0.000 & 0.950 & 0.000 \\
+\sc{FAR-Knockoff} & 0.033 & 0.656 & 0.641 & 0.981 & 0.002 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.717 & 0.997 & 0.438 & 0.866 & 0.141 \\
+\sc{FarmSelect}    & 0.212 & 1.000 & 0.858 & 0.976 & 0.025 \\
+\sc{Model-X}       & 0.011 & 0.118 & 0.112 & 0.955 & 0.001 \\
+\sc{Fixed-X }      & 0.013 & 0.141 & 0.134 & 0.956 & 0.001 \\
+\sc{TSKI}          & 0.000 & 0.000 & 0.000 & 0.950 & 0.000 \\
+\sc{FAR-Knockoff} & 0.034 & 0.935 & 0.917 & 0.995 & 0.002 \\
+
+\bottomrule
+\end{tabular}
+\\[1em]
+
+\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.769 & 0.877 & 0.364 & 0.921 & 0.078 \\
+\sc{FarmSelect}    & 0.410 & 1.000 & 0.712 & 0.972 & 0.028 \\
+\sc{Model-X}       & 0.111 & 0.927 & 0.866 & 0.994 & 0.004 \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI }         & 0.000 & 0.000 & 0.000 & 0.975 & 0.000 \\
+\sc{FAR-Knockoff} & 0.028 & 0.602 & 0.590 & 0.989 & 0.001 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.768 & 0.920 & 0.369 & 0.919 & 0.081 \\
+\sc{FarmSelect}    & 0.247 & 1.000 & 0.831 & 0.985 & 0.015 \\
+\sc{Model-X}       & 0.072 & 0.958 & 0.917 & 0.997 & 0.002 \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.000 & 0.000 & 0.000 & 0.975 & 0.000 \\
+\sc{FAR-Knockoff} & 0.047 & 0.976 & 0.951 & 0.998 & 0.001 \\
+
+\bottomrule
+\end{tabular}
+\end{tabular}
+\end{table}}
+
+
+
+
+
+
+\begin{table}[htbp]
+\caption{Simulation results for Experiment 1 with target FDR $q = 0.2$}
+\label{tab:tdgp1_fdr0.2}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{cc}
+\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.703 & 0.910 & 0.446 & 0.884 & 0.117 \\
+\sc{FarmSelect }   & 0.337 & 1.000 & 0.776 & 0.964 & 0.038 \\
+\sc{Model-X }      & 0.170 & 0.998 & 0.898 & 0.987 & 0.013 \\
+\sc{Fixed-X }      & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.057 & 0.397 & 0.377 & 0.966 & 0.004 \\
+\sc{FAR-Knockoff} & 0.047 & 0.919 & 0.919 & 0.993 & 0.003 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.717 & 0.997 & 0.438 & 0.866 & 0.141 \\
+\sc{FarmSelect}    & 0.212 & 1.000 & 0.858 & 0.976 & 0.025 \\
+\sc{Model-X }      & 0.051 & 0.347 & 0.346 & 0.964 & 0.004 \\
+\sc{Fixed-X}       & 0.057 & 0.357 & 0.351 & 0.964 & 0.004 \\
+\sc{TSKI}          & 0.083 & 0.546 & 0.505 & 0.972 & 0.006 \\
+\sc{FAR-Knockoff} & 0.050 & 0.984 & 0.962 & 0.996 & 0.003 \\
+
+\bottomrule
+\end{tabular}
+\\[1em]
+
+\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso }        & 0.769 & 0.877 & 0.364 & 0.921 & 0.078 \\
+\sc{FarmSelect}    & 0.410 & 1.000 & 0.712 & 0.972 & 0.028 \\
+\sc{Model-X }      & 0.232 & 0.990 & 0.853 & 0.990 & 0.010 \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.019 & 0.141 & 0.135 & 0.978 & 0.001 \\
+\sc{FAR-Knockoff} & 0.038 & 0.892 & 0.903 & 0.996 & 0.001 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.768 & 0.920 & 0.369 & 0.919 & 0.081 \\
+\sc{FarmSelect}    & 0.247 & 1.000 & 0.831 & 0.985 & 0.015 \\
+\sc{Model-X }      & 0.173 & 0.993 & 0.892 & 0.993 & 0.007 \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.041 & 0.425 & 0.408 & 0.984 & 0.001 \\
+\sc{FAR-Knockoff} & 0.069 & 0.991 & 0.954 & 0.998 & 0.002 \\
+
+\bottomrule
+\end{tabular}
+\end{tabular}
+\end{table}
+
+
+
+
+
+\subsection{Experiment 2: Calibrated Model}
+
+The second experiment follows the calibrated setting of \citet{FanKeWang2020}, based on real financial data. We compute centered monthly returns for stocks in the S\&P 500 index with complete data from January 1970 to December 2022. This dataset, obtained from CRSP, includes returns for 256 stocks over 636 months.
+
+The calibration details and parameter estimates used in this experiment are summarized in Table~\ref{tab:calibrationDGP2}. For completeness, the full calibration procedure and data generation steps are described in Appendix \ref{sec:calibration} in the supplementary material.\footnote{We further stress-test FAR-Knockoff with stronger temporal correlation for $\varepsilon_{t}$ in Experiment 2. The results, reported in Appendix \ref{sec:gaussian_error}, support its robust performance.}
+
+
+% Table generated by Excel2LaTeX from sheet 'Calibration'
+\begin{table}[htbp]
+\caption{Parameters calibrated for Experiment 2}
+\label{tab:calibrationDGP2}\centering
+\resizebox{\linewidth}{!}{
+	\begin{tabular}{rrrrrrrrrrrrr}
+		\toprule
+		\multicolumn{3}{c}{$\Sigma_{\Lambda}$} &       & \multicolumn{3}{c}{$\widehat{ \Phi}$} &       & \multicolumn{3}{c}{$\Sigma_{\eta}$} &       & \multicolumn{1}{c}{$\sigma^{2}_e$} \\
+		\cmidrule{1-3}\cmidrule{5-7}\cmidrule{9-11}\cmidrule{13-13}    1.6921  & 0  & 0  &       & 0.0912  & -0.0315  & -0.0426  &       & 0.9889  & -0.0002  & 0.0075  &       &  \\
+		0  & 1.0920  & 0  &       & -0.0426  & 0.1468  & -0.0325  &       & -0.0002  & 0.9760  & -0.0098  &       & 0.9748  \\
+		0  & 0  & 0.6584  &       & 0.0048  & 0.0920  & 0.1193  &       & 0.0075  & -0.0098  & 0.9773  &       &  \\
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+{\color{minorrevisionred}
+Table~\ref{tab:dgp2_fdr0.2} reports Experiment 2 at $q=0.2$. Lasso has high false-discovery rates, whereas FarmSelect achieves high power and mostly low FDR in this calibrated design. The full-sample knockoff benchmarks exhibit either low power or inflated FDR in several configurations; TSKI makes few discoveries under the stated tuning. FAR-Knockoff's empirical FDR is below the target in all four configurations, with power at least 0.97. These comparisons concern the implementations studied, not all possible tunings.\footnote{Appendix~\ref{sec:pre_screening} examines raw-covariate screening before Model-X and Fixed-X inference. Screening alone does not uniformly improve their FDR--power trade-off. These variants differ from FAR-Knockoff in both preprocessing and screening size, so they are not a one-component ablation of factor adjustment.}
+}
+
+{\color{minorrevisionred}The supplementary material reports replication-level
+standard deviations of FDP and power for FAR-Knockoff and the pre-screened
+benchmarks, and adds two theory-targeted stress tests:
+GARCH errors and a data-driven screen calibrated so that its omissions are
+overwhelmingly confined to three deliberately weak signals.
+Appendices~\ref{app:far_mc_variability} and
+\ref{app:new_theory_simulations} show that FDR remains controlled in both
+departures, while imperfect screening lowers power by making omitted signals
+unavailable to the second stage.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\simqoneexptwo}{%
+\begin{table}[htbp]
+\caption{Simulation results for Experiment 2 with target FDR $q = 0.1$}
+\label{tab:dgp2_fdr0.1}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{cc}
+\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.887 & 0.094 & 0.101 & 0.915 & 0.041 \\
+\sc{FarmSelect}    & 0.000 & 1.000 & 1.000 & 1.000 & 0.000 \\
+\sc{Model-X }      & 0.135 & 0.101 & 0.091 & 0.946 & 0.009 \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.000 & 0.000 & 0.000 & 0.950 & 0.000 \\
+\sc{FAR-Knockoff} & 0.070 & 0.915 & 0.877 & 0.991 & 0.005 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.856 & 0.174 & 0.149 & 0.908 & 0.053 \\
+\sc{FarmSelect}    & 0.194 & 1.000 & 0.868 & 0.977 & 0.024 \\
+\sc{Model-X }      & 0.002 & 0.002 & 0.002 & 0.950 & 0.000 \\
+\sc{Fixed-X}       & 0.001 & 0.003 & 0.003 & 0.950 & 0.000 \\
+\sc{TSKI}          & 0.000 & 0.000 & 0.000 & 0.950 & 0.000 \\
+\sc{FAR-Knockoff} & 0.059 & 0.900 & 0.870 & 0.991 & 0.004 \\
+
+\bottomrule
+\end{tabular}
+\\[1em]
+
+\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.919 & 0.084 & 0.081 & 0.952 & 0.026 \\
+\sc{FarmSelect}    & 0.000 & 1.000 & 1.000 & 1.000 & 0.000 \\
+\sc{Model-X}       & 0.100 & 0.055 & 0.051 & 0.973 & 0.003 \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.000 & 0.000 & 0.000 & 0.975 & 0.000 \\
+\sc{FAR-Knockoff} & 0.071 & 0.938 & 0.899 & 0.996 & 0.002 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.924 & 0.086 & 0.079 & 0.950 & 0.028 \\
+\sc{FarmSelect}    & 0.000 & 1.000 & 1.000 & 1.000 & 0.000 \\
+\sc{Model-X}       & 0.116 & 0.114 & 0.106 & 0.974 & 0.004 \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.000 & 0.000 & 0.000 & 0.975 & 0.000 \\
+\sc{FAR-Knockoff} & 0.071 & 0.941 & 0.902 & 0.996 & 0.002 \\
+
+\bottomrule
+\end{tabular}
+\end{tabular}
+\end{table}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[htbp]
+\caption{Simulation results for Experiment 2 with target FDR $q = 0.2$}
+\label{tab:dgp2_fdr0.2}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{cc}
+\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.887 & 0.094 & 0.101 & 0.915 & 0.041 \\
+\sc{FarmSelect}    & 0.000 & 1.000 & 1.000 & 1.000 & 0.000 \\
+\sc{Model-X}       & 0.518 & 0.331 & 0.332 & 0.939 & 0.029 \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.008 & 0.006 & 0.006 & 0.950 & 0.000 \\
+\sc{FAR-Knockoff} & 0.146 & 0.978 & 0.901 & 0.989 & 0.010 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.856 & 0.174 & 0.149 & 0.908 & 0.053 \\
+\sc{FarmSelect}    & 0.194 & 1.000 & 0.868 & 0.977 & 0.024 \\
+\sc{Model-X}       & 0.032 & 0.048 & 0.055 & 0.951 & 0.001 \\
+\sc{Fixed-X}       & 0.043 & 0.059 & 0.067 & 0.951 & 0.002 \\
+\sc{TSKI}          & 0.001 & 0.001 & 0.001 & 0.950 & 0.000 \\
+\sc{FAR-Knockoff} & 0.154 & 0.977 & 0.895 & 0.988 & 0.012 \\
+
+\bottomrule
+\end{tabular}
+\\[1em]
+
+\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.919 & 0.084 & 0.081 & 0.952 & 0.026 \\
+\sc{FarmSelect}    & 0.000 & 1.000 & 1.000 & 1.000 & 0.000 \\
+\sc{Model-X}       & 0.475 & 0.234 & 0.245 & 0.970 & 0.011 \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.002 & 0.002 & 0.002 & 0.975 & 0.000 \\
+\sc{FAR-Knockoff} & 0.137 & 0.977 & 0.903 & 0.995 & 0.005 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.924 & 0.086 & 0.079 & 0.950 & 0.028 \\
+\sc{FarmSelect}    & 0.000 & 1.000 & 1.000 & 1.000 & 0.000 \\
+\sc{Model-X}       & 0.478 & 0.329 & 0.338 & 0.972 & 0.012 \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.000 & 0.002 & 0.002 & 0.975 & 0.000 \\
+\sc{FAR-Knockoff} & 0.158 & 0.985 & 0.896 & 0.994 & 0.006 \\
+
+\bottomrule
+\end{tabular}
+\end{tabular}
+\end{table}
+
+
+
+\iffalse
+
+\clearpage
+\newpage
+
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
+\begin{table}[htbp]
+\caption{Experiment 1: simulation results for $q= 0.1$}
+\label{tab:tdgp1_fdr0.1}\centering
+\resizebox{\linewidth}{!}{
+	\begin{tabular}{ccccccccccccc}
+		\toprule
+		$N$     & $T$     & \multicolumn{5}{c}{Lasso}             &       & \multicolumn{5}{c}{FarmSelect} \\
+		\cmidrule{3-7}\cmidrule{9-13}          &       & FDR & Power & $F_{1}$ & Accuracy & FPR   &       & FDR & Power & $F_{1}$ & Accuracy & FPR \\
+		200   & 200   & 0.703  & 0.910  & 0.446  & 0.884  & 0.117  &       & 0.337  & 1.000  & 0.776  & 0.964  & 0.038  \\
+		& 400   & 0.717  & 0.997  & 0.438  & 0.866  & 0.141  &       & 0.212  & 1.000  & 0.858  & 0.976  & 0.025  \\
+		400   & 200   & 0.769  & 0.877  & 0.364  & 0.921  & 0.078  &       & 0.410  & 1.000  & 0.712  & 0.972  & 0.028  \\
+		& 400   & 0.768  & 0.920  & 0.369  & 0.919  & 0.081  &       & 0.247  & 1.000  & 0.831  & 0.985  & 0.015  \\
+		&       & \multicolumn{5}{c}{Model-X}       &       & \multicolumn{5}{c}{Fixed-X} \\
+		\cmidrule{3-7}\cmidrule{9-13}          &       & FDR & Power & $F_{1}$ & Accuracy & FPR   &       & FDR & Power & $F_{1}$ & Accuracy & FPR \\
+		200   & 200   & 0.084  & 0.962  & 0.916  & 0.993  & 0.006  &       & N.A.  & N.A.  & N.A.  & N.A.  & N.A. \\
+		& 400   & 0.011  & 0.118  & 0.112  & 0.955  & 0.001  &       & 0.013  & 0.141  & 0.134  & 0.956  & 0.001  \\
+		400   & 200   & 0.111  & 0.927  & 0.866  & 0.994  & 0.004  &       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+		& 400   & 0.072  & 0.958  & 0.917  & 0.997  & 0.002  &       & N.A.  & N.A.  & N.A.  & N.A.  & N.A. \\
+		&       & \multicolumn{5}{c}{TSKI}              &       & \multicolumn{5}{c}{FAR-Knockoff} \\
+		\cmidrule{3-7}\cmidrule{9-13}          &       & FDR & Power & $F_{1}$ & Accuracy & FPR   &       & FDR & Power & $F_{1}$ & Accuracy & FPR \\
+		200   & 200   & 0.000  & 0.000  & 0.000  & 0.950  & 0.000  &       & 0.033 & 0.656 & 0.641 & 0.981 & 0.002 \\
+
+		& 400   & 0.000  & 0.000  & 0.000  & 0.950  & 0.000  &       & 0.034 & 0.935 & 0.917 & 0.995 & 0.002 \\
+
+		400   & 200   & 0.000  & 0.000  & 0.000  & 0.975  & 0.000  &       & 0.028 & 0.602 & 0.590 & 0.989 & 0.001 \\
+
+		& 400   & 0.000  & 0.000  & 0.000  & 0.975  & 0.000  &       & 0.047 & 0.976 & 0.951 & 0.998 & 0.001 \\
+
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
+\begin{table}[htbp]
+\caption{Experiment 1: simulation results for $q= 0.1$}
+\label{tab:tdgp1_fdr0.2}\centering
+\resizebox{\linewidth}{!}{
+	\begin{tabular}{ccccccccccccc}
+		\toprule
+		$N$     & $T$     & \multicolumn{5}{c}{Lasso}             &       & \multicolumn{5}{c}{FarmSelect} \\
+		\cmidrule{3-7}\cmidrule{9-13}          &       & FDR & Power & $F_{1}$ & Accuracy & FPR   &       & FDR & Power & $F_{1}$ & Accuracy & FPR \\
+		200   & 200   & 0.703  & 0.910  & 0.446  & 0.884  & 0.117  &       & 0.337  & 1.000  & 0.776  & 0.964  & 0.038  \\
+		& 400   & 0.717  & 0.997  & 0.438  & 0.866  & 0.141  &       & 0.212  & 1.000  & 0.858  & 0.976  & 0.025  \\
+		400   & 200   & 0.769  & 0.877  & 0.364  & 0.921  & 0.078  &       & 0.410  & 1.000  & 0.712  & 0.972  & 0.028  \\
+		& 400   & 0.768  & 0.920  & 0.369  & 0.919  & 0.081  &       & 0.247  & 1.000  & 0.831  & 0.985  & 0.015  \\
+		&       & \multicolumn{5}{c}{Model-X}       &       & \multicolumn{5}{c}{Fixed-X} \\
+		\cmidrule{3-7}\cmidrule{9-13}          &       & FDR & Power & $F_{1}$ & Accuracy & FPR   &       & FDR & Power & $F_{1}$ & Accuracy & FPR \\
+		200   & 200   & 0.170  & 0.998  & 0.898  & 0.987  & 0.013  &       & N.A.  & N.A.  & N.A.  & N.A.  & N.A. \\
+		& 400   & 0.051  & 0.347  & 0.346  & 0.964  & 0.004  &       & 0.057  & 0.357  & 0.351  & 0.964  & 0.004  \\
+		400   & 200   & 0.232  & 0.990  & 0.853  & 0.990  & 0.010  &       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+		& 400   & 0.173  & 0.993  & 0.892  & 0.993  & 0.007  &       & N.A.  & N.A.  & N.A.  & N.A.  & N.A. \\
+		&       & \multicolumn{5}{c}{TSKI}              &       & \multicolumn{5}{c}{FAR-Knockoff} \\
+		\cmidrule{3-7}\cmidrule{9-13}          &       & FDR & Power & $F_{1}$ & Accuracy & FPR   &       & FDR & Power & $F_{1}$ & Accuracy & FPR \\
+		200   & 200   & 0.057  & 0.397  & 0.377  & 0.966  & 0.004  &       & 0.047 & 0.919 & 0.919 & 0.993 & 0.003 \\
+
+		& 400   & 0.083  & 0.546  & 0.505  & 0.972  & 0.006  &       & 0.050 & 0.984 & 0.962 & 0.996 & 0.003 \\
+
+		400   & 200   & 0.019  & 0.141  & 0.135  & 0.978  & 0.001  &       & 0.038 & 0.892 & 0.903 & 0.996 & 0.001 \\
+
+		& 400   & 0.041  & 0.425  & 0.408  & 0.984  & 0.001  &       & 0.069 & 0.991 & 0.954 & 0.998 & 0.002 \\
+
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+
+
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
+\begin{table}[htbp]
+\caption{Experiment 2: simulation results for $q= 0.1$}
+\label{tab:dgp2_fdr0.1}\centering
+\resizebox{\linewidth}{!}{
+	\begin{tabular}{ccccccccccccc}
+		\toprule
+		$N$     & $T$      & \multicolumn{5}{c}{Lasso}             &       & \multicolumn{5}{c}{FarmSelect} \\
+		\cmidrule{3-7}\cmidrule{9-13}          &       & FDR & Power & $F_{1}$ & Accuracy & FPR   &       & FDR & Power & $F_{1}$ & Accuracy & FPR \\
+		200   & 200   & 0.887  & 0.094  & 0.101  & 0.915  & 0.041  &       & 0.000  & 1.000  & 1.000  & 1.000  & 0.000  \\
+		& 400   & 0.856  & 0.174  & 0.149  & 0.908  & 0.053  &       & 0.194  & 1.000  & 0.868  & 0.977  & 0.024  \\
+		400   & 200   & 0.919  & 0.084  & 0.081  & 0.952  & 0.026  &       & 0.000  & 1.000  & 1.000  & 1.000  & 0.000  \\
+		& 400   & 0.924  & 0.086  & 0.079  & 0.950  & 0.028  &       & 0.000  & 1.000  & 1.000  & 1.000  & 0.000  \\
+		&       & \multicolumn{5}{c}{Model-X}       &       & \multicolumn{5}{c}{Fixed-X} \\
+		\cmidrule{3-7}\cmidrule{9-13}          &       & FDR & Power & $F_{1}$ & Accuracy & FPR   &       & FDR & Power & $F_{1}$ & Accuracy & FPR \\
+		200   & 200   & 0.135  & 0.101  & 0.091  & 0.946  & 0.009  &       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+		& 400   & 0.002  & 0.002  & 0.002  & 0.950  & 0.000  &       & 0.001  & 0.003  & 0.003  & 0.950  & 0.000  \\
+		400   & 200   & 0.100  & 0.055  & 0.051  & 0.973  & 0.003  &       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+		& 400   & 0.116  & 0.114  & 0.106  & 0.974  & 0.004  &       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+		&       & \multicolumn{5}{c}{TSKI}              &       & \multicolumn{5}{c}{FAR-Knockoff} \\
+		\cmidrule{3-7}\cmidrule{9-13}          &       & FDR & Power & $F_{1}$ & Accuracy & FPR   &       & FDR & Power & $F_{1}$ & Accuracy & FPR \\
+		200   & 200   & 0.000  & 0.000  & 0.000  & 0.950  & 0.000  &       & 0.070 & 0.915 & 0.877 & 0.991 & 0.005 \\
+
+		& 400   & 0.000  & 0.000  & 0.000  & 0.950  & 0.000  &       & 0.059 & 0.900 & 0.870 & 0.991 & 0.004 \\
+
+		400   & 200   & 0.000  & 0.000  & 0.000  & 0.975  & 0.000  &       & 0.071 & 0.938 & 0.899 & 0.996 & 0.002 \\
+
+		& 400   & 0.000  & 0.000  & 0.000  & 0.975  & 0.000  &       & 0.071 & 0.941 & 0.902 & 0.996 & 0.002 \\
+
+		\bottomrule
+	\end{tabular}}
+\end{table}
+
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
+\begin{table}[htbp]
+\caption{Experiment 2: simulation results for $q= 0.2$}
+\label{tab:dgp2_fdr0.2}\centering
+\resizebox{\linewidth}{!}{
+	\begin{tabular}{ccccccccccccc}
+		\toprule
+		$N$     & $T$      & \multicolumn{5}{c}{Lasso}             &       & \multicolumn{5}{c}{FarmSelect} \\
+		\cmidrule{3-7}\cmidrule{9-13}          &       & FDR & Power & $F_{1}$ & Accuracy & FPR   &       & FDR & Power & $F_{1}$ & Accuracy & FPR \\
+		200   & 200   & 0.887  & 0.094  & 0.101  & 0.915  & 0.041  &       & 0.000  & 1.000  & 1.000  & 1.000  & 0.000  \\
+		& 400   & 0.856  & 0.174  & 0.149  & 0.908  & 0.053  &       & 0.194  & 1.000  & 0.868  & 0.977  & 0.024  \\
+		400   & 200   & 0.919  & 0.084  & 0.081  & 0.952  & 0.026  &       & 0.000  & 1.000  & 1.000  & 1.000  & 0.000  \\
+		& 400   & 0.924  & 0.086  & 0.079  & 0.950  & 0.028  &       & 0.000  & 1.000  & 1.000  & 1.000  & 0.000  \\
+		&       & \multicolumn{5}{c}{Model-X}       &       & \multicolumn{5}{c}{Fixed-X} \\
+		\cmidrule{3-7}\cmidrule{9-13}          &       & FDR & Power & $F_{1}$ & Accuracy & FPR   &       & FDR & Power & $F_{1}$ & Accuracy & FPR \\
+		200   & 200   & 0.518  & 0.331  & 0.332  & 0.939  & 0.029  &       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+		& 400   & 0.032  & 0.048  & 0.055  & 0.951  & 0.001  &       & 0.043  & 0.059  & 0.067  & 0.951  & 0.002  \\
+		400   & 200   & 0.475  & 0.234  & 0.245  & 0.970  & 0.011  &       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+		& 400   & 0.478  & 0.329  & 0.338  & 0.972  & 0.012  &       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+		&       & \multicolumn{5}{c}{TSKI}              &       & \multicolumn{5}{c}{FAR-Knockoff} \\
+		\cmidrule{3-7}\cmidrule{9-13}          &       & FDR & Power & $F_{1}$ & Accuracy & FPR   &       & FDR & Power & $F_{1}$ & Accuracy & FPR \\
+		200   & 200   & 0.008  & 0.006  & 0.006  & 0.950  & 0.000  &       & 0.146 & 0.978 & 0.901 & 0.989 & 0.010 \\
+
+		& 400   & 0.001  & 0.001  & 0.001  & 0.950  & 0.000  &       & 0.154 & 0.977 & 0.895 & 0.988 & 0.012 \\
+
+		400   & 200   & 0.002  & 0.002  & 0.002  & 0.975  & 0.000  &       & 0.137 & 0.977 & 0.903 & 0.995 & 0.005 \\
+
+		& 400   & 0.000  & 0.002  & 0.002  & 0.975  & 0.000  &       & 0.158 & 0.985 & 0.896 & 0.994 & 0.006 \\
+
+		\bottomrule
+	\end{tabular}}
+\end{table}
+\fi
+
+
+\input{empirical_section_v7}
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+{\color{minorrevisionred}
+This paper introduces FAR-Knockoff for variable selection with FDR control in
+large time-series panels. It combines factor adjustment with serial-dependence
+correction. By conditioning on the estimated design and coupling a
+low-dimensional score, we establish asymptotic FDR control under estimated
+whitening, imperfect screening, and causal martingale innovations without
+requiring temporally independent covariates, Gaussianity, or symmetry. The
+power theory makes the loss from screened-out signals explicit. Across the
+reported designs, the simulations show favorable FDR--power performance. In
+the bond application, FAR-Knockoff produces sparse models and lower forecast
+loss at the short end, with the strongest evidence at the two-year maturity.
+}
+  
+
+%\textbf{References}\setlength{\baselineskip}{11pt}
+{
+%\bibliographystyle{chicago}
+\bibliographystyle{apalike}
+\begingroup
+\setstretch{1.0}
+\small
+\setlength{\bibsep}{0pt}
+\bibliography{temp_collab}
+\endgroup
+}
+
+% \begin{description}
+% \item Bai, J. (2003). Inferential theory for factor models of large
+% dimensions. \textit{Econometrica}, 71(1), 135--71.
+
+% \item Bai, J. and Ng, S. (2002) Determining the number of factors in
+% approximate factor models. \textit{Econometrica} 70(1), 191--21.
+
+% \item Bai, J. and  Ng, S. (2006). Confidence intervals for diffusion index
+% forecasts and inference for factor-augmented regressions.\textit{Econometrica} 74(4), 1133--150.
+
+% \item Barber, R.F. and Candes, E.J. (2015). Controlling the false
+% discovery rate via knockoffs. \textit{The Annals of Statistics}, 43(5), 2055%
+% --085.
+
+% \item Barber, R.F. and Candes, E.J. (2019). A knockoff filter for
+% high-dimensional selective inference. \textit{The Annals of Statistics},
+% 47(5), 2504--537.
+
+% \item Barber, R.F., Candes, E.J. and Samworth, R.J. (2020). Robust
+% inference with knockoffs. \textit{The Annals of Statistics}, 48(3),
+% 1409-1431.
+
+% \item Benjamini, Y. and Hochberg, Y. (1995). Controlling the false discovery
+% rate: A practical and powerful approach to multiple testing. \textit{Journal
+% of the Royal Statistical Society: Series B}, 57(1), 289--00.
+
+% \item Benjamini, Y. and Yekutieli, D. (2001). The control of the false
+% discovery rate in multiple testing under dependency. \textit{The Annals of
+% Statistics}, 29(4), 1165--188.
+
+% \item Candes, E., Fan, Y., Janson, L. and Lv, J. (2018). Panning for
+% gold: Model-X knockoffs for high dimensional
+% controlled variable selection. \textit{Journal of the Royal Statistical
+% Society: Series B}, 80(3), 551--77.
+
+% \item Chen, Z., He, Z., Chu, B. B., Gu, J., Morrison, T., Sabatti, C. and
+% Candes, E. (2024). Controlled variable selection from summary
+% statistics only? A solution via ghost knockoffs and penalized regression. 
+% \textit{ArXiv preprint} at arXiv:2402.12724.
+
+% \item Chi, C.M., Fan, Y., Ing, C.K. and Lv, J. (2025). High-dimensional
+% knockoffs inference for time series data. Forthcoming at \textit{Journal of
+% the American Statistical Association}, 1--2.
+
+% \item Coroneo, L. and Iacone, F. (2020). Comparing predictive accuracy in
+% small samples using fixed-smoothing asymptotics. \textit{%
+% Journal of Applied Econometrics}, 35(4), 391--09.
+
+% \item Diebold, F.X. and Mariano, R.S. (1995). Comparing predictive
+% accuracy. \textit{Journal of Business \& Economic Statistics}, 13(3),
+% 253--63.
+
+% \item Giglio, S., Xiu, D. and Zhang, D. (2025) Test assets and weak factors. \textit{Journal of Finance}, 80(1), 259--19.
+
+% \item Fan, J., Ke, Y. and Liao, Y. (2021). Augmented factor models with
+% applications to validating market risk factors and forecasting bond risk
+% premia. \textit{Journal of Econometrics}, 222(1), 269--94.
+
+% \item Fan, J., Ke, Y. and Wang, K. (2020). Factor-adjusted regularized model
+% selection. \textit{Journal of Econometrics}, 216(1), 71--5.
+
+% \item Fan, J., Liao, Y. and Mincheva, M. (2011). High dimensional covariance
+% matrix estimation in approximate factor models. \textit{The Annals of
+% statistics}, 39(6), 3320.
+
+% \item Fan, J., Lou, Z. and Yu, M. (2024). Are latent factor regression and sparse regression adequate? 
+% \textit{Journal of American Statistical Association}, 119(546), 1076--088.
+
+% \item Fan, J. and Song, R. (2010) Sure independence screening in generalized linear models with NP-dimensionality. \textit{The Annals of Statistics}, 38(6), 3567--604.
+
+% \item Fan, Y., Demirkaya, E. and Lv, J. (2019). Nonuniformity of p-values
+% can occur early in diverging dimensions. \textit{\ Journal of Machine
+% Learning Research}, 20(77), 1--3.
+
+% \item Fan, Y., Demirkaya, E., Li, G. and Lv, J. (2020). RANK: Large-scale
+% inference with graphical nonlinear knockoffs. \textit{Journal of the
+% American Statistical Association}, 115(529), 362--79.
+
+% \item Fan, Y., Gao, L. and Lv, J. (2025). ARK: Robust knockoffs inference with coupling.
+% Forthcoming at \textit{The Annals of Statistics}.
+
+% \item Fan, Y., Gao, L., Lv, J. and Xu, X. (2025). Asymptotic FDR control with model-X knockoffs: Is moments matching sufficient? \textit{Working Paper at USC}.
+
+% \item Fan, Y., Lv, J., Sharifvaghefi, M. and Uematsu, Y. (2020). IPAD:
+% Stable interpretable forecasting with knockoffs inference. \textit{Journal
+% of the American Statistical Association}, 115(532), 1822--834.
+
+% \item Rasines, D. G. and Young, G. A. (2023)  Splitting strategies for post-selection inference. \textit{Biometrika}, 110(3), 597--14.
+
+% \item Kuchibhotla, A.K., Kolassa, J.E. and Kuffner, T.A. (2022) Post-selection inference. \textit{Annual Review of Statistics and Its Application}, 9, 505--27.
+
+% \item Lee, J.D., Sun, D.L., Sun, Y. and Taylor, J.E. (2016). Exact post-selection inference, with application to the lasso. \textit{The Annals of Statistics}, 44(3), 907--27.
+
+% \item Liu, J., Sun, A. and Ke, Y. (2024). A generalized knockoff procedure
+% for FDR control in structural change detection. \textit{Journal of
+% Econometrics}, 239(2), 105331.
+
+% \item Ludvigson, S.C. and Ng, S. (2009). Macro factors in bond risk premia. 
+% \textit{The Review of Financial Studies}, 22(12), 5027--067. %
+% %\item Lunde, R. (2019). Sample splitting and weak assumption inference for
+% %time series. \textit{ArXiv preprint} at arXiv:1902.07425.
+
+% \item McCracken, M.W. and Ng, S. (2016). FRED-MD: A monthly database for
+% macroeconomic research. \textit{Journal of Business \& Economic Statistics},
+% 34(4), 574--89.
+
+% \item McCracken, M.W. and Ng, S. (2020). FRED-QD: A quarterly database for
+% macroeconomic research. \textit{NBER Working Paper} 26872.
+
+% \item Stock, J.H. and Watson, M.W. (2002) Macroeconomic forecasting using
+% diffusion indexes. \textit{Journal of Business} \& \textit{Economic
+% 	Statistics}, 20(2), 147--62.
+
+% \item Wang, H. (2012)  Factor profiled sure independence screening. \textit{Biometrika}, 99(1), 15--8.
+
+% \item Wei, J. and Zhang, Y. (2024). Does principal component analysis
+% preserve the sparsity in sparse weak factor models?. \textit{ArXiv preprint}
+% at arXiv:2305.05934.
+% \end{description}
+
+
+%% Change to ref.bib if needed
+\iffalse
+
+\fi
+
+
+
+ \newpage \appendix
+
+\singlespacing 
+\setcounter{page}{1}
+
+\begin{center}
+
+         \textbf{\large {Supplementary Material for ``Factor-Adjusted Knockoff Inference for High-Dimensional Time Series"}}
+	
+	\bigskip
+ 
+\end{center}
+
+In the supplementary material, Appendix~\ref{sec:details} contains
+implementation details and additional numerical results, while
+Appendix~\ref{sec:unified_theory_appendix} states the causal-martingale
+conditions and gives the technical lemmas and proofs supporting the two FDR
+theorems in Section~\ref{sec:FDR_power}.
+
+
+\section{Implementation Details and Additional Results for Numerical Studies}\label{sec:details}
+
+
+
+\subsection{Implementation Details for Competitive Methods} \label{sec:implementation}
+
+\input{competition_settings_2026-09-04}
+
+\subsection{Additional Results at $q=0.1$}
+\label{app:q01_results}
+{\color{minorrevisionred}
+At $q=0.1$, TSKI applies its knockoff+ filter within each subsample at
+$q/2=0.05$. A nonempty within-subsample selection therefore requires at least
+20 positive exceedances, whereas each design has ten true signals. This
+finite-sample threshold effect makes the comparison mechanically
+low-discovery, so we retain the results here rather than in the main text.
+
+\simqoneexpone
+\simqoneexptwo
+}
+
+
+\subsection{Extensions to $\kappa+r<T<2\kappa +r$}
+ 
+When $\kappa+r<T<2\kappa +r$, the construction of knockoffs directly via %
+\eqref{eq:Psi} is no longer possible. We may instead adapt the extension
+approach by \citet{BarberCandes2015} or \citet{LiuSunKe2024} to
+FAR. Specifically, we draw a $(2\kappa+r -T)$-dimensional vector $%
+Y^{\ddagger}$ with i.i.d. $\mathcal{N}(0,1)$ entries. We then augment the
+response vector $Y^{\dagger}$ in \eqref{eq:transformed_FAR} with the new $%
+(2\kappa+r -T) \times 1$ vector $Y^{\ddagger}$. As for $\breve{F}$ and $%
+\breve{U}_{\widetilde{\mathcal{S}}}$, we augment each with $(2\kappa+r -T)$
+rows of zeros so that 
+\begin{equation*}
+\breve{F}^{(a)} \equiv \left( 
+\begin{array}{c}
+\breve{F} \\ 
+0%
+\end{array}
+\right), \quad \breve{U}^{(a)}_{\widetilde{\mathcal{S}}} \equiv \left( 
+\begin{array}{c}
+\breve{U}_{\widetilde{\mathcal{S}}} \\ 
+0%
+\end{array}
+\right).
+\end{equation*}
+Then approximately (if $\Sigma _{\varepsilon }^{0}$ is estimated accurately
+enough), 
+\begin{equation*}
+\left[%
+\begin{array}{c}
+Y^{\dagger} \\ 
+Y^{\ddagger}%
+\end{array}%
+\right] \sim \mathcal{N}\left(\breve{F}^{(a)}\breve{\Lambda}_{\widetilde{%
+\mathcal{S}}}^{\prime }\beta _{\widetilde{\mathcal{S}}}+\breve{U}^{(a)}_{%
+\widetilde{\mathcal{S}}}\beta _{\widetilde{\mathcal{S}}}, I \right) .
+\end{equation*}
+{\color{minorrevisionred}The augmented data therefore contain $2\kappa+r$
+observations. We can apply the preceding procedure to construct
+$\widetilde{U}_{\widetilde{\mathcal S}}$ and then conduct inference in the
+same way.}
+ 
+
+\subsection{Calibration and Data Generation Process for the Second Simulated Experiment}\label{sec:calibration}
+
+{\color{minorrevisionred}The calibration and data-generation process is
+outlined below. Let $z_t$, $t=1,\ldots,636$, denote the centered monthly
+excess returns.}
+
+\begin{enumerate}
+\item Fit $z_t$ with a three-factor model. We apply PCA on the sample
+covariance of $\left\{z_t\right\}_{t=1}^{636}$ and denote $\sigma_k$ and $%
+\xi_k, k=1,2,3$, as the top three eigenvalues and corresponding
+eigenvectors, respectively. We estimate factor loadings by $\tilde{\Lambda}%
+=\left(\sqrt{\sigma_1} \xi_1, \sqrt{\sigma_2} \xi_2, \sqrt{\sigma_3}
+\xi_3\right)$ and factors by $\tilde{F}_t=\left(\sigma_1^{-1 / 2}
+\xi^{\prime}_1 z_t, \sigma_2^{-1 / 2} \xi^{\prime}_2 z_t, \sigma_3^{-1 / 2}
+\xi^{\prime}_3 z_t\right)^{\prime}$, respectively.
+
+\item Obtain the sample covariance of the rows of $\tilde{\Lambda}$: $%
+\Sigma_{\Lambda}=\func{diag}\left(\sigma_1, \sigma_2, \sigma_3\right)$.
+Generate loadings matrix $\Lambda$ whose rows are draws from i.i.d. $%
+\mathcal{N}\left(0, \Sigma_{\Lambda}\right)$.
+
+\item Fit a $\func{VAR}(1)$ model $\tilde{F}_t= \Phi \tilde{F}_{t-1}+ \eta_t$%
+. Denote $\widehat{ \Phi}$ the estimate of $\Phi$ and calculate $%
+\Sigma_{\eta}= I -\widehat{ \Phi } \widehat{ \Phi }^{\prime}$. Then generate 
+$F_t$ from the $\func{VAR}(1)$ model $F_t=\widehat{ \Phi } F_{t-1}+ \eta_t$
+with $F_0=0$, where $\eta_t$ is generated from i.i.d. $\mathcal{N}\left(0,
+\Sigma_{\eta}\right)$.
+
+\item Calculate the residual $\tilde{U}_t=z_t-\tilde{\Lambda}\tilde{F}_t$
+and $\Sigma_{U}$ the sample covariance matrix of $\tilde{U}_t$. Denote $%
+\sigma_U^2$ the average of the diagonal entries of $\Sigma_{U}$. Generate
+covariates $X_t$ from a factor model $X_t=\Lambda F_{t} + U_t$, where the
+entries in $U_t$ are drawn independently from $\mathcal{N}(0, \sigma_U^2) $.
+
+\item Generate the response $Y_t$ from a sparse linear model $%
+Y_t=X^{\prime}_t \beta +\varepsilon_t$. The true coefficients are $\beta =
+\left(\beta_{1}, \ldots, \beta_{10},
+0^{\prime}_{(N-10)\times1}\right)^{\prime}$, and the nonzero coefficients $%
+\beta_1, \ldots, \beta_{10}$ are drawn from i.i.d. Uniform(2,5). We draw $%
+\varepsilon_t$ from an $\func{AR}(1)$ model $\varepsilon_t=0.5
+\varepsilon_{t-1}+e_t$ with $e_t \sim i.i.d. \mathcal{N}(0,0.3)$.
+\end{enumerate}
+
+
+\subsection{Robustness Check for Simulation Design}\label{sec:gaussian_error}
+
+Below we conduct robustness checks for Experiment 1 with (i) different
+distribution specifications of $\varepsilon_t$, including symmetric and
+asymmetric distributions, (ii) non-factor-driven predictors, and (iii) under-
+or over-estimation of the number of latent factors.  We then report Monte Carlo
+variability and two additional stress tests aligned with the revised theory.
+
+In Tables \ref{tab:tdgp1N_fdr0.1} and \ref{tab:tdgp1N_fdr0.2}, we report simulation results with $\varepsilon_t \sim \mathcal{N}(0, 1)$ for Experiment 1.
+
+\begin{table}[htbp]
+\caption{Simulation results for Experiment 1 of Gaussian errors with target FDR $q = 0.1$}
+\label{tab:tdgp1N_fdr0.1}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{cc}
+\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.699  & 0.913  & 0.451  & 0.886  & 0.116 \\
+\sc{FarmSelect}    & 0.337  & 1.000  & 0.774  & 0.963  & 0.039 \\
+\sc{Model-X}       & 0.082  & 0.973  & 0.928  & 0.993  & 0.005 \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.000  & 0.000  & 0.000  & 0.950  & 0.000 \\
+\sc{FAR-Knockoff} & 0.024 & 0.633 & 0.623 & 0.980 & 0.001 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.715  & 0.998  & 0.440  & 0.867  & 0.140 \\
+\sc{FarmSelect}    & 0.211  & 1.000  & 0.860  & 0.977  & 0.024 \\
+\sc{Model-X}       & 0.014  & 0.125  & 0.118  & 0.955  & 0.001 \\
+\sc{Fixed-X }      & 0.008  & 0.111  & 0.107  & 0.955  & 0.001 \\
+\sc{TSKI}          & 0.000 & 0.000 & 0.000 & 0.950 & 0.000 \\
+\sc{FAR-Knockoff} & 0.036 & 0.941 & 0.923 & 0.995 & 0.002 \\
+
+\bottomrule
+\end{tabular}
+\\[1em]
+
+\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.769 & 0.877 & 0.364 & 0.921 & 0.078 \\
+\sc{FarmSelect}    & 0.412  & 1.000  & 0.714  & 0.974  & 0.027 \\
+\sc{Model-X}       & 0.104  & 0.953  & 0.897  & 0.995  & 0.004 \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI }         & 0.001  & 0.002  & 0.001  & 0.975  & 0.000 \\
+\sc{FAR-Knockoff} & 0.022 & 0.551 & 0.541 & 0.988 & 0.001 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.768  & 0.921  & 0.368  & 0.919  & 0.081  \\
+\sc{FarmSelect}    & 0.248  & 1.000  & 0.830  & 0.985  & 0.016 \\
+\sc{Model-X}       & 0.076  & 0.979  & 0.938  & 0.997  & 0.002 \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.000  & 0.000  & 0.000  & 0.975  & 0.000 \\
+\sc{FAR-Knockoff} & 0.041 & 0.970 & 0.948 & 0.998 & 0.001 \\
+
+\bottomrule
+\end{tabular}
+\end{tabular}
+\end{table}
+
+
+
+
+
+
+\begin{table}[htbp]
+\caption{Simulation results for Experiment 1 of Gaussian errors with target FDR $q = 0.2$}
+\label{tab:tdgp1N_fdr0.2}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{cc}
+\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.699  & 0.913  & 0.451  & 0.886  & 0.116 \\
+\sc{FarmSelect }   & 0.337  & 1.000  & 0.774  & 0.963  & 0.039 \\
+\sc{Model-X }      & 0.164  & 0.997  & 0.902  & 0.988  & 0.013 \\
+\sc{Fixed-X }      & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.056  & 0.380  & 0.358  & 0.965  & 0.004 \\
+\sc{FAR-Knockoff} & 0.039 & 0.922 & 0.928 & 0.994 & 0.002 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.715  & 0.998  & 0.440  & 0.867  & 0.140 \\
+\sc{FarmSelect}    & 0.211  & 1.000  & 0.860  & 0.977  & 0.024 \\
+\sc{Model-X }      & 0.055  & 0.337  & 0.331  & 0.963  & 0.004 \\
+\sc{Fixed-X}       & 0.056  & 0.375  & 0.372  & 0.965  & 0.004 \\
+\sc{TSKI}          & 0.090  & 0.619  & 0.580  & 0.975  & 0.006 \\
+\sc{FAR-Knockoff} & 0.051 & 0.983 & 0.959 & 0.996 & 0.003 \\
+
+\bottomrule
+\end{tabular}
+\\[1em]
+
+\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso }        & 0.769  & 0.876  & 0.364  & 0.921  & 0.078 \\
+\sc{FarmSelect}    & 0.412  & 1.000  & 0.714  & 0.974  & 0.027 \\
+\sc{Model-X }      & 0.230  & 0.994  & 0.855  & 0.990  & 0.010 \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.019  & 0.142  & 0.137  & 0.978  & 0.001 \\
+\sc{FAR-Knockoff} & 0.038 & 0.882 & 0.895 & 0.996 & 0.001 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.768  & 0.921  & 0.368  & 0.919  & 0.081 \\
+\sc{FarmSelect}    & 0.248  & 1.000  & 0.830  & 0.985  & 0.016 \\
+\sc{Model-X }      & 0.165  & 0.995  & 0.899  & 0.994  & 0.006 \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.034  & 0.406  & 0.392  & 0.984  & 0.001 \\
+\sc{FAR-Knockoff} & 0.059 & 0.992 & 0.962 & 0.998 & 0.002 \\
+
+\bottomrule
+\end{tabular}
+\end{tabular}
+\end{table}
+
+
+
+In Tables \ref{tab:tdgp1chi2_fdr0.1} and \ref{tab:tdgp1chi2_fdr0.2}, we report simulation results with $\varepsilon_t \sim (\chi^{2}(3) - 3)/\sqrt{6}$ for Experiment 1.
+
+
+
+\begin{table}[htbp]
+\caption{Simulation results for Experiment 1 with $\varepsilon_t \sim (\chi^{2}(3) - 3)/\sqrt{6}$ and target FDR $q = 0.1$}
+\label{tab:tdgp1chi2_fdr0.1}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{cc}
+\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         & 0.696  & 0.918  & 0.454  & 0.886  & 0.115  \\
+\sc{FarmSelect}    & 0.372  & 1.000  & 0.748  & 0.958  & 0.045  \\
+\sc{Model-X}       &    0.074  & 0.945  & 0.904  & 0.993  & 0.005  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          & 0.000  & 0.000  & 0.000  & 0.950  & 0.000  \\
+\sc{FAR-Knockoff} & 0.027 & 0.591 & 0.579 & 0.978 & 0.002 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &    0.710  & 0.998  & 0.446  & 0.870  & 0.136  \\
+\sc{FarmSelect}    &    0.210  & 1.000  & 0.861  & 0.977  & 0.024  \\
+\sc{Model-X}       &    0.012  & 0.159  & 0.153  & 0.957  & 0.001  \\
+\sc{Fixed-X }      &    0.019  & 0.164  & 0.154  & 0.957  & 0.001  \\
+\sc{TSKI}          &    0.005  & 0.010  & 0.006  & 0.950  & 0.001  \\
+\sc{FAR-Knockoff} & 0.039 & 0.937 & 0.917 & 0.995 & 0.002 \\
+
+\bottomrule
+\end{tabular}
+\\[1em]
+
+\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &    0.767  & 0.879  & 0.367  & 0.922  & 0.077  \\
+\sc{FarmSelect}    &    0.438  & 1.000  & 0.691  & 0.971  & 0.030  \\
+\sc{Model-X}       &    0.109  & 0.899  & 0.840  & 0.994  & 0.004  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI }         &    0.000  & 0.000  & 0.000  & 0.975  & 0.000  \\
+\sc{FAR-Knockoff} & 0.029 & 0.591 & 0.579 & 0.989 & 0.001 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &    0.765  & 0.927  & 0.372  & 0.919  & 0.081  \\
+\sc{FarmSelect}    &    0.257  & 1.000  & 0.824  & 0.983  & 0.017  \\
+\sc{Model-X}       &    0.073  & 0.975  & 0.935  & 0.997  & 0.002  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          &    0.000  & 0.000  & 0.000  & 0.975  & 0.000  \\
+\sc{FAR-Knockoff} & 0.047 & 0.978 & 0.953 & 0.998 & 0.001 \\
+
+\bottomrule
+\end{tabular}
+\end{tabular}
+\end{table}
+
+
+
+
+\begin{table}[htbp]
+\caption{Simulation results for Experiment 1 with $\varepsilon_t \sim (\chi^{2}(3) - 3)/\sqrt{6}$ and target FDR $q = 0.2$}
+\label{tab:tdgp1chi2_fdr0.2}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{cc}
+\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &    0.696  & 0.918  & 0.454  & 0.886  & 0.115  \\
+\sc{FarmSelect}    &    0.372  & 1.000  & 0.748  & 0.958  & 0.045  \\
+\sc{Model-X}       &    0.161  & 0.997  & 0.903  & 0.988  & 0.013  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          &    0.054  & 0.400  & 0.380  & 0.966  & 0.004  \\
+\sc{FAR-Knockoff} & 0.043 & 0.900 & 0.905 & 0.993 & 0.003 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &    0.710  & 0.998  & 0.446  & 0.870  & 0.136  \\
+\sc{FarmSelect}    &     0.210  & 1.000  & 0.861  & 0.977  & 0.024  \\
+\sc{Model-X}       &    0.063  & 0.395  & 0.384  & 0.965  & 0.005  \\
+\sc{Fixed-X }      &     0.061  & 0.359  & 0.346  & 0.964  & 0.005  \\
+\sc{TSKI}          &     0.083  & 0.588  & 0.546  & 0.974  & 0.006  \\
+\sc{FAR-Knockoff} & 0.053 & 0.985 & 0.960 & 0.996 & 0.003 \\
+
+\bottomrule
+\end{tabular}
+\\[1em]
+
+\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &     0.767  & 0.879  & 0.367  & 0.922  & 0.077  \\
+\sc{FarmSelect}    &    0.438  & 1.000  & 0.691  & 0.971  & 0.030  \\
+\sc{Model-X}       &     0.234  & 0.991  & 0.850  & 0.990  & 0.010  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI }         &    0.019  & 0.177  & 0.170  & 0.979  & 0.001  \\
+\sc{FAR-Knockoff} & 0.046 & 0.888 & 0.894 & 0.996 & 0.001 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &    0.765  & 0.927  & 0.372  & 0.919  & 0.081  \\
+\sc{FarmSelect}    &    0.257  & 1.000  & 0.824  & 0.983  & 0.017  \\
+\sc{Model-X}       &     0.162  & 0.996  & 0.902  & 0.994  & 0.006  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          &    0.043  & 0.429  & 0.411  & 0.984  & 0.001  \\
+\sc{FAR-Knockoff} & 0.071 & 0.992 & 0.954 & 0.998 & 0.002 \\
+
+\bottomrule
+\end{tabular}
+\end{tabular}
+\end{table}
+
+
+
+In Tables \ref{tab:nonfactor_fdr0.1} and \ref{tab:nonfactor_fdr0.2}, we report simulation results with non-factor-driven predictors for Experiment 1. Specifically, $X_{t} \sim \mathcal{N}(0, \Sigma_{X})$ with $\Sigma_{X}(i,j) = 0.5^{|i-j|}$.
+ 
+
+\begin{table}[htbp]
+\caption{Simulation results for Experiment 1 with non-factor-driven predictors and target FDR $q = 0.1$}
+\label{tab:nonfactor_fdr0.1}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{cc}
+\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &    0.545  & 1.000  & 0.609  & 0.924  & 0.080  \\
+\sc{FarmSelect}    &    0.074  & 0.989  & 0.946  & 0.989  & 0.011  \\
+\sc{Model-X}       &    0.079  & 1.000  & 0.955  & 0.995  & 0.006  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          &    0.000  & 0.000  & 0.000  & 0.950  & 0.000  \\
+\sc{FAR-Knockoff} & 0.045 & 0.668 & 0.643 & 0.981 & 0.003 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &     0.578  & 1.000  & 0.574  & 0.910  & 0.095  \\
+\sc{FarmSelect}    &     0.199  & 1.000  & 0.861  & 0.974  & 0.027  \\
+\sc{Model-X}       &    0.051  & 0.630  & 0.601  & 0.978  & 0.003  \\
+\sc{Fixed-X }      &     0.053  & 0.675  & 0.645  & 0.980  & 0.004  \\
+\sc{TSKI}          &    0.000  & 0.000  & 0.000  & 0.950  & 0.000  \\
+\sc{FAR-Knockoff} & 0.070 & 0.733 & 0.694 & 0.982 & 0.005 \\
+
+\bottomrule
+\end{tabular}
+\\[1em]
+
+\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &     0.599  & 1.000  & 0.554  & 0.950  & 0.052  \\
+\sc{FarmSelect}    &     0.032  & 1.000  & 0.978  & 0.998  & 0.002  \\
+\sc{Model-X}       &    0.064  & 1.000  & 0.965  & 0.998  & 0.002  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI }         &    0.000  & 0.000  & 0.000  & 0.975  & 0.000  \\
+\sc{FAR-Knockoff} & 0.050 & 0.687 & 0.660 & 0.991 & 0.002 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &     0.580  & 1.000  & 0.573  & 0.955  & 0.046  \\
+\sc{FarmSelect}    &    0.029  & 1.000  & 0.976  & 0.996  & 0.004  \\
+\sc{Model-X}       &     0.082  & 1.000  & 0.954  & 0.997  & 0.003  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          &     0.000  & 0.000  & 0.000  & 0.975  & 0.000  \\
+\sc{FAR-Knockoff} & 0.053 & 0.672 & 0.642 & 0.990 & 0.002 \\
+
+\bottomrule
+\end{tabular}
+\end{tabular}
+\end{table}
+
+
+\begin{table}[htbp]
+\caption{Simulation results for Experiment 1 with non-factor-driven predictors and target FDR $q = 0.2$}
+\label{tab:nonfactor_fdr0.2}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{cc}
+\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &     0.545  & 1.000  & 0.609  & 0.924  & 0.080  \\
+\sc{FarmSelect}    &    0.074  & 0.989  & 0.946  & 0.989  & 0.011  \\
+\sc{Model-X}       &    0.152  & 1.000  & 0.911  & 0.989  & 0.012  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          &    0.102  & 1.000  & 0.943  & 0.993  & 0.007  \\
+\sc{FAR-Knockoff} & 0.099 & 0.871 & 0.836 & 0.987 & 0.007 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &    0.578  & 1.000  & 0.574  & 0.910  & 0.095  \\
+\sc{FarmSelect}    &    0.199  & 1.000  & 0.861  & 0.974  & 0.027  \\
+\sc{Model-X}       &    0.153  & 0.823  & 0.750  & 0.980  & 0.012  \\
+\sc{Fixed-X }      &    0.130  & 0.859  & 0.802  & 0.984  & 0.010  \\
+\sc{TSKI}          &    0.144  & 1.000  & 0.918  & 0.990  & 0.010  \\
+\sc{FAR-Knockoff} & 0.144 & 0.898 & 0.830 & 0.985 & 0.011 \\
+
+\bottomrule
+\end{tabular}
+\\[1em]
+
+\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &     0.599  & 1.000  & 0.554  & 0.950  & 0.052  \\
+\sc{FarmSelect}    &     0.032  & 1.000  & 0.978  & 0.998  & 0.002  \\
+\sc{Model-X}       &    0.143  & 1.000  & 0.916  & 0.995  & 0.005  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI }         &     0.126  & 1.000  & 0.928  & 0.996  & 0.004  \\
+\sc{FAR-Knockoff} & 0.104 & 0.885 & 0.845 & 0.994 & 0.003 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &     0.580  & 1.000  & 0.573  & 0.955  & 0.046  \\
+\sc{FarmSelect}    &    0.029  & 1.000  & 0.976  & 0.996  & 0.004  \\
+\sc{Model-X}       &     0.161  & 1.000  & 0.906  & 0.994  & 0.006  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          &    0.129  & 1.000  & 0.927  & 0.996  & 0.004  \\
+\sc{FAR-Knockoff} & 0.130 & 0.871 & 0.814 & 0.992 & 0.005 \\
+
+\bottomrule
+\end{tabular}
+\end{tabular}
+\end{table}
+
+
+
+In Tables \ref{tab:rhat_fdr0.1} and \ref{tab:rhat_fdr0.2}, we report simulation results of FAR-Knockoff by fixing the estimated number of PCA factors $\widehat{r}$ to be smaller than or greater than the true number of factors (3) for Experiment 1. 
+
+\begin{table}[htbp]
+\caption{Simulation results of FAR-Knockoff for Experiment 1 with under- and over-estimated $\widehat{r}$ and target FDR $q = 0.1$}
+\label{tab:rhat_fdr0.1}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{cc}
+\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+$\widehat{r}$ & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+2 & 0.006 & 0.122 & 0.120 & 0.956 & 0.000 \\
+
+4 & 0.021 & 0.535 & 0.525 & 0.976 & 0.001 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+$\widehat{r}$ & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+2 & 0.018 & 0.443 & 0.434 & 0.971 & 0.001 \\
+
+4 & 0.037 & 0.929 & 0.910 & 0.994 & 0.002 \\
+
+\bottomrule
+\end{tabular}
+\\[1em]
+
+\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+$\widehat{r}$ & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+2 & 0.005 & 0.060 & 0.058 & 0.976 & 0.000 \\
+
+4 & 0.025 & 0.551 & 0.541 & 0.988 & 0.001 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+$\widehat{r}$ & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+2 & 0.018 & 0.445 & 0.436 & 0.986 & 0.001 \\
+
+4 & 0.043 & 0.961 & 0.938 & 0.998 & 0.001 \\
+
+\bottomrule
+\end{tabular}
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[htbp]
+\caption{Simulation results of FAR-Knockoff for Experiment 1 with under- and over-estimated $\widehat{r}$ and target FDR $q = 0.2$}
+\label{tab:rhat_fdr0.2}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{cc}
+\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+$\widehat{r}$ & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+2 & 0.029 & 0.453 & 0.493 & 0.971 & 0.001 \\
+
+4 & 0.036 & 0.887 & 0.902 & 0.992 & 0.002 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+$\widehat{r}$ & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+2 & 0.044 & 0.749 & 0.763 & 0.985 & 0.003 \\
+
+4 & 0.051 & 0.972 & 0.949 & 0.996 & 0.003 \\
+
+\bottomrule
+\end{tabular}
+\\[1em]
+
+\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+$\widehat{r}$ & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+2 & 0.021 & 0.226 & 0.255 & 0.980 & 0.000 \\
+
+4 & 0.039 & 0.858 & 0.874 & 0.995 & 0.001 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+$\widehat{r}$ & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+2 & 0.043 & 0.743 & 0.751 & 0.992 & 0.001 \\
+
+4 & 0.066 & 0.990 & 0.956 & 0.998 & 0.002 \\
+
+\bottomrule
+\end{tabular}
+\end{tabular}
+\end{table}
+
+{\color{minorrevisionred}
+The corrected original-coordinate evaluation leads to two qualifications.
+First, under the non-factor design, FAR-Knockoff continues to control the
+target FDR, with power between 0.871 and 0.898 at $q=0.2$. Second,
+underestimating the factor number is more consequential than overestimating
+it: fixing $\widehat r=2$ preserves FDR control but can substantially reduce
+power, whereas fixing $\widehat r=4$ has a much smaller effect. Thus the
+robustness concerns FDR validity, not invariance of power to factor-number
+misspecification.
+}
+
+
+
+In Tables \ref{tab:strongerdependence_fdr0.1} and \ref{tab:strongerdependence_fdr0.2}, we report simulation results with stronger temporal correlation for $\varepsilon_t$ for Experiment 2. Specifically, We draw $%
+\varepsilon_t$ from an $\func{AR}(1)$ model $\varepsilon_t=0.9
+\varepsilon_{t-1}+e_t$ with $e_t \sim i.i.d. \mathcal{N}(0,0.3)$.
+
+
+
+
+\begin{table}[htbp]
+\caption{Simulation results for Experiment 2 with stronger temporal correlation and target FDR $q = 0.1$}
+\label{tab:strongerdependence_fdr0.1}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{cc}
+\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &    0.872  & 0.105  & 0.113  & 0.917  & 0.040  \\
+\sc{FarmSelect}    &    0.020  & 1.000  & 0.989  & 0.999  & 0.001  \\
+\sc{Model-X}       &     0.142  & 0.124  & 0.111  & 0.947  & 0.009  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          &    0.000  & 0.000  & 0.000  & 0.950  & 0.000  \\
+\sc{FAR-Knockoff} & 0.042 & 0.719 & 0.696 & 0.983 & 0.003 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &    0.843  & 0.189  & 0.159  & 0.906  & 0.057  \\
+\sc{FarmSelect}    &    0.204  & 1.000  & 0.862  & 0.976  & 0.025  \\
+\sc{Model-X}       &     0.003  & 0.014  & 0.013  & 0.950  & 0.000  \\
+\sc{Fixed-X }      &    0.000  & 0.000  & 0.000  & 0.950  & 0.000  \\
+\sc{TSKI}          &    0.000  & 0.000  & 0.000  & 0.950  & 0.000  \\
+\sc{FAR-Knockoff} & 0.078 & 0.769 & 0.725 & 0.983 & 0.006 \\
+
+\bottomrule
+\end{tabular}
+\\[1em]
+
+\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &     0.911  & 0.092  & 0.089  & 0.952  & 0.025  \\
+\sc{FarmSelect}    &    0.039  & 1.000  & 0.977  & 0.999  & 0.002  \\
+\sc{Model-X}       &    0.096  & 0.055  & 0.051  & 0.974  & 0.003  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI }         &    0.000  & 0.000  & 0.000  & 0.975  & 0.000  \\
+\sc{FAR-Knockoff} & 0.042 & 0.719 & 0.696 & 0.992 & 0.001 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &     0.922  & 0.087  & 0.081  & 0.951  & 0.027  \\
+\sc{FarmSelect}    &    0.002  & 1.000  & 0.999  & 1.000  & 0.000  \\
+\sc{Model-X}       &    0.100  & 0.091  & 0.085  & 0.974  & 0.003  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          &    0.000  & 0.000  & 0.000  & 0.975  & 0.000  \\
+\sc{FAR-Knockoff} & 0.076 & 0.893 & 0.849 & 0.995 & 0.003 \\
+
+\bottomrule
+\end{tabular}
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[htbp]
+\caption{Simulation results for Experiment 2 with stronger temporal correlation and target FDR $q = 0.2$}
+\label{tab:strongerdependence_fdr0.2}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{cc}
+\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &     0.872  & 0.105  & 0.113  & 0.917  & 0.040  \\
+\sc{FarmSelect}    &    0.020  & 1.000  & 0.989  & 0.999  & 0.001  \\
+\sc{Model-X}       &     0.487  & 0.361  & 0.352  & 0.940  & 0.029  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          &    0.002  & 0.003  & 0.003  & 0.950  & 0.000  \\
+\sc{FAR-Knockoff} & 0.095 & 0.892 & 0.857 & 0.989 & 0.006 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &    0.843  & 0.189  & 0.159  & 0.906  & 0.057  \\
+\sc{FarmSelect}    &    0.204  & 1.000  & 0.862  & 0.976  & 0.025  \\
+\sc{Model-X}       &    0.030  & 0.064  & 0.073  & 0.952  & 0.001  \\
+\sc{Fixed-X }      &    0.057  & 0.069  & 0.080  & 0.951  & 0.003  \\
+\sc{TSKI}          &    0.002  & 0.004  & 0.004  & 0.950  & 0.000  \\
+\sc{FAR-Knockoff} & 0.185 & 0.939 & 0.842 & 0.982 & 0.016 \\
+
+\bottomrule
+\end{tabular}
+\\[1em]
+
+\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &     0.911  & 0.092  & 0.089  & 0.952  & 0.025  \\
+\sc{FarmSelect}    &    0.039  & 1.000  & 0.977  & 0.999  & 0.002  \\
+\sc{Model-X}       &    0.460  & 0.269  & 0.282  & 0.970  & 0.012  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI }         &     0.000  & 0.000  & 0.000  & 0.975  & 0.000  \\
+\sc{FAR-Knockoff} & 0.096 & 0.893 & 0.859 & 0.994 & 0.003 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Lasso}         &    0.922  & 0.087  & 0.081  & 0.951  & 0.027  \\
+\sc{FarmSelect}    &    0.002  & 1.000  & 0.999  & 1.000  & 0.000  \\
+\sc{Model-X}       &    0.450  & 0.333  & 0.344  & 0.973  & 0.011  \\
+\sc{Fixed-X}       & N.A.  & N.A.  & N.A.  & N.A.  & N.A.  \\
+\sc{TSKI}          &    0.000  & 0.000  & 0.000  & 0.975  & 0.000  \\
+\sc{FAR-Knockoff} & 0.152 & 0.968 & 0.884 & 0.993 & 0.006 \\
+
+\bottomrule
+\end{tabular}
+\end{tabular}
+\end{table}
+
+{\color{red}
+{\color{minorrevisionred}\input{simulation_variability_insert_2026-07-26}}
+\input{new_theory_simulation_insert_readable_2026-09-03}
+\input{weak_factor_appendix_2026-09-04}
+}
+
+\subsection{Pre-screened Model-X and Fixed-X}\label{sec:pre_screening}
+
+Tables~\ref{tab:tdgp1A_fdr0.1}--\ref{tab:dgp2A_fdr0.2} examine Model-X and Fixed-X after screening the raw covariates on the first half-sample and performing knockoff inference on the second. Unlike FAR-Knockoff, these screens do not remove common factors. Their Lasso-path size target is $\min(0.25T,0.7N)$, compared with $\min(0.25\lfloor T/2\rfloor,0.7N)$ for FAR-Knockoff. All selections are evaluated in the original coordinate system. Thus these are additional implementations, not a controlled decomposition of FAR-Knockoff's components.
+
+Pre-screening alone is not sufficient for reliable selection. In the calibrated design, the raw-covariate screen can miss relevant predictors; at $q=0.2$, the resulting procedures combine low power with substantial false-discovery rates in several configurations. At $q=0.1$, few discoveries can instead produce small empirical FDR without useful power. These results caution against interpreting a small FDR in isolation. Monte Carlo standard deviations are reported in Appendix~\ref{app:far_mc_variability}.
+
+\begin{table}[htbp]
+	\caption{Simulation results for Experiment 1 with target FDR $q = 0.1$}
+	\label{tab:tdgp1A_fdr0.1}
+	\centering
+	\scriptsize
+	\setlength{\tabcolsep}{2pt}
+	\renewcommand{\arraystretch}{1.05}
+	\begin{tabular}{cc}
+		\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+		\begin{tabular}{lccccc}
+			\toprule
+			Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+			\midrule
+\sc{Screening+Model-X} & 0.030 & 0.197 & 0.187 & 0.958 & 0.002 \\
+
+\sc{Screening+Fixed-X} & 0.037 & 0.223 & 0.211 & 0.959 & 0.002 \\
+
+			\bottomrule
+		\end{tabular}
+		&
+		\begin{tabular}{lccccc}
+			\toprule
+			Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+			\midrule
+\sc{Screening+Model-X} & 0.072 & 0.560 & 0.531 & 0.973 & 0.005 \\
+
+\sc{Screening+Fixed-X} & 0.084 & 0.573 & 0.538 & 0.973 & 0.006 \\
+
+			\bottomrule
+		\end{tabular}
+		\\[1em]
+		
+		\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+		\begin{tabular}{lccccc}
+			\toprule
+			Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+			\midrule
+\sc{Screening+Model-X} & 0.025 & 0.092 & 0.087 & 0.977 & 0.001 \\
+
+\sc{Screening+Fixed-X} & 0.025 & 0.099 & 0.095 & 0.977 & 0.001 \\
+
+			\bottomrule
+		\end{tabular}
+		&
+		\begin{tabular}{lccccc}
+			\toprule
+			Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+			\midrule
+\sc{Screening+Model-X} & 0.073 & 0.353 & 0.335 & 0.982 & 0.002 \\
+
+\sc{Screening+Fixed-X} & 0.088 & 0.363 & 0.341 & 0.981 & 0.003 \\
+
+			\bottomrule
+		\end{tabular}
+	\end{tabular}
+\end{table}
+
+
+
+
+
+
+\begin{table}[htbp]
+	\caption{Simulation results for Experiment 1 with target FDR $q = 0.2$}
+	\label{tab:tdgp1A_fdr0.2}
+	\centering
+	\scriptsize
+	\setlength{\tabcolsep}{2pt}
+	\renewcommand{\arraystretch}{1.05}
+	\begin{tabular}{cc}
+		\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+		\begin{tabular}{lccccc}
+			\toprule
+			Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+			\midrule
+\sc{Screening+Model-X} & 0.114 & 0.560 & 0.551 & 0.971 & 0.008 \\
+
+\sc{Screening+Fixed-X} & 0.114 & 0.548 & 0.535 & 0.970 & 0.008 \\
+
+			\bottomrule
+		\end{tabular}
+		&
+		\begin{tabular}{lccccc}
+			\toprule
+			Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+			\midrule
+\sc{Screening+Model-X} & 0.176 & 0.807 & 0.744 & 0.978 & 0.013 \\
+
+\sc{Screening+Fixed-X} & 0.191 & 0.828 & 0.755 & 0.977 & 0.015 \\
+
+			\bottomrule
+		\end{tabular}
+		\\[1em]
+		
+		\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+		\begin{tabular}{lccccc}
+			\toprule
+			Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+			\midrule
+\sc{Screening+Model-X} & 0.117 & 0.337 & 0.344 & 0.980 & 0.004 \\
+
+\sc{Screening+Fixed-X} & 0.114 & 0.357 & 0.368 & 0.981 & 0.003 \\
+
+			\bottomrule
+		\end{tabular}
+		&
+		\begin{tabular}{lccccc}
+			\toprule
+			Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+			\midrule
+\sc{Screening+Model-X} & 0.229 & 0.665 & 0.628 & 0.984 & 0.008 \\
+
+\sc{Screening+Fixed-X} & 0.241 & 0.673 & 0.630 & 0.984 & 0.008 \\
+
+			\bottomrule
+		\end{tabular}
+	\end{tabular}
+\end{table}
+
+
+\begin{table}[htbp]
+\caption{Simulation results for Experiment 2 with target FDR $q = 0.1$}
+\label{tab:dgp2A_fdr0.1}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{cc}
+\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Screening+Model-X} & 0.006 & 0.002 & 0.002 & 0.950 & 0.000 \\
+
+\sc{Screening+Fixed-X} & 0.004 & 0.000 & 0.000 & 0.950 & 0.000 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Screening+Model-X} & 0.004 & 0.000 & 0.000 & 0.950 & 0.000 \\
+
+\sc{Screening+Fixed-X} & 0.006 & 0.002 & 0.002 & 0.950 & 0.000 \\
+
+\bottomrule
+\end{tabular}
+\\[1em]
+
+\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Screening+Model-X} & 0.006 & 0.000 & 0.000 & 0.975 & 0.000 \\
+
+\sc{Screening+Fixed-X} & 0.008 & 0.002 & 0.002 & 0.975 & 0.000 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Screening+Model-X} & 0.014 & 0.002 & 0.002 & 0.975 & 0.000 \\
+
+\sc{Screening+Fixed-X} & 0.011 & 0.001 & 0.001 & 0.975 & 0.000 \\
+
+\bottomrule
+\end{tabular}
+\end{tabular}
+\end{table}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[htbp]
+\caption{Simulation results for Experiment 2 with target FDR $q = 0.2$}
+\label{tab:dgp2A_fdr0.2}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{cc}
+\multicolumn{1}{c}{\textbf{(a) $N=200$, $T=200$}} & \multicolumn{1}{c}{\textbf{(b) $N=200$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Screening+Model-X} & 0.203 & 0.020 & 0.024 & 0.945 & 0.007 \\
+
+\sc{Screening+Fixed-X} & 0.215 & 0.027 & 0.032 & 0.945 & 0.007 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Screening+Model-X} & 0.252 & 0.024 & 0.030 & 0.943 & 0.008 \\
+
+\sc{Screening+Fixed-X} & 0.271 & 0.028 & 0.033 & 0.943 & 0.009 \\
+
+\bottomrule
+\end{tabular}
+\\[1em]
+
+\multicolumn{1}{c}{\textbf{(c) $N=400$, $T=200$}} & \multicolumn{1}{c}{\textbf{(d) $N=400$, $T=400$}} \\
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Screening+Model-X} & 0.228 & 0.014 & 0.017 & 0.972 & 0.004 \\
+
+\sc{Screening+Fixed-X} & 0.231 & 0.013 & 0.015 & 0.972 & 0.004 \\
+
+\bottomrule
+\end{tabular}
+&
+\begin{tabular}{lccccc}
+\toprule
+Method & FDR & Power & $F_1$ & Accuracy & FPR \\
+\midrule
+\sc{Screening+Model-X} & 0.360 & 0.019 & 0.022 & 0.970 & 0.006 \\
+
+\sc{Screening+Fixed-X} & 0.381 & 0.018 & 0.022 & 0.969 & 0.006 \\
+
+\bottomrule
+\end{tabular}
+\end{tabular}
+\end{table}
+
+
+\input{empirical_appendix_longer_maturities_v7}
+
+\iffalse
+\section{Proof of the Main Results}\label{sec:proof_main}
+
+\begin{proof}[ Proof of Lemma 2.5]
+Let us consider $\widehat{\Sigma }_{\varepsilon }(t,r)-\Sigma _{\varepsilon
+}^{0}(t,r)=\widehat{\Sigma }_{\varepsilon }(t,t+h)-\Sigma _{\varepsilon
+}^{0}(t,t+h):=d_{t,h},$ where $h=r-t.$
+
+Case (a): $|h|>m.$
+
+$|d_{t,h}|=O\left( \rho ^{|h|}\right) \leq O\left( \rho ^{m}\right) .$
+
+Case (b): $|h|\leq m.$ 
+\begin{eqnarray*}
+|d_{t,h}| &=&\left\vert \frac{1}{T-|h|}\sum_{t=1}^{T-|h|}\widehat{
+\varepsilon }_{t}\widehat{\varepsilon }_{t+h}-\sigma _{h}\right\vert \\
+&\leq &\left\vert \frac{1}{T-|h|}\sum_{t=1}^{T-|h|}\widehat{\varepsilon }%
+_{t} \widehat{\varepsilon }_{t+h}-\frac{1}{T-|h|}\sum_{t=1}^{T-|h|}%
+\varepsilon _{t}\varepsilon _{t+h}\right\vert +\left\vert \frac{1}{T-|h|}
+\sum_{t=1}^{T-|h|}\varepsilon _{t}\varepsilon _{t+h}-\sigma _{h}\right\vert
+\\
+&:=&\mathcal{D}_{a}\mathcal{+D}_{b.}
+\end{eqnarray*}
+
+As for $\mathcal{D}_{a},$ 
+\begin{eqnarray*}
+\mathcal{D}_{a} &\leq &\left\vert \frac{1}{T-|h|}\sum_{t=1}^{T-|h|}\left( 
+\widehat{\varepsilon }_{t}-\varepsilon _{t}\right) \varepsilon
+_{t+h}\right\vert +\left\vert \frac{1}{T-|h|}\sum_{t=1}^{T-|h|}\varepsilon
+_{t}\left( \widehat{\varepsilon }_{t+h}-\varepsilon _{t+h}\right)
+\right\vert \\
+& &+\left\vert \frac{1}{T-|h|}\sum_{t=1}^{T-|h|}\left( \widehat{
+\varepsilon }_{t}-\varepsilon _{t}\right) \left( \widehat{\varepsilon }
+_{t+h}-\varepsilon _{t+h}\right) \right\vert \\
+&:&=\mathcal{D}_{a1}+\mathcal{D}_{a2}+\mathcal{D}_{a3}.
+\end{eqnarray*}
+We have 
+\begin{eqnarray*}
+\mathcal{D}_{a1} &\leq &\left\vert \varepsilon ^{\prime }X_{\widetilde{ 
+\mathcal{S}}}\left( X_{\widetilde{\mathcal{S}}}^{\prime }X_{\widetilde{ 
+\mathcal{S}}}\right) ^{-1}\frac{1}{T-|h|}\sum_{t=1}^{T-|h|}X_{\widetilde{ 
+\mathcal{S}},t}\varepsilon _{t+h}\right\vert \\
+&\leq &\left\Vert \varepsilon ^{\prime }X_{\widetilde{\mathcal{S}}}\left(
+X_{ \widetilde{\mathcal{S}}}^{\prime }X_{\widetilde{\mathcal{S}}}\right)
+^{-1}\right\Vert \left\Vert \frac{1}{T-|h|}\sum_{t=1}^{T-|h|}X_{\widetilde{ 
+\mathcal{S}},t}\varepsilon _{t+h}\right\Vert \\
+&=&O_{p}\left( T^{-1/2}\kappa ^{1/2}\right) O_{p}\left( T^{-1/2}\kappa
+^{1/2}\right) =O_{p}\left( T^{-1}\kappa \right) .
+\end{eqnarray*}
+
+Similarly, $\mathcal{D}_{a2}=O_{p}\left( T^{-1}\kappa \right) .$ 
+\begin{equation*}
+\mathcal{D}_{a3}=\left\vert \varepsilon ^{\prime }X_{\widetilde{\mathcal{S}}
+}\left( X_{\widetilde{\mathcal{S}}}^{\prime }X_{\widetilde{\mathcal{S}}
+}\right) ^{-1}\left( \frac{1}{T-|h|}\sum_{t=1}^{T-|h|}X_{\widetilde{\mathcal{%
+\ S}},t}X_{\widetilde{\mathcal{S}},t+h}\right) \left( X_{\widetilde{\mathcal{%
+S} }}^{\prime }X_{\widetilde{\mathcal{S}}}\right) ^{-1}X_{\widetilde{%
+\mathcal{S} }}^{\prime }\varepsilon \right\vert =O_{p}\left( T^{-1}\kappa
+\right) .
+\end{equation*}
+In all, $\mathcal{D}_{a}=O_{p}\left( T^{-1}\kappa \right) .$ Meanwhile, it
+is easy to see that $\mathcal{D}_{b}=O_{p}\left( T^{-1/2}\right) .$ Hence,
+we conclude that $|d_{t,h}|=O_{p}\left( T^{-1}\kappa +T^{-1/2}\right) .$
+
+So it follows that 
+\begin{equation*}
+\left\Vert \widehat{\Sigma }_{\varepsilon }-\Sigma _{\varepsilon
+}^{0}\right\Vert \leq \max_{t}\sum_{r=1}^{T}\left\vert \widehat{\Sigma }
+(t,r)-\Sigma (t,r)\right\vert =O_{p}\left( T\rho ^{m}+m\left( T^{-1}\kappa
++T^{-1/2}\right) \right) =O_{p}\left( \omega _{NT}\right) .
+\end{equation*}
+\end{proof}
+
+\bigskip
+
+\begin{proof}[Proof of Lemma 4.1]
+The proof parallels the proof of Lemma 2 of \citet*[BCS]{BarberCandesSamworth2020}. To proceed, we will
+be conditioning on observing $\breve{Z}_{-j},\widetilde{Z}_{-j}$, and on
+observing the unordered pair $\left\{ \breve{Z}_{j},\widetilde{Z}
+_{j}\right\} $, that is, we observe both the original and knockoff features
+but do not know which is which. It follows from the flip-sign property that
+having observed all this, we know all the knockoff statistics $W$ except for
+the sign of the $j$th component $W_{j}$. Put differently, $W_{-j}$ and $%
+\left\vert W_{j}\right\vert $ are both functions of the variables we are
+conditioning on, but $\func{sign}\left(W_{j}\right) $ is not. Without loss
+of generality, label the unordered pair of feature vectors $\left\{ \breve{Z}
+_{j},\widetilde{Z}_{j}\right\} $, as $Z_{j}^{(0)}$ and $Z_{j}^{(1)}$, such
+that: 
+\begin{equation}  \label{eq:Z0Z1}
+\left\{ 
+\begin{array}{l}
+\text{If }\breve{Z}_{j}=Z_{j}^{(0)}\text{ and }\widetilde{Z}
+_{j}=Z_{j}^{(1)},\text{ then }W_{j}\geq 0; \\ 
+\text{If }\breve{Z}_{j}=Z_{j}^{(1)}\text{ and }\widetilde{Z}_{j}=Z_{j}^{(0)} 
+\text{, then }W_{j}\leq 0.%
+\end{array}
+\right.
+\end{equation}
+
+We can therefore write 
+\begin{align*}
+& \mathbb{P}\left\{ W_{j}>0,E_{j}\leq \epsilon ||W_{j}|,W_{-j},\Psi \right\}
+\\
+& \quad =\mathbb{E}\left[ \mathbb{P}\left\{ W_{j}>0,E_{j}\leq \epsilon \mid
+Z_{j}^{(0)},Z_{j}^{(1)},\breve{Z}_{-j},\widetilde{Z}_{-j},\Psi \right\}
+||W_{j}| ,W_{-j},\Psi \right]
+\end{align*}
+and similarly 
+\begin{align*}
+& \mathbb{P}\left\{ W_{j}<0||W_{j}|,W_{-j},\Psi \right\} \\
+& \quad =\mathbb{E}\left[ \mathbb{P}\left\{ W_{j}<0\mid
+Z_{j}^{(0)},Z_{j}^{(1)},\breve{Z}_{-j},\widetilde{Z}_{-j},\Psi \right\}
+||W_{j}|,W_{-j},\Psi \right]
+\end{align*}
+
+Therefore, it will be sufficient to prove that 
+\begin{equation}  \label{eq:flip2}
+\mathbb{P}\left\{ W_{j}>0,E_{j}\leq \epsilon \mid Z_{j}^{(0)},Z_{j}^{(1)}, 
+\breve{Z}_{-j},\widetilde{Z}_{-j},\Psi \right\} \leq e^{\epsilon }\cdot 
+\mathbb{P}\left\{ W_{j}<0\mid Z_{j}^{(0)},Z_{j}^{(1)},\breve{Z}_{-j}, 
+\widetilde{Z}_{-j},\Psi \right\}
+\end{equation}
+
+Now, if $Z_{j}^{(0)},Z_{j}^{(1)},\breve{Z}_{-j},\widetilde{Z}_{-j},\Psi $
+are such that $\left\vert W_{j}\right\vert =0$, clearly this bound holds
+trivially, so from this point on we ignore this trivial case and assume that 
+$\left\vert W_{j}\right\vert >0$. By our definition \eqref{eq:Z0Z1} of $%
+Z_{j}^{(0)}$ and $Z_{j}^{(1)}$, we have 
+\begin{align}  \label{eq:rho_j}
+& \frac{\mathbb{P}\left\{ W_{j}>0\mid Z_{j}^{(0)},Z_{j}^{(1)},\breve{Z}%
+_{-j}, \widetilde{Z}_{-j},\Psi \right\} }{\mathbb{P}\left\{ W_{j}<0\mid
+Z_{j}^{(0)},Z_{j}^{(1)},\breve{Z}_{-j},\widetilde{Z}_{-j},\Psi \right\} } 
+\notag \\
+& \quad =\frac{\mathbb{P}\left\{ \left( \breve{Z}_{j},\widetilde{Z}
+_{j}\right) =\left( Z_{j}^{(0)},Z_{j}^{(1)}\right) \mid
+Z_{j}^{(0)},Z_{j}^{(1)},\breve{Z}_{-j},\widetilde{Z}_{-j},\Psi \right\} }{ 
+\mathbb{P}\left\{ \left( \breve{Z}_{j},\widetilde{Z}_{j}\right) =\left(
+Z_{j}^{(1)},Z_{j}^{(0)}\right) \mid Z_{j}^{(0)},Z_{j}^{(1)},\breve{Z}_{-j}, 
+\widetilde{Z}_{-j},\Psi \right\} }:=e^{\rho _{j}}.
+\end{align}
+
+Next, from the definition (4.7) of $E_{j}$ and the definition %
+\eqref{eq:Z0Z1} of $Z_{j}^{(0)}$ and $Z_{j}^{(1)}$, we can see that $%
+E_{j}=\rho _{j}$ if $W_{j}>0$, or otherwise $E_{j}=-\rho _{j}$ if $W_{j}<0$.
+Therefore, 
+\begin{align*}
+\mathbb{P}& \left\{ W_{j}>0,E_{j}\leq \epsilon \mid Z_{j}^{(0)},Z_{j}^{(1)}, 
+\breve{Z}_{-j},\widetilde{Z}_{-j},\Psi \right\} \\
+& =\mathbb{P}\left\{ W_{j}>0,\rho _{j}\leq \epsilon \mid
+Z_{j}^{(0)},Z_{j}^{(1)},\breve{Z}_{-j},\widetilde{Z}_{-j},\Psi \right\} \\
+& =\boldsymbol{1}\left\{ \rho _{j}\leq \epsilon \right\} \cdot \mathbb{P}
+\left\{ W_{j}>0\mid Z_{j}^{(0)},Z_{j}^{(1)},\breve{Z}_{-j},\widetilde{Z}
+_{-j},\Psi \right\} \\
+& =\boldsymbol{1}\left\{ \rho _{j}\leq \epsilon \right\} \cdot e^{\rho
+_{j}}\cdot \mathbb{P}\left\{ W_{j}<0\mid Z_{j}^{(0)},Z_{j}^{(1)},\breve{Z}
+_{-j},\widetilde{Z}_{-j},\Psi \right\} ,
+\end{align*}
+where the next-to-last step holds since $\rho _{j}$ is a function of $%
+Z_{j}^{(0)},Z_{j}^{(1)},\breve{Z}_{-j},\widetilde{Z}_{-j},\Psi $, while the
+last step is by \eqref{eq:rho_j}. Since $\boldsymbol{1}\left\{ \rho _{j}\leq
+\epsilon \right\} \cdot e^{\rho _{j}}\leq e^{\epsilon }$ trivially, we have
+proved the desired bound \eqref{eq:flip2}, which concludes the proof of the
+lemma.
+\end{proof}
+
+\bigskip
+
+\begin{proof}[Proof of Lemma  4.2]
+Recalling the assumption that $P^{\dagger}\left(\widetilde{Z}|\breve{Z}
+,\Psi \right) $ is pairwise exchangeable w.r.t. $P^{\dagger }\left( \breve{Z}
+,\widetilde{Z}|\Psi \right) $, we introduce a pair of random variables drawn
+as follows: first, draw $\breve{Z}_{-j}^{\prime }\sim P_{\breve{Z}
+_{-j}}^{\star }$, where $P_{\breve{Z}_{-j}}^{\star }$ is the (true)
+distribution of $\breve{Z}_{-j}$; then draw $\breve{Z}_{j}^{\prime }\mid 
+\breve{Z}_{-j}^{\prime },\Psi \sim P_{\breve{Z}_{j}^{\prime }}^{\dagger
+}\left( \cdot \mid \breve{Z}_{-j}^{\prime },\Psi \right) $; and finally,
+draw $\widetilde{Z}^{\prime }\mid \breve{Z}^{\prime },\Psi \sim P_{_{ 
+\widetilde{Z}|\breve{Z}}}^{\dagger }\left( \cdot \mid \breve{Z}^{\prime
+},\Psi \right) $. Then by \eqref{eq:pair_exchange}, 
+\begin{equation}  \label{eq:switchZ}
+\left( \breve{Z}_{j}^{\prime },\widetilde{Z}_{j}^{\prime },\breve{Z}
+_{-j}^{\prime },\widetilde{Z}_{-j}^{\prime }\right) \overset{d}{=}\left( 
+\widetilde{Z}_{j}^{\prime },\breve{Z}_{j}^{\prime },\breve{Z}_{-j}^{\prime
+}, \widetilde{Z}_{-j}^{\prime }\right).
+\end{equation}
+
+By construction, the (conditional) joint distribution of ($\breve{Z}^{\prime
+},\widetilde{Z}^{\prime }$) is given by 
+\begin{equation*}
+\mathbb{P}\left\{\breve{Z}^{\prime}=\breve{z},\widetilde{Z}^{\prime}= \tilde{%
+z}|\Psi \right\} =P_{\breve{Z}_{-j}}^{\star }\left(\breve{z} _{-j}|\Psi
+\right) P^{\dagger}\left(\breve{z}_{j}\mid \breve{z}_{-j},\Psi \right)P_{%
+\widetilde{Z}|\breve{Z}}(\tilde{z}\mid \breve{z},\Psi).
+\end{equation*}
+
+Now, fixing any $\breve{z}_{-j},\tilde{z}_{-j}\in \mathbb{R}^{\kappa -1}$,
+write $\breve{z}^{a}$ as the vector in $\mathbb{R}^{\kappa}$ with entry $j $
+given by $a$ and all other entries given by $\breve{z}_{-j}$, and define $%
+\breve{z}^{b},\tilde{z}^{a},\tilde{z}^{b}$ analogously. Then %
+\eqref{eq:switchZ} is equivalent to 
+\begin{equation}  \label{eq:distribution_switch}
+P_{\breve{Z}_{-j}}^{\star }\left( \breve{z}_{-j}|\Psi \right) P^{\dagger
+}\left(a\mid \breve{z}_{-j},\Psi\right)P_{\tilde{Z}|\breve{Z} }^{\dagger
+}\left( \tilde{z}^{b}\mid\breve{z}^{a},\Psi \right)=P_{ \breve{Z}%
+_{-j}}^{\star }\left( \breve{z}_{-j}|\Psi \right) P^{\dagger }\left(b\mid 
+\breve{z}_{-j},\Psi \right)P_{\tilde{Z}|\breve{Z} }^{\dagger}\left( \tilde{z}%
+^{a}\mid \breve{z}^{b},\Psi \right)
+\end{equation}
+
+Now we turn to the true distribution of the data, generated as $\breve{Z}
+\sim P_{\breve{Z}}^{\star }$ and $\widetilde{Z}\mid \breve{Z},\Psi \sim P_{ 
+\widetilde{Z}|\breve{Z}}^{\dagger }\left( \widetilde{Z}|\breve{Z},\Psi
+\right) $. This means that the joint distribution (conditional on $\Psi $)
+of $(\breve{Z},\widetilde{Z})$ is given by 
+\begin{equation*}
+\mathbb{P}\{\breve{Z}=\breve{z},\widetilde{Z}=\tilde{z}|\Psi \}=P_{ \breve{Z}%
+_{-j}}^{\star }\left( \breve{z}_{-j}|\Psi \right) P^{\star }\left( \breve{z}%
+_{j}\mid \breve{z}_{-j},\Psi \right) P_{\widetilde{Z}|\breve{Z} }^{\dagger }(%
+\tilde{z}\mid \breve{z},\Psi )
+\end{equation*}
+
+We can therefore calculate 
+\begin{align*}
+& \frac{\mathbb{P}\left\{ \breve{Z}_{j}=a,\widetilde{Z}_{j}=b,\breve{Z}%
+_{-j}= \breve{z}_{-j},\widetilde{Z}_{-j}=\tilde{z}_{-j}|\Psi \right\} }{%
+\mathbb{\ P}\left\{ \breve{Z}_{j}^{\prime }=b,\widetilde{Z}_{j}^{\prime }=a,%
+\breve{Z} _{-j}^{\prime }=\breve{z}_{-j},\widetilde{Z}_{-j}^{\prime }=\tilde{%
+z} _{-j}|\Psi \right\} } \\
+= & \frac{P_{\breve{Z}_{-j}}^{\star }\left( \breve{z}_{-j}|\Psi \right)
+P^{\star }\left( a\mid \breve{z}_{-j},\Psi \right) P_{\widetilde{Z}|\breve{Z}
+}^{\dagger }\left( \tilde{z}^{b}\mid \breve{z}^{a},\Psi \right) }{P_{ \breve{%
+Z}_{-j}}^{\star }\left( \breve{z}_{-j}|\Psi \right) P^{\star }\left( b\mid 
+\breve{z}_{-j},\Psi \right) P_{\widetilde{Z}|\breve{Z}}^{\dagger }\left( 
+\tilde{z}^{a}\mid \breve{z}^{b},\Psi \right) } \\
+= &\frac{P_{\breve{Z}_{j}}^{\star }\left( a|\breve{Z}_{-j},\Psi \right) P_{ 
+\breve{Z}_{j}}^{\dagger }\left( b|\breve{Z}_{-j},\Psi \right) }{P_{\breve{Z}
+_{j}}^{\dagger }\left( a|\breve{Z}_{-j},\Psi \right) P_{\breve{Z}
+_{j}}^{\star }\left( b|\breve{Z}_{-j},\Psi \right) },
+\end{align*}
+where the last step holds by \eqref{eq:distribution_switch}. This proves the
+lemma.
+\end{proof}
+
+\bigskip
+
+\begin{proof}[Proof of Theorem 4.6]
+The proof parallels proving Lemma 5 of BCS (2020). Recall that $\breve{Z}= 
+\frac{1}{\sqrt{T}}\breve{U}_{{\widetilde{\mathcal{S}}}}^{\prime }\varepsilon
+^{\dagger }.$ Under the measure of $P^{\star },$ $\Cov^{\star }\left( \breve{%
+		Z}\right) =\frac{1}{T}\breve{U}_{{\widetilde{\mathcal{S}}}}^{\prime} 
+\widehat{\Sigma }_{\varepsilon }^{-1}\Sigma _{\varepsilon }^{0}\breve{U}_{{%
+\widetilde{\mathcal{S}}}};$ whereas under the measure $P^{\dagger },$ $\Cov
+^{\dagger }\left( \breve{Z}\right) =\frac{1}{T}\breve{U}_{{\widetilde{ 
+\mathcal{S}}}}^{\prime }\breve{U}_{{\widetilde{\mathcal{S}}}}.$ For later
+reference, let us define two precision matrices $\Omega ^{\star }=\left[ 
+\Cov
+^{\star }\left( \breve{Z}\right) \right] ^{-1}$\ and $\Omega ^{\dagger }= %
+\left[ \Cov^{\dagger }\left( \breve{Z}\right) \right] ^{-1}.$ Then it
+follows that 
+\begin{equation*}
+P_{\breve{Z}_{j}}^{\star }\left( \cdot |\breve{Z}_{-j},\Psi \right) = 
+\mathcal{N}\left( \breve{Z}_{-j}^{\prime }\left( -\Omega _{-j,j}^{\star
+}/\Omega _{jj}^{\star }\right) ,1/\Omega _{jj}^{\star }\right) ,
+\end{equation*}
+and that 
+\begin{equation*}
+P_{\breve{Z}_{j}}^{\dagger }\left( \cdot |\breve{Z}_{-j},\Psi \right) = 
+\mathcal{N}\left( \breve{Z}_{-j}^{\prime }\left( -\Omega _{-j,j}^{\dagger
+}/\Omega _{jj}^{\dagger }\right) ,1/\Omega _{jj}^{\dagger }\right) .
+\end{equation*}
+
+\bigskip Define 
+\begin{equation*}
+Q\mathcal{=}\frac{P_{\breve{Z}_{j}}^{\star }\left( \breve{Z}_{j}|\breve{Z}
+_{-j},\Psi \right) P_{\breve{Z}_{j}}^{\dagger }\left( \widetilde{Z}_{j}| 
+\breve{Z}_{-j},\Psi \right) }{P_{\breve{Z}_{j}}^{\dagger }\left( \breve{Z}
+_{j}|\breve{Z}_{-j},\Psi \right) P_{\breve{Z}_{j}}^{\star }\left( \widetilde{
+Z}_{j}|\breve{Z}_{-j},\Psi \right) }=\frac{P_{\breve{Z}_{j}}^{\star }\left( 
+\breve{Z}_{j}|\breve{Z}_{-j},\Psi \right) }{P_{\breve{Z}_{j}}^{\star }\left( 
+\widetilde{Z}_{j}|\breve{Z}_{-j},\Psi \right) }\times \frac{P_{\breve{Z}
+_{j}}^{\dagger }\left( \widetilde{Z}_{j}|\breve{Z}_{-j},\Psi \right) }{P_{ 
+\breve{Z}_{j}}^{\dagger }\left( \breve{Z}_{j}|\breve{Z}_{-j},\Psi \right) }
+\equiv Q^{\star }\times Q^{\dagger }.
+\end{equation*}
+Our task is to evaluate $\log Q=\log Q^{\star }+\log Q^{\dagger }.$ Note
+that 
+\begin{eqnarray*}
+\log Q^{\star } &=&\log \frac{P_{\breve{Z}_{j}}^{\star }\left( \breve{Z}%
+_{j}| \breve{Z}_{-j},\Psi \right) }{P_{\breve{Z}_{j}}^{\star }\left( 
+\widetilde{Z} _{j}|\breve{Z}_{-j},\Psi \right) } \\
+&=&\frac{\Omega _{jj}^{\star }}{2}\left[ \left( \widetilde{Z}_{j}+\breve{Z}
+_{-j}^{\prime }\Omega _{-j,j}^{\star }/\Omega _{jj}^{\star }\right)
+^{2}-\left( \breve{Z}_{j}+\breve{Z}_{-j}^{\prime }\Omega _{-j,j}^{\star
+}/\Omega _{jj}^{\star }\right) ^{2}\right] \\
+&=&\frac{\Omega _{jj}^{\star }}{2}\left[ \left( \widetilde{Z}_{j}-\breve{Z}
+_{j}\right) ^{2}+2\left( \widetilde{Z}_{j}-\breve{Z}_{j}\right) \left( 
+\breve{Z}_{j}+\breve{Z}_{-j}^{\prime }\Omega _{-j,j}^{\star }/\Omega
+_{jj}^{\star }\right) \right] \\
+&=&\frac{\Omega _{jj}^{\star }}{2}\left( \widetilde{Z}_{j}-\breve{Z}
+_{j}\right) ^{2}+\left( \widetilde{Z}_{j}-\breve{Z}_{j}\right) \left( \breve{
+Z}_{j}\Omega _{jj}^{\star }+\breve{Z}_{-j}^{\prime }\Omega _{-j,j}^{\star
+}\right) \\
+&=&\frac{\Omega _{jj}^{\star }}{2}\left( \widetilde{Z}_{j}-\breve{Z}
+_{j}\right) ^{2}+\left( \widetilde{Z}_{j}-\breve{Z}_{j}\right) \breve{Z}
+^{\prime }\Omega _{j}^{\star } \\
+&=&\left( \widetilde{Z}_{j}-\breve{Z}_{j}\right) \left[ \frac{\Omega
+_{jj}^{\star }}{2}\left( \widetilde{Z}_{j}-\breve{Z}_{j}\right) +\breve{Z}
+^{\prime }\Omega _{j}^{\star }\right] .
+\end{eqnarray*}
+Similarly, we can show $\log Q^{\dagger }=-\left( \widetilde{Z}_{j}-\breve{Z}
+_{j}\right) \left[ \frac{\Omega _{jj}^{\dagger }}{2}\left( \widetilde{Z}%
+_{j}- \breve{Z}_{j}\right) +\breve{Z}^{\prime }\Omega _{j}^{\dagger }\right]
+.$ Therefore, 
+\begin{eqnarray*}
+\log Q &=&\left( \widetilde{Z}_{j}-\breve{Z}_{j}\right) \left[ \frac{\Omega
+_{jj}^{\star }}{2}\left( \widetilde{Z}_{j}-\breve{Z}_{j}\right) +\breve{Z}
+^{\prime }\Omega _{j}^{\star }\right] -\left( \widetilde{Z}_{j}-\breve{Z}
+_{j}\right) \left[ \frac{\Omega _{jj}^{\dagger }}{2}\left( \widetilde{Z}%
+_{j}- \breve{Z}_{j}\right) +\breve{Z}^{\prime }\Omega _{j}^{\dagger }\right]
+\\
+&=&\left( \widetilde{Z}_{j}-\breve{Z}_{j}\right) \left[ \left( \widetilde{Z}
+_{j}-\breve{Z}_{j}\right) \frac{\Omega _{jj}^{\star }-\Omega _{jj}^{\dagger
+} }{2}+\breve{Z}^{\prime }\left( \Omega _{j}^{\star }-\Omega _{j}^{\dagger
+}\right) \right] .
+\end{eqnarray*}
+Also note that due to the imposed normalization that $\left\Vert \breve{U}_{ 
+\widetilde{\mathcal{S}},j}\right\Vert _{2}^{2}/T=\left\Vert \widetilde{U}_{ 
+\widetilde{\mathcal{S}},j}\right\Vert _{2}^{2}/T=1$, we have that $\max_{j} 
+\breve{Z}_{j}=O_{p}\left( 1\right) $ and $\max_{j}\widetilde{Z}
+_{j}=O_{p}\left( 1\right) .$ This leads to 
+\begin{equation*}
+E_{j}\left( \breve{Z}_{j},\widetilde{Z}_{j}\right) =O_{p}\left( \left\vert
+\Omega _{jj}^{\dagger }-\Omega _{jj}^{\star }\right\vert \right)
++O_{p}\left( \kappa \max_{k}\left\vert \Omega _{kj}^{\dagger }-\Omega
+_{kj}^{\star }\right\vert \right) ,
+\end{equation*}
+Hence, by Lemma \ref{lm:Omega}, 
+\begin{equation*}
+\max_{j\in \mathcal{S}_{0}^{c}\cap {\widetilde{\mathcal{S}}}}E_{j}\left( 
+\breve{Z}_{j},\widetilde{Z}_{j}\right) =\kappa O_{p}\left( \left\Vert \Omega
+^{\dagger }-\Omega ^{\star }\right\Vert _{\max }\right) =\kappa O_{p}\left(
+\left\Vert \Omega ^{\dagger }-\Omega ^{\star }\right\Vert \right) =
+O_{p}\left(\kappa \omega_{NT} \right) = o_{p}(1) .
+\end{equation*}
+
+If the first and second folds of data were independent, then by Theorem 2 of BCS (2020), we could conclude that 
+\begin{equation*}
+\func{FDR}\leq \min_{\epsilon \geq 0}\left\{ qe^{\epsilon }+P\left(
+\max_{j\in \mathcal{S}_{0}^{c}\cap {\widetilde{\mathcal{S}}}}E_{j}>\epsilon
+\right) \right\} .
+\end{equation*}
+As a result, by taking $\epsilon^{\ast} = K_{NT} \omega _{NT}\ln \left(
+NT\right) ,$ we could come to that 
+\begin{equation}  \label{eq:FDR_Result}
+\func{FDR}\leq q\cdot a_{NT}+b_{NT},
+\end{equation}
+with $a_{NT}\rightarrow 1$ while $b_{NT}\rightarrow 0.$
+
+When the data come from two dependent folds in the setting of time series,
+we shall resort to the proof of Theorem 1 of \citet*[CFIL]{ChiFanIngLv2025} to show the
+conclusion still holds.
+
+Specifically, recall that we have splitted the original data of $(X,Y)$
+subsequently along the time dimension into 3-folds $\left( X^{\langle
+1\rangle },Y^{\langle 1\rangle }\right) ,$ $\left( X^{\langle 2\rangle
+},Y^{\langle 2\rangle }\right) ,$ and $\left( X^{\langle 3\rangle
+},Y^{\langle 3\rangle }\right) $ of size $T/2-l_T,$ $2l_T,$ $T/2+l_T$,
+respectively. Now we let $\left( X^{\langle 3\rangle \star },Y^{\langle
+3\rangle \star }\right) $ and $\left( X^{\langle 3\rangle },Y^{\langle
+3\rangle }\right) $ have the same distribution and $\left( X^{\langle
+3\rangle \star },Y^{\langle 3\rangle \star }\right) $ be independent from $%
+\left( X^{\langle 1\rangle },Y^{\langle 1\rangle }\right) .$
+
+Given Lemma 7 of CFIL (2025), the construction of knockoffs does not cause
+additional variation in FDR. Therefore, we can extend the previous FDR
+control result from i.i.d. setting to time series setting by 
+\begin{equation*}
+\func{FDR}\leq q\cdot a_{NT}+b_{NT}+c_{NT},
+\end{equation*}%
+with $c_{NT}=\sup_{\mathcal{D\in }\mathbb{R}^{\left(T/2-l_T\right) \times
+(N+1)}}\left\vert P\left( \left( X^{\langle 3\rangle },Y^{\langle 3\rangle
+}\right) \in \mathcal{D}\right) -P\left( \left( X^{\langle 3\rangle \star
+},Y^{\langle 3\rangle \star }\right) \in \mathcal{D}\right) \right\vert $.
+Since the $\beta $-mixing rate is directly related to the total variation
+difference between conditional and unconditional measures, by Lemma 1 (and
+thus Corollary 2) of CFIL (2025), we can control $c_{NT}$ such that $%
+c_{NT}\leq C_{0} \beta(l_T) \rightarrow 0$, as $l_T \rightarrow \infty$.
+\end{proof}
+
+\bigskip
+
+\begin{proof}[Proof of Theorem 4.8]
+The proof will mostly follow proving Theorem 3 of \citet*[FDLL]{FanDemirkayaLiLv2020}. Hence we
+highlight the difference. The proof mainly relies on that the following two
+bounds in \eqref{eq:beta_l1_l2} hold in probability: 
+\begin{equation}  \label{eq:beta_l1_l2}
+\left\Vert \widehat{\beta }-\beta _{\mathcal{T}}\right\Vert _{1}\leq
+C_{\ell_{1}}\kappa \lambda \text{ and }\left\Vert \widehat{\beta }-\beta _{ 
+\mathcal{T}}\right\Vert _{2}\leq C_{\ell_{2}}\kappa ^{1/2}\lambda,
+\end{equation}
+for two positive constants $C_{\ell_{1}}$ and $C_{\ell_{2}}$, and it
+suffices to show the following two conditions: 
+\begin{equation}  \label{eq:A.24}
+\left\Vert \frac{1}{T}\breve{U}_{{\widetilde{\mathcal{S}}}}^{\prime
+}\varepsilon ^{\dagger }\right\Vert _{\infty }\leq \lambda _{0}\text{ in
+probability, for }\lambda _{0}=C_{3}\left( T^{-1}\kappa +T^{-1/2}\right) m.
+\end{equation}
+and 
+\begin{equation}  \label{eq:A.25}
+\left\Vert \frac{1}{T}\breve{U}_{{\ \widetilde{\mathcal{S}}}}^{\prime } 
+\breve{U}_{{\widetilde{\mathcal{S}}}}-\Sigma _{U_{{\widetilde{\mathcal{S}}}
+}^{\ast }}\right\Vert _{\max }=O_{p}\left( d_{NT}\right) .
+\end{equation}
+which correspond to (A.24) and (A.25) in FDLL (2020), respectively.
+
+In fact, \eqref{eq:A.25} has been proved in Lemma \ref{lm:U_Cov}. So we only
+need to verify \eqref{eq:A.24}.
+
+Note that $\frac{1}{T}\breve{U}_{{\widetilde{\mathcal{S}}}}^{\prime
+}\varepsilon ^{\dagger }=\frac{1}{T}\breve{U}_{{\widetilde{\mathcal{S}}}
+}^{\prime }\widehat{\Sigma }_{\varepsilon }^{-1/2}\varepsilon =\frac{1}{T} 
+\breve{U}_{{\widetilde{\mathcal{S}}}}^{\prime }\widehat{\Sigma }
+_{\varepsilon }^{-1/2}\left( \Sigma _{\varepsilon }^{0}\right) ^{1/2}e,$ so 
+\begin{equation*}
+\left\Vert \frac{1}{T}\breve{U}_{{\widetilde{\mathcal{S}}}}^{\prime
+}\varepsilon ^{\dagger }\right\Vert _{\infty }\leq \max_{j}\frac{1}{T}
+\left\vert \breve{U}_{{\widetilde{\mathcal{S}},\cdot j}}^{\prime
+}e\right\vert +\max_{j}\frac{1}{T}\left\vert \breve{U}_{{\widetilde{\mathcal{%
+\ S}},\cdot j}}^{\prime }\left[ \widehat{\Sigma }_{\varepsilon
+}^{-1/2}\left( \Sigma _{\varepsilon }^{0}\right) ^{1/2}-I\right]
+e\right\vert \equiv d_{1}+d_{2}.
+\end{equation*}
+Here, due to the imposed normalization that $\left\Vert \breve{U}_{ 
+\widetilde{\mathcal{S}},j}\right\Vert _{2}^{2}/T=\left\Vert \widetilde{U}_{ 
+\widetilde{\mathcal{S}},j}\right\Vert _{2}^{2}/T=1$, we have that $%
+\max_{j}\left\vert \frac{1}{\sqrt{T}}\breve{U}_{{\widetilde{\mathcal{S}}
+,\cdot j}}^{\prime }e\right\vert =O_{p}\left( 1\right) $. Hence, 
+\begin{equation*}
+d_{1}=\frac{1}{\sqrt{T}}\max_{j}\left\vert \frac{1}{\sqrt{T}}\breve{U}_{{\ 
+\widetilde{\mathcal{S}},\cdot j}}^{\prime }e\right\vert =O_{p}\left( \frac{1 
+}{\sqrt{T}}\right) ,
+\end{equation*}
+and 
+\begin{eqnarray*}
+d_{2} &=&\max_{j}\frac{1}{T}\left\vert \Tr\left( \left[ \widehat{\Sigma }
+_{\varepsilon }^{-1/2}\left( \Sigma _{\varepsilon }^{0}\right) ^{1/2}-I %
+\right] e\breve{U}_{{\widetilde{\mathcal{S}},\cdot j}}^{\prime }\right)
+\right\vert \\
+&\leq &\left\Vert \widehat{\Sigma }_{\varepsilon }^{-1/2}\left( \Sigma
+_{\varepsilon }^{0}\right) ^{1/2}-I\right\Vert \max_{j}\frac{1}{T}\sigma
+_{\max }\left( e\breve{U}_{{\widetilde{\mathcal{S}},\cdot j}}^{\prime
+}\right) \\
+&=&O_{p}\left( \left\Vert \widehat{\Sigma }_{\varepsilon }^{-1/2}\left(
+\Sigma _{\varepsilon }^{0}\right) ^{1/2}-I\right\Vert \right) \sigma _{\max
+} \left[ \frac{1}{T^{2}}\left( e\breve{U}_{{\widetilde{\mathcal{S}},\cdot j}
+}^{\prime }\breve{U}_{{\widetilde{\mathcal{S}},\cdot j}}e^{\prime }\right) %
+\right] \\
+&=&O_{p}\left( \left\Vert \widehat{\Sigma }_{\varepsilon }^{-1/2}\left(
+\Sigma _{\varepsilon }^{0}\right) ^{1/2}-I\right\Vert \right) \sigma _{\max
+} \left[ \frac{1}{T}\left( ee^{\prime }\right) \right] \\
+&=&O_{p}\left( \omega _{NT}\right) ,
+\end{eqnarray*}
+given that $\mathbb{E}\left( e_{t}^{2}\right) <\infty $ and Lemma \ref%
+{lm:Half_Sigma}. Thus \eqref{eq:A.24} is verified and the proof is complete.
+\end{proof}
+
+\bigskip
+
+\section{Auxiliary Lemma}\label{sec:lemma}
+
+\begin{lemma}
+\label{lm:U_Cov} Under Assumptions 1
+--7, $\left\Vert \frac{1}{T}\breve{U}_{{\widetilde{ \mathcal{S} 
+}}}^{\prime }\breve{U}_{{\widetilde{\mathcal{S}}}}-\Sigma _{U_{{\ \widetilde{
+\mathcal{S}}}}^{\ast }}\right\Vert _{\max }=O_{p}\left( d_{NT}\right) $
+where $d_{NT}=\omega _{NT}+N^{-1/2}\sqrt{\ln T}.$
+\end{lemma}
+
+\begin{proof}[Proof of Lemma \protect\ref{lm:U_Cov}]
+First, note that 
+\begin{eqnarray*}
+\frac{1}{T}\breve{U}_{{\widetilde{\mathcal{S}}}}^{\prime }\breve{U}_{{\ 
+\widetilde{\mathcal{S}}}}-\Sigma _{U_{{\widetilde{\mathcal{S}}}}^{\ast }}
+&=&\left( \frac{1}{T}\breve{U}_{{\widetilde{\mathcal{S}}}}^{\prime }\breve{U}
+_{{\widetilde{\mathcal{S}}}}-\frac{1}{T}U_{{\widetilde{\mathcal{S}}}
+}^{\dagger \prime }U_{{\widetilde{\mathcal{S}}}}^{\dagger }\right) +\left( 
+\frac{1}{T}U_{{\widetilde{\mathcal{S}}}}^{\dagger \prime }U_{{\widetilde{ 
+\mathcal{S}}}}^{\dagger }-\frac{1}{T}U_{{\widetilde{\mathcal{S}}}}^{\ast
+^{\prime }}U_{{\widetilde{\mathcal{S}}}}^{\ast }\right) +\left( \frac{1}{T}
+U_{{\widetilde{\mathcal{S}}}}^{\ast ^{\prime }}U_{{\widetilde{\mathcal{S}}}
+}^{\ast }-\Sigma _{U_{{\widetilde{\mathcal{S}}}}^{\ast }}\right) \\
+&\equiv &\psi ^{(a)}+\psi ^{(b)}+\psi ^{(c)}.
+\end{eqnarray*}
+
+For $\psi ^{(a)},$ note that $\breve{U}_{{\widetilde{\mathcal{S}}}}$ is the
+estimator of $U_{{\widetilde{\mathcal{S}}}}^{\dagger }$ by PCA, and it is
+easy to verify that
+\begin{eqnarray*} 
+\max_{j,k}\left\vert \psi _{j,k}^{(a)}\right\vert
+=O_{p}\left( \max_{t,j}\left\vert \breve{U}_{{\widetilde{\mathcal{S}},tj}
+}-U_{{\widetilde{\mathcal{S}},tj}}^{\dagger }\right\vert \right) &=&\left\Vert 
+\breve{F}\breve{\Lambda}_{\widetilde{\mathcal{S}}}^{\prime }-F^{\dagger
+}\Lambda _{\widetilde{\mathcal{S}}}^{\prime }\right\Vert _{\max
+}\\
+&=&O_{p}\left( \left( \ln T\right) ^{1/s_{a}}\sqrt{\left( \ln N\right) T}
++N^{-1/2}\sqrt{\ln T}\right) .
+\end{eqnarray*}
+
+For $\psi ^{(b)},$ 
+\begin{eqnarray*}
+\max_{j,k}\left\vert \psi _{j,k}^{(b)}\right\vert &=&\left\vert \frac{1}{T}
+U_{{\widetilde{\mathcal{S}},\cdot j}}^{\prime }\left[ \widehat{\Sigma }
+_{\varepsilon }^{-1}-\left( \Sigma _{\varepsilon }^{0}\right) ^{-1}\right]
+U_{{\widetilde{\mathcal{S}},\cdot k}}\right\vert \\
+&\leq &\left\Vert \widehat{\Sigma }_{\varepsilon }^{-1}-\left( \Sigma
+_{\varepsilon }^{0}\right) ^{-1}\right\Vert \max_{j,k}\left\Vert \frac{1}{T}
+U_{{\widetilde{\mathcal{S}},\cdot k}}U_{{\widetilde{\mathcal{S}},\cdot j}
+}^{\prime }\right\Vert .
+\end{eqnarray*}
+First, 
+\begin{equation*}
+\left\Vert \widehat{\Sigma }_{\varepsilon }^{-1}-\left( \Sigma _{\varepsilon
+}^{0}\right) ^{-1}\right\Vert =\left\Vert \left( \Sigma _{\varepsilon
+}^{0}\right) ^{-1}\left( \Sigma _{\varepsilon }^{0}-\widehat{\Sigma }
+_{\varepsilon }\right) \widehat{\Sigma }_{\varepsilon }^{-1}\right\Vert ,
+\end{equation*}
+and by Lemma A1 of \citet*[FLM]{FanLiaoMincheva2011}, we have $\left\Vert \widehat{\Sigma }
+_{\varepsilon }^{-1}-\left( \Sigma _{\varepsilon }^{0}\right)
+^{-1}\right\Vert =O_{p}\left( \left\Vert \widehat{\Sigma }_{\varepsilon
+}-\Sigma _{\varepsilon }^{0}\right\Vert \right) =O_{p}\left( \omega
+_{NT}\right) ,$ given that $\sigma _{\min }\left( \Sigma _{\varepsilon
+}^{0}\right) >c.$ Second, to deal with $\max_{j,k}\left\Vert \frac{1}{T}U_{{%
+\ \widetilde{\mathcal{S}},\cdot k}}U_{{\widetilde{\mathcal{S}},\cdot j}
+}^{\prime }\right\Vert ,$ we first consider 
+\begin{equation*}
+\left\Vert \frac{1}{T^{2}}U_{{\widetilde{\mathcal{S}},\cdot k}}U_{{\ 
+\widetilde{\mathcal{S}},\cdot j}}^{\prime }U_{{\widetilde{\mathcal{S}},\cdot
+j}}U_{{\widetilde{\mathcal{S}},\cdot k}}^{\prime }\right\Vert =\left( \frac{%
+1 }{T}U_{{\widetilde{\mathcal{S}},\cdot j}}^{\prime }U_{{\widetilde{\mathcal{%
+S} },\cdot j}}\right) \left\Vert \left( \frac{1}{T}U_{{\widetilde{\mathcal{S}%
+} ,\cdot k}}U_{{\widetilde{\mathcal{S}},\cdot k}}^{\prime }\right)
+\right\Vert .
+\end{equation*}
+Here, $\max_{j}\frac{1}{T}U_{{\widetilde{\mathcal{S}},\cdot j}}^{\prime }U_{{\widetilde{\mathcal{S}},\cdot j}}\leq \max_{j}\left[ \frac{1}{T}U_{{\ 
+\widetilde{\mathcal{S}},\cdot j}}^{\prime }U_{{\widetilde{\mathcal{S}},\cdot
+j}}-\mathbb{E}\left( U_{{\widetilde{\mathcal{S}},tj}}\right) ^{2}\right]
++\max_{j}\mathbb{E}\left( U_{{\widetilde{\mathcal{S}},tj}}\right)
+^{2}=O_{p}\left( 1+T^{-1/2}\sqrt{\ln N}\right) ,$ by Assumptions 5 and 6. Meanwhile, $%
+\max_{k}\left\Vert \left( \frac{1}{T}U_{{\widetilde{\mathcal{S}},\cdot k}%
+}U_{ {\widetilde{\mathcal{S}},\cdot k}}^{\prime }\right) \right\Vert
+=O_{p}\left( \max_{k}\frac{1}{T}U_{{\widetilde{\mathcal{S}},\cdot k}%
+}^{\prime }U_{{\ \widetilde{\mathcal{S}},\cdot k}}\right) =O_{p}\left(
+1+T^{-1/2}\sqrt{\ln N} \right) .$ Hence, we have $\max_{j,k}\left\Vert \frac{%
+1}{T^{2}}U_{{\ \widetilde{\mathcal{S}},\cdot k}}U_{{\ \widetilde{\mathcal{S}}%
+,\cdot j} }^{\prime }U_{{\widetilde{\mathcal{S}},\cdot j}}U_{{\widetilde{%
+\mathcal{S}} ,\cdot k}}^{\prime }\right\Vert =O_{p}\left( 1\right) $
+implying that $\max_{j,k}\left\Vert \frac{1}{T}U_{{\widetilde{\mathcal{S}}%
+,\cdot k}}U_{{\widetilde{\mathcal{S}},\cdot j}}^{\prime }\right\Vert
+=O_{p}\left( 1\right) $ as well. So $\max_{j,k}\left\vert \psi
+_{j,k}^{(b)}\right\vert =O_{p}\left( \omega _{NT}\right) .$
+
+For $\psi ^{(c)},$ we have $\max_{j,k}\left\vert \psi
+_{j,k}^{(c)}\right\vert =O_{p}\left( T^{-1/2}\sqrt{\ln N}\right) ,$ by
+Assumption 6. So the Lemma is proved.
+\end{proof}
+
+
+\begin{lemma}
+\label{lm:Omega} Under Assumptions 1 -- 7, $\left\Vert \Omega ^{\dagger }-\Omega ^{\star }\right\Vert
+=O_{p}\left( \omega _{NT}\right) .$
+\end{lemma}
+
+\begin{proof}[Proof of Lemma \protect\ref{lm:Omega}]
+We note that 
+\begin{equation*}
+\Cov^{\dagger }\left(\breve{Z}\right) -\Cov^{\star }\left(\breve{Z}\right) =%
+\frac{1}{T}\breve{U}_{{\widetilde{\mathcal{S}}}}^{\prime }\breve{U}_{{%
+\widetilde{\mathcal{S}}}}-\frac{1}{T}\breve{U}_{{\widetilde{\mathcal{S}}}
+}^{\prime }\widehat{\Sigma }_{\varepsilon }^{-1}\Sigma _{\varepsilon }^{0} 
+\breve{U}_{{\widetilde{\mathcal{S}}}}=\frac{1}{T}\breve{U}_{{\widetilde{ 
+\mathcal{S}}}}^{\prime }\left( I-\widehat{\Sigma }_{\varepsilon }^{-1}\Sigma
+_{\varepsilon }^{0}\right) \breve{U}_{{\widetilde{\mathcal{S}}}}.
+\end{equation*}
+We further note that $\Omega ^{\dagger }-\Omega ^{\star }=\Omega ^{\star } %
+\left[ \Cov^{\star }\left( \breve{Z}\right) -\Cov^{\dagger }\left( \breve{Z}
+\right) \right] \Omega ^{\dagger }.$ Hence,
+
+\begin{equation*}
+\left\Vert \Omega ^{\dagger }-\Omega ^{\star }\right\Vert \leq \left\Vert
+\Omega ^{\star }\right\Vert \left\Vert \Cov^{\star }\left( \breve{Z}\right) -%
+\Cov^{\dagger }\left( \breve{Z}\right) \right\Vert \left\Vert \Omega
+^{\dagger }\right\Vert =O_{p}\left( \omega _{NT}\right),
+\end{equation*}
+if we can prove in probability that: \newline
+(i) $\sigma _{\min }\left( \Cov^{\dagger }\left( \breve{Z}\right) \right)
+>0.5c>0$ ; and \newline
+(ii) $\left\Vert \Cov^{\star }\left( \breve{Z}\right) -\Cov^{\dagger }\left( 
+\breve{Z}\right) \right\Vert =O_{p}\left( \omega _{NT}\right) .$
+
+To prove (i), first note the result provided in Lemma \ref{lm:U_Cov} implies
+that $\left\Vert \frac{1}{T} \breve{U}_{{\widetilde{\mathcal{S}}}}^{\prime } 
+\breve{U}_{{\widetilde{ \mathcal{S}}}}-\Sigma _{U_{{\widetilde{\mathcal{S}}}
+}^{\ast }}\right\Vert = O_{p}\left( \kappa a_{NT}\right) =o_{p}\left(
+1\right) .$ Then it follows that $\sigma _{\min }\left( \Cov^{\dagger
+}\left( \breve{Z}\right) \right) \geq \sigma _{\min }\left( \Sigma _{U_{{\ 
+\widetilde{ \mathcal{S}}}}^{\ast }}\right) -\left\Vert \frac{1}{T}\breve{U}%
+_{ {\widetilde{ \mathcal{S}}}}^{\prime }\breve{U}_{{\widetilde{\mathcal{S}}}
+}-\Sigma _{U_{{\ \widetilde{\mathcal{S}}}}^{\ast }}\right\Vert \geq
+0.5\sigma _{\min }\left( \Sigma _{U_{{\widetilde{\mathcal{S}}}}^{\ast
+}}\right) > 0.5c $ in probability.
+
+To prove (ii), 
+\begin{eqnarray*}
+\left\Vert \Cov^{\dagger }\left( \breve{Z}\right) -\Cov^{\star }\left( 
+\breve{Z }\right) \right\Vert &\leq &\frac{1}{T}\left\Vert I-\widehat{\Sigma 
+} _{\varepsilon }^{-1}\Sigma _{\varepsilon }^{0}\right\Vert \left\Vert 
+\breve{U }_{{\widetilde{\mathcal{S}}}}\right\Vert ^{2} \\
+&\leq &\frac{1}{T}\left\Vert \breve{U}_{{\widetilde{\mathcal{S}}}
+}\right\Vert ^{2}\left\Vert \widehat{\Sigma }_{\varepsilon }^{-1}\right\Vert
+\left\Vert \widehat{\Sigma }_{\varepsilon }-\Sigma _{\varepsilon
+}^{0}\right\Vert \\
+&=&\frac{1}{T}\left\Vert \breve{U}_{{\widetilde{\mathcal{S}}}}\right\Vert
+^{2}O_{p}\left( \omega _{NT}\right) .
+\end{eqnarray*}
+Again, by the result proved that $\left\Vert \frac{1}{T}\breve{U}_{{%
+\widetilde{\mathcal{S}}}}^{\prime }\breve{U}_{{\widetilde{\mathcal{S}}}
+}-\Sigma _{U_{{\widetilde{\mathcal{S}}}}^{\ast }}\right\Vert =O_{p}\left(
+\kappa a_{NT}\right) =o_{p}\left( 1\right) ,$ it follows that $\frac{1}{T}
+\left\Vert \breve{U}_{{\widetilde{\mathcal{S}}}}\right\Vert ^{2}=\left\Vert
+\Sigma _{U_{{\widetilde{\mathcal{S}}}}^{\ast }}\right\Vert +o_{p}\left(
+1\right) =O_{p}\left( 1\right)$ by Assumption 6. Thus,
+(ii) is also verified. So the lemma is proved.
+\end{proof}
+
+\begin{lemma}
+\label{lm:sq_eigen} If $\lambda$ is an eigenvalue of $A^2$, then either $%
+\sqrt{\lambda}$ or $-\sqrt{\lambda}$ is an eigenvalue of $A$.
+\end{lemma}
+
+\begin{proof}[Proof of Lemma \protect\ref{lm:sq_eigen}]
+First note that:
+
+\begin{equation*}
+A^2-\lambda I=(A-\sqrt{\lambda} I)(A+\sqrt{\lambda} I)
+\end{equation*}
+Let $v$ be an eigenvector of $A^2$ with eigenvalue $\lambda$. We can use $v$
+to find an explicit eigenvector of $A$ with eigenvalue that is either $\sqrt{
+\lambda}$ or $-\sqrt{\lambda}$.
+
+Since $\left( A^{2}-\lambda I\right) v=0$, we must have either $(A+\sqrt{
+\lambda }I)v=0$, in which case $v$ is also an eigenvector of $A$ with
+eigenvalue $-\sqrt{\lambda }$, or $(A+\sqrt{\lambda }I)v\neq 0$, in which
+case we set $u:=(A+\sqrt{\lambda }I)v$, and note that $u$ is an eigenvector
+of $A$ with eigenvalue $\sqrt{\lambda }$, since 
+\begin{equation*}
+(A-\sqrt{\lambda }I)u=0.
+\end{equation*}
+\end{proof}
+
+\begin{lemma}
+\label{lm:sqrt_cont} For p.d. matrices with bounded eigenvalues from 0, the
+operator of square root $\sqrt{\cdot }$ is continuous with respect to the
+norm $\left\Vert \cdot \right\Vert $.
+\end{lemma}
+
+\begin{proof}[Proof of Lemma \protect\ref{lm:sqrt_cont}]
+If $a, b$ were scalars, $\sqrt{a}-\sqrt{ b}=(a-b) /(\sqrt{a}+\sqrt{b})$ is
+the common strategy to prove Lipschitzness of the square root.
+
+Here similarly, if vector $x$ with $\|x\|=1$ is an eigenvector of $\sqrt{A}- 
+\sqrt{B}$ with eigenvalue $\mu$ then
+
+\begin{equation*}
+\begin{aligned} x^T(A-B) x & =x^T(\sqrt{A}-\sqrt{B}) \sqrt{A} x+x^T
+\sqrt{B}(\sqrt{A}-\sqrt{B}) x \\ & =\mu x^T(\sqrt{A}+\sqrt{B}) x .
+\end{aligned}
+\end{equation*}
+
+As $\mu$ can be chosen as $\pm\|\sqrt{A}-\sqrt{B}\|$, this implies
+
+\begin{equation*}
+\|\sqrt{A}-\sqrt{B}\| \leq\|A-B\| \sigma_{\min }(\sqrt{A}+\sqrt{ B})^{-1}
+\leq\|A-B\| /(2 \sqrt{\lambda})
+\end{equation*}
+and Lipschitzness with respect to the operator norm if the eigenvalues of $A$
+and $B$ belong to $[\lambda ,+\infty ).$
+\end{proof}
+
+\begin{lemma}
+\label{lm:Half_Sigma} Under Assumptions 1 -- 7, $\left\Vert \widehat{\Sigma }_{\varepsilon
+}^{-1/2}\left( \Sigma _{\varepsilon }^{0}\right) ^{1/2}-I\right\Vert
+=O_{p}\left( \omega _{NT}\right) .$
+\end{lemma}
+
+\begin{proof}[Proof of Lemma \protect\ref{lm:Half_Sigma}]
+Note that 
+\begin{equation*}
+\left\Vert \widehat{\Sigma }_{\varepsilon }^{-1/2}\left( \Sigma
+_{\varepsilon }^{0}\right) ^{1/2}-I\right\Vert =\left\Vert \widehat{\Sigma }
+_{\varepsilon }^{-1/2}\left( \left( \Sigma _{\varepsilon }^{0}\right)
+^{1/2}- \widehat{\Sigma }_{\varepsilon }^{-1/2}\right) \right\Vert \leq
+\left\Vert \widehat{\Sigma }_{\varepsilon }^{-1/2}\right\Vert \left\Vert
+\left( \Sigma _{\varepsilon }^{0}\right) ^{1/2}-\widehat{\Sigma }%
+_{\varepsilon }^{-1/2}\right\Vert .
+\end{equation*}
+
+First, note that by Lemma A.1 of FLM (2011), we have $\left\Vert \widehat{
+\Sigma }_{\varepsilon }^{-1}\right\Vert \leq M$, given that we have proved
+that $\left\Vert \widehat{\Sigma }_{\varepsilon }-\Sigma _{\varepsilon
+}^{0}\right\Vert =O_{p}\left( \omega _{NT}\right) .$ Second, by Lemma \ref%
+{lm:sq_eigen}, we have $\left\Vert \widehat{\Sigma }_{\varepsilon
+}^{-1/2}\right\Vert \leq M^{1/2}.$ Lastly, by Lemma \ref{lm:sqrt_cont}, we
+know that 
+\begin{equation*}
+\left\Vert \widehat{\Sigma }_{\varepsilon }^{-1/2}-\left( \Sigma
+_{\varepsilon }^{0}\right) ^{1/2}\right\Vert \leq \left\Vert \widehat{\Sigma 
+}_{\varepsilon }-\Sigma _{\varepsilon }^{0}\right\Vert \times O_{p}\left(
+1\right) =O_{p}\left( \omega _{NT}\right) .
+\end{equation*}
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+\input{integrated_theory_appendix}
+\fi
+
+\input{unified_theory_appendix_readable_2026-09-03}
+
+\end{document}
+
+
+

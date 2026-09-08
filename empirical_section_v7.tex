@@ -1,0 +1,158 @@
+\section{Real Data Application: Unspanned Macroeconomic Signals in Bond Risk Premia}
+\label{sec:app}
+
+We ask whether a large macroeconomic panel contains stable predictive
+information for U.S.\ Treasury excess returns beyond that already summarized by
+the yield curve. For a compact main presentation, we report two- and three-year
+bonds here and the corresponding four- and five-year results in
+Appendix~\ref{app:long_maturity_results}; all maturities use the same forecast
+sample, information set, and specification.
+
+\subsection{Data, forecasting design, and methods}
+\label{sec:app_design_v7}
+
+The targets are one-year log excess holding returns on two- through five-year
+Fama--Bliss zero-coupon bonds \citep{LudvigsonNg2009}. The January 1970--December
+2023 sample contains 118 complete series from the November 2024 FRED-MD vintage
+\citep{McCrackenNg2016}, transformed by the database codes and standardized
+within each estimation window.
+
+At each forecast origin $\tau$, a 400-month rolling window supplies 388 fully
+realized pairs $(X_s,r^{(n)}_{s\to s+12})$ with $s+12\leq\tau$. Every estimation
+step is repeated at the origin, producing 236 common forecasts from May 2004
+through December 2023.
+
+Every specification includes three yield-curve principal components (level,
+slope, and curvature) \citep{LittermanScheinkman1991} and the
+\citet{CochranePiazzesi2005} (CP) return-forecasting factor. Their loadings and
+coefficients are re-estimated using only information available at each origin,
+so selected macro variables must add to a level--slope--curvature--CP benchmark.
+
+We compare recycled FAR-Knockoff with \textsc{Lasso}, \textsc{FarmSelect}
+\citep{FanKeWang2020}, \textsc{Model-X}, and \textsc{Fixed-X} knockoffs
+\citep{BarberCandes2015,CandesFanEtal2018}, using identical observations,
+controls, and post-selection OLS refits. FAR-Knockoff and FarmSelect choose one
+to six macro factors by their implemented information criterion. For prediction,
+FAR-Knockoff uses $q=0.2$ and averages its LCD statistics over 20 random
+original--knockoff relabelings to reduce sensitivity to a single labeling.
+Appendix~\ref{app:long_maturity_results} reports factor-cap sensitivity.
+
+\subsection{Short-end forecast performance}
+\label{sec:app_results_v7}
+
+Table~\ref{tab:empirical_comparison_v7} reports RMSE; parentheses give mean
+selected macro-model size among nonempty windows, excluding the four controls.
+The final rows test FAR-Knockoff against the nested benchmark.
+
+\begin{table}[H]
+\caption{Out-of-sample forecast performance at the short end}
+\label{tab:empirical_comparison_v7}
+\centering
+\small
+\setlength{\tabcolsep}{8pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{lcc}
+\toprule
+ & 2 years & 3 years \\
+\midrule
+Yield factors + CP       & 1.458 (--) & 2.812 (--) \\
+\textsc{Lasso}           & 2.516 (23.33) & 4.638 (18.81) \\
+\textsc{FarmSelect}      & 2.988 (43.81) & 5.322 (41.49) \\
+\textsc{Model-X}         & 1.911 (3.69) & 3.042 (3.28) \\
+\textsc{Fixed-X}         & 1.920 (1.74) & 3.208 (2.62) \\
+\textsc{FAR-Knockoff}    & \textbf{1.380} (2.78) & \textbf{2.763} (2.10) \\
+\midrule
+Clark--West statistic    & 2.49 & 1.78 \\
+One-sided $p$-value      & 0.0065 & 0.0377 \\
+\bottomrule
+\end{tabular}
+
+\vspace{2pt}
+\begin{minipage}{0.92\textwidth}
+\footnotesize
+\emph{Notes:} The first six rows report RMSE, with conditional mean selected
+size in parentheses. RMSE and tests use all 236 windows, including those with
+no selected macro variables. Clark--West tests compare FAR-Knockoff with yield
+factors + CP using Bartlett HAC standard errors with lag 11.
+\end{minipage}
+\end{table}
+
+FAR-Knockoff has the lowest RMSE at both short maturities while retaining only
+two to three macro variables in nonempty windows. At two years, RMSE falls
+from 1.458 to 1.380, a 10.5\% reduction in mean squared forecast error;
+the one-sided Clark--West $p$-value is 0.0065. At three years, the corresponding
+reduction is 3.5\% ($p=0.0377$), but it is sensitive to the macro factor cap.
+
+This maturity localization has a close precedent in the macro-finance
+literature. \citet{LudvigsonNg2009} document macro-factor predictability across
+two- to five-year bonds, whereas the robust reanalysis of
+\citet{BauerHamilton2018} finds substantially weaker evidence beyond the yield
+curve and identifies the two-year bond as the exceptional maturity in the
+relevant spanning exercises. Our rolling forecasts are consistent with a
+maturity-specific increment beyond a strong yield benchmark. The selected
+variables below suggest a connection to policy and cyclical news, although
+forecasting associations alone do not identify a causal channel.
+
+The cross-method comparison shows that the gain does not arise from adding many
+predictors. \textsc{Lasso} and \textsc{FarmSelect} select much larger models
+and substantially increase forecast loss. \textsc{Model-X} and
+\textsc{Fixed-X} are more parsimonious but do not improve on the benchmark.
+FAR-Knockoff combines the smallest short-end forecast loss with a sparse
+selected block.
+
+\subsection{Selected predictors and economic interpretation}
+\label{sec:app_interpretation_v7}
+
+FAR-Knockoff selects coordinates of the estimated idiosyncratic component
+$\widehat U$, after common macro factors and the always-included yield controls
+have been partialled out. The equivalent representation in Section~2 retains
+each original predictor's coefficient, so a selected series identifies its
+incremental information beyond the factors and controls, not a structural or
+causal shock. Table~\ref{tab:empirical_selection_v7} reports frequencies over
+all 236 windows.
+
+\begin{table}[H]
+\caption{Most frequently selected short-end residual macro predictors}
+\label{tab:empirical_selection_v7}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4.8pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabular}{clrl}
+\toprule
+Maturity & FRED-MD series & Frequency & Incremental economic channel \\
+\midrule
+2 years & \texttt{T5YFFM} & 24.6\% & policy-path / term-premium news \\
+        & \texttt{PERMITNE} & 24.6\% & forward-looking housing activity \\
+        & \texttt{TB3SMFFM} & 13.1\% & short-rate spread / policy expectations \\
+3 years & \texttt{T5YFFM} & 26.3\% & policy-path / term-premium news \\
+        & \texttt{VIXCLSx} & 17.4\% & uncertainty and risk-bearing capacity \\
+        & \texttt{CES0600000007} & 16.1\% & goods-producing workweek \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\enlargethispage{\baselineskip}
+The two-year selections suggest a policy-expectations and interest-sensitive
+activity channel. \texttt{T5YFFM} and \texttt{TB3SMFFM} are the five-year
+Treasury and three-month Treasury-bill spreads over the federal funds rate.
+Their residual components describe relative rate movements not absorbed by
+the macro factors and yield controls. For a one-year holding return on a
+two-year bond, revisions to the short end of the yield curve are a natural
+source of price variation. \texttt{PERMITNE}, Northeast housing permits,
+adds forward-looking information about rate-sensitive demand. Its residual
+is unusual housing activity relative to the common macro cycle, rather than
+simply another measure of that cycle. The recurring combination of rate
+spreads and housing activity is therefore consistent with policy-transmission
+news beyond the yield benchmark, without establishing a structural mechanism.
+
+At three years, \texttt{T5YFFM} remains prominent, while \texttt{VIXCLSx}
+and \texttt{CES0600000007}, the goods-producing workweek, indicate uncertainty
+and labor-utilization channels. The latter is consistent with the real-activity
+component of bond predictability in \citet{LudvigsonNg2009} and models in which
+output risks affect bond risk premia without being fully spanned by yields
+\citep{JoslinPriebschSingleton2014}. The VIX association is also consistent
+with evidence linking bond-return predictability to macroeconomic conditions
+and short-rate expectations \citep{GarganoPettenuzzoTimmermann2019}.
+These interpretations concern residual predictive information, not the signs
+of causal effects, which selection frequencies do not identify.
